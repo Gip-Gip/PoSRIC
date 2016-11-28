@@ -1,0 +1,14 @@
+#:Here's an example PoSRIC script with all the current commands, along with a
+few planned commands;
+
+echo:Example POSRIC Script%v v1%v!;
+echo:;
+echo:Using example.rpf%v and the temporary file tmp.rpf;
+
+use:example.rpf;
+tmp:tmp.rpf;
+
+format:;
+addFn:Hello, ;
+addFn:World!;
+exit:;

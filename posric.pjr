@@ -1,0 +1,16 @@
+common/main.c
+common/p_args.c
+common/p_comEnt.c
+common/p_getArg.c
+common/p_getStr.c
+common/p_help.c
+common/p_print.c
+common/p_readIn.c
+common/p_strapp.c
+common/p_string.c
+write/p_addFn.c
+write/p_cpyExc.c
+write/p_format.c
+write/p_write.c
+write/p_wrtRdg.c
+read/p_getRdg.c
