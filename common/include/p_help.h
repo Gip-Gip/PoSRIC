@@ -18,7 +18,7 @@ MACROS:
 #include <p_args.h>
 #include <p_messag.h>
 
-#define HELP_USAGE "\nUSAGE:\n\n%s map.iam [arguments]\n\n\
+#define HELP_USAGE "\nUSAGE:\n\n%s [arguments]\n\n\
 arguments are read left to right\n\n", PROGNAME
 #define HELP_FORMAT "\"%s\" or \"%s\" %s\n", \
                     p_args[index + ARGS_SHRTDPTH], \

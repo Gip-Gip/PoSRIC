@@ -26,6 +26,9 @@ int main(int argc, char **argv)
 
     gargv = argv;
 
+    p_print(MSG_SPLASH);
+
+    /* Get the command-line arguments */
     while(++argn < argc)
     {
         switch(p_getArg(argv[argn]))
@@ -68,6 +71,7 @@ int main(int argc, char **argv)
         }
     }
 
+    /* Read the commands from stdin */
     while(!feof(stdin))
     {
         if(!(params = p_readIn(&comID, &comm)))
