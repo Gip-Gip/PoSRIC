@@ -26,7 +26,7 @@ It needs vast improvements but currently it's all I'm willing to put out.
  * Suggest features
  * Add code
 
-Contributors will be put in an AUTHORS.TXT, as well as the splash of PoSRIC
+Contributors will be placed in AUTHORS.TXT and listed in the splash of PoSRIC
 
 ##Misc
 
