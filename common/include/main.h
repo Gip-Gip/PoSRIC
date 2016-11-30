@@ -14,7 +14,7 @@ MACROS:
 #include <p_messag.h>
 
 extern arg p_getArg();
-extern void help();
+extern void p_help();
 extern retval p_format();
 extern retval p_addFn();
 

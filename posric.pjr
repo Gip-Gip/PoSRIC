@@ -13,4 +13,5 @@ write/p_cpyExc.c
 write/p_format.c
 write/p_write.c
 write/p_wrtRdg.c
+read/p_cmpDta.c
 read/p_getRdg.c

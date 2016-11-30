@@ -19,5 +19,6 @@ string p_comEnt[] = {
     "tmp",
     "format",
     "addFn",
+    "addFd",
     NULL,
 };

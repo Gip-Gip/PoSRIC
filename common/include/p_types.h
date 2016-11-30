@@ -27,8 +27,8 @@ MACROS:
 #include <p_defs.h>
 
 #ifndef TYPES_H
-typedef unsigned int natural;
-typedef int real;
+typedef unsigned long int natural;
+typedef long int real;
 typedef double rational;
 typedef unsigned char byte;
 typedef char character;
@@ -66,6 +66,7 @@ typedef enum {
     comm_tmp,
     comm_format,
     comm_addFn,
+    comm_addFd,
 } command;
 
 typedef enum {

@@ -14,7 +14,9 @@ VARIABLES:
 retval p_cpyExc(FILE *in, FILE *out, string name)
 {
     rtype ret;
+    bool cmpret;
     byte *buffer, sigtest[P_SIGSZ];
+    natural skip;
 
     if(fread(sigtest, sizeof(byte), P_SIGSZ, in) != P_SIGSZ)
     {
@@ -40,7 +42,21 @@ retval p_cpyExc(FILE *in, FILE *out, string name)
     {
         if(ret + P_RTYPECORR <= P_DATA)
             p_wrtRdg(out, ret + P_RTYPECORR + P_DCORR, buffer);
+
+        else if(ret == rtype_fname)
+        {
+            if((cmpret = p_cmpDta(name, strlen(name), in, &skip)) == true)
+                fseek(in, skip, SEEK_CUR);
+            else if (cmpret == neither)
+            {
+                perror(MSG_PERROR);
+                return errno;
+            }
+            else p_wrtRdg(out, ret, NULL);
+        }
+
         else p_wrtRdg(out, ret, NULL);
+
         free(buffer);
     }
 

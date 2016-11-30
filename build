@@ -5,9 +5,9 @@ cc=cc
 ar=ar
 ld=cc
 cppargs="-E -Wall"
-ccargs="-g -Ofast -Wall -c --std=c89"
+ccargs="-g -Wall -c --std=c89"
 arargs="-c"
-ldargs="-g -lSDL -lm -lz -Ofast"
+ldargs="-g -lm"
 buildargs=""
 cppext=".i"
 ccext=".o"

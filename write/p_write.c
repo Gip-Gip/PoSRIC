@@ -1,8 +1,14 @@
-/* p_write
+/* p_write writes the given data to an archive
 
 ARGUMENTS:
 
+byte *data - the data being written
+natural size - the size of the data
+FILE *out - the archive being written to
+
 VARIABLES:
+
+retval ret - used to store the return values of functions
 
 */
 
@@ -10,18 +16,15 @@ VARIABLES:
 
 retval p_write(byte *data, natural size, FILE *out)
 {
-    natural fullWrites = size / P_DATA;
     retval ret;
 
-    while(fullWrites --)
+    for(;size / P_RMAXSZ; data += P_RMAXSZ, size -= P_RMAXSZ)
     {
-        if((ret = p_wrtRdg(out, P_DATA, data)))
+        if((ret = p_wrtRdg(out, P_RMAXSZ, data)))
             return ret;
-
-        data += P_DATA;
     }
 
-    if(size % P_DATA && (ret = p_wrtRdg(out, size % P_DATA, data)))
+    if(size && (ret = p_wrtRdg(out, size, data)))
         return ret;
 
     return none;

@@ -11,4 +11,5 @@ tmp:tmp.rpf;
 format:;
 addFn:Hello, ;
 addFn:World!;
+addFn:World!;
 exit:;

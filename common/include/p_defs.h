@@ -27,9 +27,10 @@ MACROS:
 #define ZERO 0
 #define INDEXINIT -1
 #define STRALLOC 1
-#define F_NATURAL "%u"
+#define F_NATURAL "%ld"
 #define P_DCORR 1
-#define P_RMAXSZ 256
 #define P_DATA 127
+#define P_RMAXSZ (P_DATA + P_DCORR)
+#define P_RMINRD 3
 #define P_DEFS_H NULL
 #endif

@@ -17,6 +17,7 @@ MACROS:
 extern bool overwrite;
 extern retval p_wrtRdg();
 extern retval p_cpyExc();
+extern retval p_write();
 
 #define P_ADDFN_H NULL
 #endif

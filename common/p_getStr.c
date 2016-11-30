@@ -17,7 +17,7 @@ bool ridWS - if set, whitespace will be ignored
 
 string p_getStr(FILE *in, character term, bool ridWS)
 {
-    string buffer = calloc(STRALLOC, sizeof(char));
+    string buffer = calloc(STRALLOC, sizeof(character));
     character prebuff[] = {0, 0};
 
     for(*prebuff = fgetc(in);

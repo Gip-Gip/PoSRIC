@@ -36,12 +36,10 @@ int main(int argc, char **argv)
             case(arg_help):
                 p_help();
                 return err_helpGiven;
-                break;
 
             case(arg_license):
                 p_print(MSG_LICENSE);
                 return err_licenseGiven;
-                break;
 
             case(arg_overwrite):
                 overwrite = true;
@@ -58,13 +56,13 @@ int main(int argc, char **argv)
                 switch(p_getArg(argv[argn - 1]))
                 {
                     case(arg_logFile):
-                        if(!overwrite && (logFile = fopen(argv[argn], "rb")))
+                        if(!overwrite && fopen(argv[argn], READMODE))
                         {
                             p_print(MSG_FILEEXISTS(argv[argn]));
                             return err_fileExists;
                         }
 
-                        logFile = fopen(argv[argn], "wb");
+                        logFile = fopen(argv[argn], WRITEMODE);
                         break;
                 }
                 break;
@@ -87,7 +85,6 @@ int main(int argc, char **argv)
 
             case(comm_exit):
                 return none;
-                break;
 
             case(comm_giveUp):
                 if(ret)

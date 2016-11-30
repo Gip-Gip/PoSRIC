@@ -18,7 +18,7 @@ extern char **gargv;
 #define PROGNAME gargv[ZERO]
 
 #define MSG_SPLASH \
-"\nPoSRIC I.MMXVI rev. 5\n\
+"\nPoSRIC I.MMXVI rev. 6\n\
 Run \"%s -h\" to get help, \"%< -L\" to get legal info\n\n", PROGNAME
 #define MSG_LICENSE "\n\
 Copyright (c) 2016, Charles Thompson <chmithbiz@gmail.com>\n\

@@ -17,6 +17,7 @@ MACROS:
 
 extern byte *p_getRdg();
 extern retval p_wrtRdg();
+extern bool p_cmpDta();
 extern byte p_sig[P_SIGSZ];
 
 #define P_CPYEXC_H NULL
