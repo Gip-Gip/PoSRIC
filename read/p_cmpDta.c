@@ -44,13 +44,15 @@ bool p_cmpDta(byte *data, natural size, FILE *in, natural *bytesRead)
         size -= ret;
     }
 
+    free(buffer);
+
     if(ret > P_DATA + P_DCORR && !size)
     {
         fseek(in, -(*bytesRead + P_RMINRD), SEEK_CUR);
         return true;
     }
 
-    if(!buffer || errno) return neither;
+    if(errno) return neither;
 
     return false;
 }

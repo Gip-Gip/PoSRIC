@@ -60,7 +60,9 @@ retval p_cpyExc(FILE *in, FILE *out, string name)
         free(buffer);
     }
 
-    if(!buffer) return ret;
+    free(buffer);
+
+    if(errno) return ret;
 
     return none;
 }

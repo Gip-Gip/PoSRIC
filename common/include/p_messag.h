@@ -18,8 +18,9 @@ extern char **gargv;
 #define PROGNAME gargv[ZERO]
 
 #define MSG_SPLASH \
-"\nPoSRIC I.MMXVI rev. 6\n\
+"\nPoSRIC I.MMXVI rev. 7\n\
 Run \"%s -h\" to get help, \"%< -L\" to get legal info\n\n", PROGNAME
+
 #define MSG_LICENSE "\n\
 Copyright (c) 2016, Charles Thompson <chmithbiz@gmail.com>\n\
 Permission to use, copy, modify, and/or distribute this software for any \n\
@@ -34,7 +35,8 @@ RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF\n\
 CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN\n\
 CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 
-#define MSG_PERROR "ERROR"
+#define STRFY(x) #x
+#define MSG_PERROR STRFY(__LINE__)
 #define MSG_ANOTSET "ERROR: Archive not set!\n"
 #define MSG_TNOTSET "ERROR: Temporary file not set!\n"
 #define MSG_ATNOTSET \

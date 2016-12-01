@@ -66,7 +66,6 @@ typedef enum {
     comm_tmp,
     comm_format,
     comm_addFn,
-    comm_addFd,
 } command;
 
 typedef enum {
