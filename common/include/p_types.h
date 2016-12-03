@@ -72,6 +72,7 @@ typedef enum {
     rtype_fname,
     rtype_fdata,
     rtype_end,
+    rtype_null,
 } rtype;
 
 typedef struct {
@@ -79,7 +80,7 @@ typedef struct {
     byte b;
 } fletcher;
 
-#define P_RTYPECORR (0xFF - rtype_end)
+#define P_RTYPECORR (0xFF - rtype_null)
 
 #define TYPES_H NULL
 #endif

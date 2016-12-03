@@ -13,10 +13,10 @@ VARIABLES:
 
 retval p_cpyExc(FILE *in, FILE *out, string name)
 {
-    rtype ret;
+    rtype ridge;
+    retval ret;
     bool cmpret;
     byte *buffer, sigtest[P_SIGSZ];
-    natural skip;
 
     if(fread(sigtest, sizeof(byte), P_SIGSZ, in) != P_SIGSZ)
     {
@@ -36,28 +36,34 @@ retval p_cpyExc(FILE *in, FILE *out, string name)
         return errno;
     }
 
-    for(buffer = p_getRdg(in, &ret);
-        !feof(in) && buffer && ret != rtype_end;
-        buffer = p_getRdg(in, &ret))
+    for(buffer = p_getRdg(in, &ridge);
+        !feof(in) && buffer && ridge != rtype_end;
+        buffer = p_getRdg(in, &ridge))
     {
-        if(ret + P_RTYPECORR <= P_DATA)
-            p_wrtRdg(out, ret + P_RTYPECORR + P_DCORR, buffer);
+        if(ridge + P_RTYPECORR <= P_DATA)
+            p_wrtRdg(out, ridge + P_RTYPECORR + P_DCORR, buffer);
 
-        else if(ret == rtype_fname)
+        else if(ridge == rtype_fname)
         {
-            if((cmpret =
-                p_cmpDta((byte *)name, strlen(name), in, &skip)) == true)
+            if((cmpret = p_cmpDta((byte *)name, strlen(name), in)) == true &&
+                (ret = p_skpDta(in)))
+            {
+                free(buffer);
+                return ret;
+            }
 
-                fseek(in, skip, SEEK_CUR);
-            else if (cmpret == neither)
+            else if(cmpret == neither)
             {
                 perror(MSG_PERROR);
                 return errno;
             }
-            else p_wrtRdg(out, ret, NULL);
+
+            else if(cmpret == false) p_wrtRdg(out, ridge, NULL);
         }
 
-        else p_wrtRdg(out, ret, NULL);
+        else if(ridge == rtype_null && (ret = p_skpDta(in))) return ret;
+
+        else p_wrtRdg(out, ridge, NULL);
 
         free(buffer);
     }
@@ -66,7 +72,7 @@ retval p_cpyExc(FILE *in, FILE *out, string name)
     {
         if(buffer) free(buffer);
         perror(MSG_PERROR);
-        return ret;
+        return ridge;
     }
 
     free(buffer);
