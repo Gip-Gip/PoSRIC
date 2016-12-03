@@ -31,3 +31,4 @@ Contributors will be placed in AUTHORS.TXT and listed in the splash of PoSRIC
 ##Misc
 
  * PoSRIC has been tested on Debian and DOSBOX
+ * PoSRIC currently doesn't work on DOSBOX
