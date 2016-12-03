@@ -120,7 +120,7 @@ int main(int argc, char **argv)
 
             case(comm_addFn):
                 if(archiveName && tmpName)
-                    ret = p_addFn(archiveName, tmpName, params);
+                    ret = p_addFn(archiveName, tmpName, params, overwrite);
 
                 else if(archiveName) p_print(MSG_TNOTSET);
 

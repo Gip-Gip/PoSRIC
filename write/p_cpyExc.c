@@ -45,7 +45,9 @@ retval p_cpyExc(FILE *in, FILE *out, string name)
 
         else if(ret == rtype_fname)
         {
-            if((cmpret = p_cmpDta(name, strlen(name), in, &skip)) == true)
+            if((cmpret =
+                p_cmpDta((byte *)name, strlen(name), in, &skip)) == true)
+
                 fseek(in, skip, SEEK_CUR);
             else if (cmpret == neither)
             {
@@ -60,9 +62,14 @@ retval p_cpyExc(FILE *in, FILE *out, string name)
         free(buffer);
     }
 
-    free(buffer);
+    if(!buffer || errno)
+    {
+        if(buffer) free(buffer);
+        perror(MSG_PERROR);
+        return ret;
+    }
 
-    if(errno) return ret;
+    free(buffer);
 
     return none;
 }

@@ -14,7 +14,5 @@ MACROS:
 #include <p_common.h>
 #include <ctype.h>
 
-extern string p_strapp(string, string, bool, bool);
-
 #define P_GETSTR_H NULL
 #endif

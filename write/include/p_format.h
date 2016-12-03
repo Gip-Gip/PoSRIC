@@ -16,8 +16,6 @@ MACROS:
 #include <p_messag.h>
 #include <p_string.h>
 
-extern retval p_wrtRdg();
-
 extern byte p_sig[P_SIGSZ];
 
 #define P_FORMAT_H NULL

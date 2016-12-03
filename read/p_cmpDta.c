@@ -44,6 +44,13 @@ bool p_cmpDta(byte *data, natural size, FILE *in, natural *bytesRead)
         size -= ret;
     }
 
+    if(!buffer || errno)
+    {
+        if(buffer) free(buffer);
+        perror(MSG_PERROR);
+        return neither;
+    }
+
     free(buffer);
 
     if(ret > P_DATA + P_DCORR && !size)
@@ -52,8 +59,7 @@ bool p_cmpDta(byte *data, natural size, FILE *in, natural *bytesRead)
         return true;
     }
 
-    if(errno) return neither;
-
     return false;
 }
+
 

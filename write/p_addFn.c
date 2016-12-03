@@ -10,7 +10,7 @@ VARIABLES:
 
 #include <p_addFn.h>
 
-retval p_addFn(string inName, string tmpName, string name)
+retval p_addFn(string inName, string tmpName, string name, bool overwrite)
 {
     FILE *in = fopen(inName, READMODE), *tmp;
     retval ret;
@@ -30,7 +30,7 @@ retval p_addFn(string inName, string tmpName, string name)
 
     if((ret = p_cpyExc(in, tmp, name)) ||
         (ret = p_wrtRdg(tmp, rtype_fname, NULL)) ||
-        (ret = p_write(name, strlen(name), tmp)) ||
+        (ret = p_write((byte *)name, strlen(name), tmp)) ||
         (ret = p_wrtRdg(tmp, rtype_end, NULL)))
     {
         fclose(in);

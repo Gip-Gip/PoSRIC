@@ -17,7 +17,6 @@ MACROS:
 #include <p_common.h>
 
 extern string p_comEnt[];
-extern string p_getStr();
 
 #define COMMDELM ':'
 #define PARMDELM ';'

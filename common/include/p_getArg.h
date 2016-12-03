@@ -10,6 +10,8 @@ MACROS:
 
 */
 
-#include <string.h>
-#include <p_types.h>
+#ifndef P_GETARG_H
 #include <p_args.h>
+
+#define P_GETARG_H NULL
+#endif

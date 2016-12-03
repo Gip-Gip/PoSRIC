@@ -11,9 +11,7 @@ MACROS:
 */
 
 #ifndef P_CMPDTA_H
-#include <p_common.h>
-
-extern byte *p_getRdg();
+#include <p_messag.h>
 
 #define P_CMPDTA_H NULL
 #endif

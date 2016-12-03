@@ -16,7 +16,7 @@ natural num - used for natural conversions
 
 #include <p_print.h>
 
-void p_print(char *format, ...)
+void p_print(string format, ...)
 {
     va_list arglist;
     string history = NULL;
