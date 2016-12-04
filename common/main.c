@@ -75,6 +75,7 @@ int main(int argc, char **argv)
         if(!(params = p_readIn(&comID, &comm)))
         {
             perror(MSG_PERROR);
+            if(comm) free(comm);
             return errno;
         }
 

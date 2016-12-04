@@ -68,9 +68,8 @@ retval p_cpyExc(FILE *in, FILE *out, string name)
         free(buffer);
     }
 
-    if(!buffer || errno)
+    if(!buffer)
     {
-        if(buffer) free(buffer);
         perror(MSG_PERROR);
         return ridge;
     }

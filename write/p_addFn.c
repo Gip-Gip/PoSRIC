@@ -22,7 +22,7 @@ retval p_addFn(string inName, string tmpName, string name, bool overwrite)
         return err_fileExists;
     }
 
-    if(!in || !(tmp = fopen(tmpName, WRITEMODE)) || errno)
+    if(!in || !(tmp = fopen(tmpName, WRITEMODE)))
     {
         perror(MSG_PERROR);
         return errno;

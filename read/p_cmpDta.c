@@ -42,9 +42,8 @@ bool p_cmpDta(byte *data, natural size, FILE *in)
         size -= ret;
     }
 
-    if(!buffer || errno)
+    if(!buffer)
     {
-        if(buffer) free(buffer);
         perror(MSG_PERROR);
         return neither;
     }

@@ -21,11 +21,7 @@ retval p_skpDta(FILE *in)
 
         free(ret);
 
-    if(!ret || errno || feof(in))
-    {
-        if(ret) free(ret);
-        return errno;
-    }
+    if(!ret) return errno;
 
     free(ret);
 
