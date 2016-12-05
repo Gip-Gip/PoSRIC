@@ -22,14 +22,12 @@ LPUTC - prints a character to both the log file and stderror
 */
 
 #ifndef P_PRINT_H
-#include <p_common.h>
+#include <p_messag.h>
 #include <math.h>
 #include <stdarg.h>
 
 extern FILE *logFile;
 extern bool verbose;
-
-#define LPUTC(chr) fputc(chr, stderr); if(logFile) fputc(chr, logFile);
 
 #define PRINT_STYLDELM '%'
 #define PRINT_STYLSTR 's'

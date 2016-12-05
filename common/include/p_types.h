@@ -46,14 +46,17 @@ typedef enum {
     err_fileExists,
     err_helpGiven,
     err_licenseGiven,
+    err_authorsGiven,
     err_badSig,
     err_badRidge1,
     err_badFletcher,
 } retval;
 typedef enum {
+    arg_authors,
     arg_help,
     arg_logFile,
     arg_license,
+    arg_script,
     arg_verbose,
     arg_overwrite,
 } arg;

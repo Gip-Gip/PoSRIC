@@ -8,12 +8,10 @@ VARIABLES:
 
 #include <main.h>
 
-extern string p_readIn();
-
 string archiveName = NULL, tmpName = NULL;
 bool verbose = false;
 bool overwrite = false;
-FILE *logFile = NULL;
+FILE *logFile = NULL, *p_stdin;
 char **gargv;
 
 int main(int argc, char **argv)
@@ -21,9 +19,10 @@ int main(int argc, char **argv)
     natural argn = ZERO;
     command comID;
     string comm, params;
-    bool freeParams = false;
+    bool freeParams = true;
     retval ret = none;
 
+    p_stdin = stdin;
     gargv = argv;
 
     p_print(MSG_SPLASH);
@@ -33,6 +32,10 @@ int main(int argc, char **argv)
     {
         switch(p_getArg(argv[argn]))
         {
+            case(arg_authors):
+                p_print(MSG_AUTHORS);
+                return err_authorsGiven;
+
             case(arg_help):
                 p_help();
                 return err_helpGiven;
@@ -49,7 +52,7 @@ int main(int argc, char **argv)
                 verbose = true;
                 break;
 
-            case(arg_logFile):
+            case(arg_logFile): case(arg_script):
                 break;
 
             default:
@@ -62,15 +65,34 @@ int main(int argc, char **argv)
                             return err_fileExists;
                         }
 
-                        logFile = fopen(argv[argn], WRITEMODE);
+                        if(logFile) fclose(logFile);
+                        if(!(logFile = fopen(argv[argn], WRITEMODE)))
+                        {
+                            perror(MSG_PERROR);
+                            return errno;
+                        }
                         break;
+
+                    case(arg_script):
+                        if(p_stdin != stdin) fclose(p_stdin);
+                        if(!(p_stdin = fopen(argv[argn], READMODE)))
+                        {
+                            perror(MSG_PERROR);
+                            return errno;
+                        }
+                        break;
+
+                    default:
+                        p_print(MSG_BADARG);
+                        break;
+
                 }
                 break;
         }
     }
 
-    /* Read the commands from stdin */
-    while(!feof(stdin))
+    /* Read the commands from p_stdin */
+    while(!feof(p_stdin))
     {
         if(!(params = p_readIn(&comID, &comm)))
         {
@@ -85,6 +107,10 @@ int main(int argc, char **argv)
                 break;
 
             case(comm_exit):
+                if(tmpName) free(tmpName);
+                if(archiveName) free(archiveName);
+                free(params);
+                free(comm);
                 return none;
 
             case(comm_giveUp):
@@ -141,6 +167,10 @@ int main(int argc, char **argv)
 
         free(comm);
     }
+
+    /* Free all the memory to make valgrind happy :) */
+    if(tmpName) free(tmpName);
+    if(archiveName) free(archiveName);
 
     return none;
 }

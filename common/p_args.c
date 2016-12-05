@@ -12,9 +12,11 @@ string p_args[] - holds all the arguments
 
 string p_args[] =
 {
+    "-a", "--authors", "displays a list of authors",
     "-h", "--help", "displays this message and exits",
     "-l", "--log", "sets the logfile",
     "-L", "--license", "displays the license and exits",
+    "-s", "--script", "sets the script file, and uses it in place of stdio.h",
     "-v", "--verbose", "prints extra debugging messages",
     "-y", "--overwrite", "overwrites files without complaining",
     NULL,

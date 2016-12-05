@@ -72,7 +72,12 @@ void p_print(string format, ...)
                 if((verbose || !verboseActive) && history) p_print(history);
                 break;
         }
-        else if(verbose || !verboseActive) LPUTC(*format);
+
+        else if(verbose || !verboseActive)
+            if(fputc(*format, stderr) != *format ||
+                (logFile && fputc(*format, logFile) != *format))
+
+                    perror(MSG_PERROR);
 
         format ++;
     }

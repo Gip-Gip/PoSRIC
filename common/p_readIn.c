@@ -1,4 +1,4 @@
-/* p_readIn - reads a command from stdin and returns the paramiters along with
+/* p_readIn - reads a command from p_stdin and returns the paramiters along with
              the command ID
 
 ARGUMENTS:
@@ -13,12 +13,12 @@ VARIABLES:
 
 string p_readIn(command *comID, string *comm)
 {
-    *comm = p_getStr(stdin, COMMDELM, true);
+    *comm = p_getStr(p_stdin, COMMDELM, true);
 
     *comID = ZERO;
 
     while(p_comEnt[*comID] != NULL && strcmp(p_comEnt[*comID], *comm))
         ++*comID;
 
-    return p_getStr(stdin, PARMDELM, false);
+    return p_getStr(p_stdin, PARMDELM, false);
 }

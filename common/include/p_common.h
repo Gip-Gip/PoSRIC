@@ -18,6 +18,8 @@ MACROS:
 #include <errno.h>
 #include <p_types.h>
 
+extern FILE *p_stdin;
+
 extern int main(int, char **);
 extern arg p_getArg(string);
 extern string p_getStr(FILE *, character, bool);
