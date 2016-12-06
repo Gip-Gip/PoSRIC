@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 {
     natural argn = ZERO;
     command comID;
-    string comm, params;
+    string comm = NULL, params = NULL;
     bool freeParams = true;
     retval ret = none;
 
@@ -34,14 +34,17 @@ int main(int argc, char **argv)
         {
             case(arg_authors):
                 p_print(MSG_AUTHORS);
+                P_FREEALL();
                 return err_authorsGiven;
 
             case(arg_help):
                 p_help();
+                P_FREEALL();
                 return err_helpGiven;
 
             case(arg_license):
                 p_print(MSG_LICENSE);
+                P_FREEALL();
                 return err_licenseGiven;
 
             case(arg_overwrite):
@@ -62,6 +65,7 @@ int main(int argc, char **argv)
                         if(!overwrite && fopen(argv[argn], READMODE))
                         {
                             p_print(MSG_FILEEXISTS(argv[argn]));
+                            P_FREEALL();
                             return err_fileExists;
                         }
 
@@ -69,6 +73,7 @@ int main(int argc, char **argv)
                         if(!(logFile = fopen(argv[argn], WRITEMODE)))
                         {
                             perror(MSG_PERROR);
+                            P_FREEALL();
                             return errno;
                         }
                         break;
@@ -78,6 +83,7 @@ int main(int argc, char **argv)
                         if(!(p_stdin = fopen(argv[argn], READMODE)))
                         {
                             perror(MSG_PERROR);
+                            P_FREEALL();
                             return errno;
                         }
                         break;
@@ -92,12 +98,11 @@ int main(int argc, char **argv)
     }
 
     /* Read the commands from p_stdin */
-    while(!feof(p_stdin))
+    while((params = p_readIn(&comID, &comm)) && !feof(p_stdin))
     {
-        if(!(params = p_readIn(&comID, &comm)))
+        if(!comm)
         {
             perror(MSG_PERROR);
-            if(comm) free(comm);
             return errno;
         }
 
@@ -106,20 +111,18 @@ int main(int argc, char **argv)
             case(comm_comment):
                 break;
 
-            case(comm_exit):
-                if(tmpName) free(tmpName);
-                if(archiveName) free(archiveName);
-                free(params);
-                free(comm);
-                return none;
-
             case(comm_giveUp):
                 if(ret)
                 {
                     p_print(MSG_ECHO);
-                    return err_giveUp;
+                    P_FREEALL();
+                    return ret;
                 }
                 break;
+
+            case(comm_exit):
+                P_FREEALL();
+                return none;
 
             case(comm_echo):
                 p_print(MSG_ECHO);
@@ -156,6 +159,17 @@ int main(int argc, char **argv)
                 else p_print(MSG_ATNOTSET);
                 break;
 
+            case(comm_rmFile):
+                if(archiveName && tmpName)
+                    ret = p_rmFile(archiveName, tmpName, params, overwrite);
+
+                else if(archiveName) p_print(MSG_TNOTSET);
+
+                else if(tmpName) p_print(MSG_ANOTSET);
+
+                else p_print(MSG_ATNOTSET);
+                break;
+
             default:
                 p_print(MSG_BADCOMM);
                 ret = err_unknownCommand;
@@ -168,9 +182,15 @@ int main(int argc, char **argv)
         free(comm);
     }
 
+    if(!params)
+    {
+        perror(MSG_PERROR);
+        P_FREEALL();
+        return errno;
+    }
+
     /* Free all the memory to make valgrind happy :) */
-    if(tmpName) free(tmpName);
-    if(archiveName) free(archiveName);
+    P_FREEALL();
 
     return none;
 }

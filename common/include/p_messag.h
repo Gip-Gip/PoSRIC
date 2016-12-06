@@ -18,7 +18,7 @@ extern char **gargv;
 #define PROGNAME gargv[ZERO]
 
 #define MSG_SPLASH \
-"\nPoSRIC I.MMXVI rev. 9\n\
+"\nPoSRIC I.MMXVI rev. 10\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -a\" to get the list of authors\n\n", PROGNAME
@@ -48,6 +48,8 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_ATNOTSET \
     "ERROR: Both the archive and the temporary file are not set!\n"
 #define MSG_FILEEXISTS(file) "ERROR: \"%s\" already exists!\n", file
+#define MSG_NAMEEXISTS(name) "ERROR: \"%s\" already exists in archive!\n", name
+#define MSG_NAMEDEXIST(name) "ERROR: \"%s\" doesn't exist in archive!\n", name
 #define MSG_ECHO "%s\n", params
 #define MSG_BADCOMM "ERROR: Unknown command \"%s\"\n", comm
 #define MSG_BADRIDGE1 "ERROR: File ends before ridge ends!\n"

@@ -50,6 +50,8 @@ typedef enum {
     err_badSig,
     err_badRidge1,
     err_badFletcher,
+    err_nameExists,
+    err_nameDexist,
 } retval;
 typedef enum {
     arg_authors,
@@ -69,6 +71,7 @@ typedef enum {
     comm_tmp,
     comm_format,
     comm_addFn,
+    comm_rmFile,
 } command;
 
 typedef enum {

@@ -11,30 +11,14 @@ VARIABLES:
 
 #include <p_cpyExc.h>
 
-retval p_cpyExc(FILE *in, FILE *out, string name)
+retval p_cpyExc(FILE *in, FILE *out, string name, retval *retptr)
 {
     rtype ridge;
     retval ret;
     bool cmpret;
-    byte *buffer, sigtest[P_SIGSZ];
+    byte *buffer;
 
-    if(fread(sigtest, sizeof(byte), P_SIGSZ, in) != P_SIGSZ)
-    {
-        perror(MSG_PERROR);
-        return errno;
-    }
-
-    if(memcmp(p_sig, sigtest, P_SIGSZ))
-    {
-        p_print(MSG_BADSIG);
-        return err_badSig;
-    }
-
-    if(fwrite(p_sig, sizeof(byte), P_SIGSZ, out) != P_SIGSZ)
-    {
-        perror(MSG_PERROR);
-        return errno;
-    }
+    *retptr = none;
 
     for(buffer = p_getRdg(in, &ridge);
         !feof(in) && buffer && ridge != rtype_end;
@@ -45,11 +29,11 @@ retval p_cpyExc(FILE *in, FILE *out, string name)
 
         else if(ridge == rtype_fname)
         {
-            if((cmpret = p_cmpDta((byte *)name, strlen(name), in)) == true &&
-                (ret = p_skpDta(in)))
+            if((cmpret = p_cmpDta((byte *)name, strlen(name), in)) == true)
             {
                 free(buffer);
-                return ret;
+                *retptr = err_nameExists;
+                return none;
             }
 
             else if(cmpret == neither)

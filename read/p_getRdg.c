@@ -39,6 +39,7 @@ byte *p_getRdg(FILE *in, rtype *ret)
         {
             p_print(MSG_BADRIDGE1);
             *ret = err_badRidge1;
+            free(buffer);
             return NULL;
         }
 
@@ -54,6 +55,7 @@ byte *p_getRdg(FILE *in, rtype *ret)
     {
         p_print(MSG_BADFLETCHER);
         *ret = err_badFletcher;
+        free(buffer);
         return NULL;
     }
 

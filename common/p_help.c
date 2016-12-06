@@ -10,7 +10,7 @@ natural index - used to go through the argument array
 
 #include <p_help.h>
 
-void p_help()
+void p_help( void )
 {
     natural index = 0;
 

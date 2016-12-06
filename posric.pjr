@@ -11,8 +11,11 @@ common/p_string.c
 write/p_addFn.c
 write/p_cpyExc.c
 write/p_format.c
+write/p_rmFile.c
+write/p_sCaC.c
 write/p_write.c
 write/p_wrtRdg.c
 read/p_cmpDta.c
 read/p_getRdg.c
+read/p_skpDtU.c
 read/p_skpDta.c

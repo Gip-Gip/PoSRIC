@@ -9,7 +9,10 @@ use:example.rpf;
 tmp:tmp.rpf;
 
 format:;
+tmp:tmp.rpf;
 addFn:Hello, ;
 addFn:World!;
 addFn:World!;
-exit:;
+rmFile:World!;
+use:exampl.rpf;
+addFn:World!;
