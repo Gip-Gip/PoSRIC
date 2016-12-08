@@ -10,21 +10,20 @@ VARIABLES:
 
 retval p_rmFile(string inName, string tmpName, string name, bool overwrite)
 {
-    FILE *in = fopen(inName, READMODE), *tmp;
+    FILE *in = fopen(inName, READMODE), *tmp = NULL;
     retval ret, ret2;
 
     if(!overwrite && (tmp = fopen(tmpName, READMODE)))
     {
         p_print(MSG_FILEEXISTS(tmpName));
-        fclose(tmp);
-        if(in) free(in);
+        P_FREEALL();
         return err_fileExists;
     }
 
     if(!in || !(tmp = fopen(tmpName, WRITEMODE)))
     {
         perror(MSG_PERROR);
-        if(in) free(in);
+        P_FREEALL();
         return errno;
     }
 
@@ -34,16 +33,14 @@ retval p_rmFile(string inName, string tmpName, string name, bool overwrite)
         (ret = p_cpyExc(in, tmp, name, &ret2)) ||
         (ret = p_wrtRdg(tmp, rtype_end, NULL)))
     {
-        fclose(in);
-        fclose(tmp);
+        P_FREEALL();
 
         if(!ret) p_print(MSG_NAMEDEXIST(name));
 
         return ret ? ret : err_nameDexist;
     }
 
-    fclose(in);
-    fclose(tmp);
+    P_FREEALL();
 
     if(remove(inName) || rename(tmpName, inName))
     {

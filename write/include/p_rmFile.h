@@ -13,5 +13,8 @@ MACROS:
 #ifndef P_RMFILE_H
 #include <p_messag.h>
 
+#define P_FREEALL() if(tmp) {fclose(tmp);tmp = NULL;} \
+                    if(in) {fclose(in);in = NULL;}
+
 #define P_RMFILE_H NULL
 #endif

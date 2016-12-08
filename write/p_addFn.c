@@ -12,21 +12,20 @@ VARIABLES:
 
 retval p_addFn(string inName, string tmpName, string name, bool overwrite)
 {
-    FILE *in = fopen(inName, READMODE), *tmp;
+    FILE *in = fopen(inName, READMODE), *tmp = NULL;
     retval ret, ret2;
 
     if(!overwrite && (tmp = fopen(tmpName, READMODE)))
     {
         p_print(MSG_FILEEXISTS(tmpName));
-        fclose(tmp);
-        if(in) fclose(in);
+        P_FREEALL();
         return err_fileExists;
     }
 
     if(!in || !(tmp = fopen(tmpName, WRITEMODE)))
     {
         perror(MSG_PERROR);
-        if(in) fclose(in);
+        P_FREEALL();
         return errno;
     }
 
@@ -36,16 +35,14 @@ retval p_addFn(string inName, string tmpName, string name, bool overwrite)
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
         (ret = p_wrtRdg(tmp, rtype_end, NULL)))
     {
-        fclose(in);
-        fclose(tmp);
+        P_FREEALL();
 
         if(ret2 == err_nameExists) p_print(MSG_NAMEEXISTS(name));
 
         return ret ? ret : ret2;
     }
 
-    fclose(in);
-    fclose(tmp);
+    P_FREEALL();
 
     if(remove(inName) || rename(tmpName, inName))
     {

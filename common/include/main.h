@@ -17,8 +17,8 @@ MACROS:
                     if(archiveName) free(archiveName); \
                     if(params) free(params); \
                     if(comm) free(comm); \
-                    if(p_stdin != stdin) fclose(p_stdin); \
-                    if(logFile) fclose(logFile);
+                    if(p_stdin != stdin) {fclose(p_stdin);p_stdin = stdin;} \
+                    if(logFile) {fclose(logFile);logFile = NULL;}
 
 
 #define MAIN_H NULL
