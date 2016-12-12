@@ -22,12 +22,15 @@ byte *p_getRdg(FILE *in, rtype *ret)
     fletcher checksum;
     byte *buffer = calloc(P_RMAXSZ, sizeof(byte));
 
+    P_FTADD(FUNCNAME);
+
     P_FINITF(checksum, in);
 
     if(!buffer || ferror(in))
     {
         perror(MSG_PERROR);
         *ret = errno;
+        P_FREEALL();
         return NULL;
     }
 
@@ -39,7 +42,7 @@ byte *p_getRdg(FILE *in, rtype *ret)
         {
             p_print(MSG_BADRIDGE1);
             *ret = err_badRidge1;
-            free(buffer);
+            P_FREEALL();
             return NULL;
         }
 
@@ -55,9 +58,11 @@ byte *p_getRdg(FILE *in, rtype *ret)
     {
         p_print(MSG_BADFLETCHER);
         *ret = err_badFletcher;
-        free(buffer);
+        P_FREEALL();
         return NULL;
     }
+
+    P_FTREM(FUNCNAME);
 
     return buffer;
 }

@@ -39,6 +39,8 @@ void p_print(string format, ...)
 
                 if(verbose || !verboseActive)
                     p_print(history = va_arg(arglist, string));
+
+                else va_arg(arglist, string);
                 break;
             case(PRINT_STYLNATR):
                 if(freeHistory) free(history);
@@ -64,6 +66,7 @@ void p_print(string format, ...)
 
                 history = chr;
                 if(verbose || !verboseActive) p_print(history);
+
                 break;
             case(PRINT_STYLVERB):
                 verboseActive = !verboseActive;
@@ -81,5 +84,7 @@ void p_print(string format, ...)
 
         format ++;
     }
+
+    if(freeHistory) free(history);
 }
 

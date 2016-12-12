@@ -7,7 +7,9 @@ common/p_help.c
 common/p_print.c
 common/p_readIn.c
 common/p_strapp.c
+common/p_strcut.c
 common/p_string.c
+write/p_addFd.c
 write/p_addFn.c
 write/p_cpyExc.c
 write/p_format.c

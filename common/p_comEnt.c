@@ -16,9 +16,11 @@ string p_comEnt[] = {
     "giveUp",
     "echo",
     "use",
+    "useName",
     "tmp",
     "format",
     "addFn",
+    "addFd",
     "rmFile",
     NULL,
 };

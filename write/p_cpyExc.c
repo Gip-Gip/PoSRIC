@@ -20,6 +20,8 @@ retval p_cpyExc(FILE *in, FILE *out, string name, retval *retptr)
 
     *retptr = none;
 
+    P_FTADD(FUNCNAME);
+
     for(buffer = p_getRdg(in, &ridge);
         !feof(in) && buffer && ridge != rtype_end;
         buffer = p_getRdg(in, &ridge))
@@ -31,34 +33,34 @@ retval p_cpyExc(FILE *in, FILE *out, string name, retval *retptr)
         {
             if((cmpret = p_cmpDta((byte *)name, strlen(name), in)) == true)
             {
-                free(buffer);
+                P_FREEALL();
                 *retptr = err_nameExists;
                 return none;
             }
 
             else if(cmpret == neither)
             {
-                perror(MSG_PERROR);
-                return errno;
+                P_FREEALL();
+                return err_unknown;
             }
 
             else if(cmpret == false) p_wrtRdg(out, ridge, NULL);
         }
 
-        else if(ridge == rtype_null && (ret = p_skpDta(in))) return ret;
+        else if(ridge == rtype_null && (ret = p_skpDta(in)))
+        {
+            P_FREEALL();
+            return ret;
+        }
 
         else p_wrtRdg(out, ridge, NULL);
 
         free(buffer);
     }
 
-    if(!buffer)
-    {
-        perror(MSG_PERROR);
-        return ridge;
-    }
+    P_FREEALL();
 
-    free(buffer);
+    if(!buffer) return ridge;
 
     return none;
 }

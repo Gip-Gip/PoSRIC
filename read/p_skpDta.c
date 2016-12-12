@@ -17,11 +17,11 @@ retval p_skpDta(FILE *in)
 
     while((ret = p_getRdg(in, &ridge)) &&
         ridge + P_RTYPECORR <= P_DATA &&
-        !feof(in) && !ferror(in))
+        !feof(in))
 
         free(ret);
 
-    if(!ret) return errno;
+    if(!ret) return err_unknown;
 
     free(ret);
 

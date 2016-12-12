@@ -22,6 +22,12 @@ MACROS:
 #define NULL 0
 #endif
 
+#ifdef BASHCOLOR
+#define FUNCNAME ("\033[1;33m@\033[0;33m(" __FILE__ ")\033[0m")
+#else
+#define FUNCNAME ("@(" __FILE__ ")")
+#endif
+
 #define READMODE "rb"
 #define WRITEMODE "wb"
 #define ZERO 0

@@ -8,11 +8,12 @@ VARIABLES:
 
 #include <main.h>
 
-string archiveName = NULL, tmpName = NULL;
+string archiveName = NULL, tmpName = NULL, name = NULL;
 bool verbose = false;
 bool overwrite = false;
 FILE *logFile = NULL, *p_stdin;
 char **gargv;
+natural buffSz = 1;
 
 int main(int argc, char **argv)
 {
@@ -26,6 +27,12 @@ int main(int argc, char **argv)
     gargv = argv;
 
     p_print(MSG_SPLASH);
+
+    if(!P_FTINIT() || !P_FTADD(FUNCNAME))
+    {
+        perror(MSG_PERROR);
+        return errno;
+    }
 
     /* Get the command-line arguments */
     while(++argn < argc)
@@ -135,6 +142,13 @@ int main(int argc, char **argv)
                 freeParams = false;
                 break;
 
+            case(comm_useName):
+                if(name) free(name);
+
+                name = params;
+                freeParams = false;
+                break;
+
             case(comm_tmp):
                 if(tmpName) free(tmpName);
 
@@ -151,6 +165,18 @@ int main(int argc, char **argv)
             case(comm_addFn):
                 if(archiveName && tmpName)
                     ret = p_addFn(archiveName, tmpName, params, overwrite);
+
+                else if(archiveName) p_print(MSG_TNOTSET);
+
+                else if(tmpName) p_print(MSG_ANOTSET);
+
+                else p_print(MSG_ATNOTSET);
+                break;
+
+            case(comm_addFd):
+                if(archiveName && tmpName)
+                    ret = p_addFd(archiveName, tmpName, params, name, buffSz,
+                                  overwrite);
 
                 else if(archiveName) p_print(MSG_TNOTSET);
 
