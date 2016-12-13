@@ -24,7 +24,7 @@ extern char **gargv;
 #define PROGNAME gargv[ZERO]
 
 #define MSG_SPLASH \
-"\nPoSRIC I.MMXVI rev. 13\n\
+"\nPoSRIC I.MMXVI rev. 14\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -a\" to get the list of authors\n\n", PROGNAME

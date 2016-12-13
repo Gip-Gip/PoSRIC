@@ -10,7 +10,10 @@ both beginners and DOS dwellers can use.
 ##What are the current features?
 
  * Basic stdio command interpretation
+ * Basic scripting
  * Basic archive handling
+ * BASH colors
+ * DOS and Linux Compatability
 
 ##Where can I find more info?
 

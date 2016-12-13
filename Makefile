@@ -19,7 +19,7 @@ tccbuildf=posric.pjr
 includes=$(includearg)common/include $(includearg)write/include \
 $(includearg)read/include
 
-all: clean
+all: clean makebdir
 	rm $(tccbuildf)
 
 	for file in common/*.c write/*.c read/*c; do \
@@ -44,3 +44,6 @@ clean:
 	if [ -f $(mainobj) ]; then rm  common/*$(cppext) common/*$(ccext) \
 	write/*$(cppext) write/*$(ccext) read/*$(cppext) read/*$(ccext) $(mainobj) \
 	bin/*; fi
+
+makebdir:
+	if [ -n -f bin ]; then mkdir bin; fi
