@@ -57,7 +57,7 @@ retval p_addFd(string inName, string tmpName, string name, string fName,
     while((cmpret = fread(buffer, sizeof(byte), buffSz, dataFile)) == buffSz)
         p_write(buffer, buffSz, tmp);
 
-    if(feof(dataFile))
+    if(!ferror(dataFile))
     {
         if(cmpret) p_write(buffer, cmpret, tmp);
     }

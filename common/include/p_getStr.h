@@ -14,5 +14,7 @@ MACROS:
 #include <p_common.h>
 #include <ctype.h>
 
+#define ESCDELEM '\\'
+
 #define P_GETSTR_H NULL
 #endif

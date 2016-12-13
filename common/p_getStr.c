@@ -23,9 +23,12 @@ string p_getStr(FILE *in, character term, bool ridWS)
     for(*prebuff = fgetc(in);
         !feof(in) && *prebuff != term;
         *prebuff = fgetc(in))
+    {
+        if(*prebuff == ESCDELEM) *prebuff = fgetc(in);
 
         if(!ridWS || !isspace(*prebuff))
             buffer = p_strapp(buffer, prebuff, true, false);
+    }
 
     return buffer;
 }

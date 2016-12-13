@@ -35,3 +35,4 @@ PoSRIC
 ##Misc
 
  * PoSRIC has been tested on Debian and DOSBOX
+ * As of Revision 16 the line count is 19,275 lines, as given by Turbo C
