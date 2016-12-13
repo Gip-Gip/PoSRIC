@@ -14,5 +14,7 @@ MACROS:
 #include <p_fltchr.h>
 #include <p_messag.h>
 
+#define P_FREEALL() P_FTREM(FUNCNAME);
+
 #define P_WRTRDG_H NULL
 #endif

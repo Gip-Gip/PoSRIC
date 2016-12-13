@@ -19,6 +19,8 @@ retval p_wrtRdg(FILE *out, rtype ridge, byte *data)
 
     P_FINIT(checksum);
 
+    P_FTADD(FUNCNAME);
+
     if(data == NULL)
     {
         ridge += P_RTYPECORR;
@@ -30,8 +32,11 @@ retval p_wrtRdg(FILE *out, rtype ridge, byte *data)
         if(ferror(out))
         {
             perror(MSG_PERROR);
+            P_FREEALL();
             return errno;
         }
+
+        P_FREEALL();
 
         return none;
     }
@@ -49,8 +54,11 @@ retval p_wrtRdg(FILE *out, rtype ridge, byte *data)
     if(fwrite(data, sizeof(byte), ridge, out) != ridge)
     {
         perror(MSG_PERROR);
+        P_FREEALL();
         return errno;
     }
+
+    P_FREEALL();
 
     return none;
 }

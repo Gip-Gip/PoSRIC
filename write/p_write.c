@@ -18,14 +18,24 @@ retval p_write(byte *data, natural size, FILE *out)
 {
     retval ret;
 
+    P_FTADD(FUNCNAME);
+
     for(;size / P_RMAXSZ; data += P_RMAXSZ, size -= P_RMAXSZ)
     {
         if((ret = p_wrtRdg(out, P_RMAXSZ, data)))
+        {
+            P_FREEALL();
             return ret;
+        }
     }
 
     if(size && (ret = p_wrtRdg(out, size, data)))
+    {
+        P_FREEALL();
         return ret;
+    }
+
+    P_FREEALL();
 
     return none;
 }

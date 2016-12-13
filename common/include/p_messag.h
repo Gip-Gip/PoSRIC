@@ -16,15 +16,15 @@ MACROS:
 extern char **gargv;
 
 #ifdef BASHCOLOR
-#define MSG_ERROR(MSG) ("%v%s%v\033[1;31mERROR:\033[0;31m " MSG "\033[0m"), P_FT
+#define MSG_ERROR(MSG) ("%v%s%v\033[1;31mERROR: \033[0;31m " MSG "\033[0m"),P_FT
 #else
-#define MSG_ERROR(MSG) ("%v%s%vERROR:" MSG), P_FT
+#define MSG_ERROR(MSG) ("%v%s%vERROR: " MSG), P_FT
 #endif
 
 #define PROGNAME gargv[ZERO]
 
 #define MSG_SPLASH \
-"\nPoSRIC I.MMXVI rev. 12\n\
+"\nPoSRIC I.MMXVI rev. 13\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -a\" to get the list of authors\n\n", PROGNAME

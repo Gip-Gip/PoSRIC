@@ -56,6 +56,7 @@ typedef enum {
 } retval;
 typedef enum {
     arg_authors,
+    arg_buffSz,
     arg_help,
     arg_logFile,
     arg_license,

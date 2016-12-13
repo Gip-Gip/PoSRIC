@@ -22,17 +22,27 @@ retval p_skpDtU(FILE *in, rtype ridge)
     retval ret2;
     byte *ret;
 
+    P_FTADD(FUNCNAME);
+
     while((ret = p_getRdg(in, &cmpret)) &&  cmpret != ridge &&
             cmpret != rtype_end)
     {
         free(ret);
 
-        if((ret2 = p_skpDta(in))) return ret2;
+        if((ret2 = p_skpDta(in)))
+        {
+            P_FREEALL();
+            return ret2;
+        }
     }
 
-    if(!ret) return cmpret;
+    if(!ret)
+    {
+        P_FREEALL();
+        return cmpret;
+    }
 
-    free(ret);
+    P_FREEALL();
 
     fseek(in, -P_RMINRD, SEEK_CUR);
 

@@ -15,6 +15,8 @@ retval p_addFn(string inName, string tmpName, string name, bool overwrite)
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
     retval ret, ret2;
 
+    P_FTADD(FUNCNAME);
+
     if(!overwrite && (tmp = fopen(tmpName, READMODE)))
     {
         p_print(MSG_FILEEXISTS(tmpName));
@@ -35,20 +37,23 @@ retval p_addFn(string inName, string tmpName, string name, bool overwrite)
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
         (ret = p_wrtRdg(tmp, rtype_end, NULL)))
     {
-        P_FREEALL();
-
         if(ret2 == err_nameExists) p_print(MSG_NAMEEXISTS(name));
+
+        P_FREEALL();
 
         return ret ? ret : ret2;
     }
 
-    P_FREEALL();
+    fclose(in); in = NULL;
+    fclose(tmp); tmp = NULL;
 
     if(remove(inName) || rename(tmpName, inName))
     {
         perror(MSG_PERROR);
+        P_FREEALL();
         return errno;
     }
 
+    P_FREEALL();
     return none;
 }

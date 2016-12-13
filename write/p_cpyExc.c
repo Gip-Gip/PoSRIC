@@ -33,8 +33,8 @@ retval p_cpyExc(FILE *in, FILE *out, string name, retval *retptr)
         {
             if((cmpret = p_cmpDta((byte *)name, strlen(name), in)) == true)
             {
-                P_FREEALL();
                 *retptr = err_nameExists;
+                P_FREEALL();
                 return none;
             }
 
@@ -58,9 +58,13 @@ retval p_cpyExc(FILE *in, FILE *out, string name, retval *retptr)
         free(buffer);
     }
 
-    P_FREEALL();
+    if(!buffer)
+    {
+        P_FREEALL();
+        return ridge;
+    }
 
-    if(!buffer) return ridge;
+    P_FREEALL();
 
     return none;
 }

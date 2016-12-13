@@ -13,6 +13,8 @@ retval p_rmFile(string inName, string tmpName, string name, bool overwrite)
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
     retval ret, ret2;
 
+    P_FTADD(FUNCNAME);
+
     if(!overwrite && (tmp = fopen(tmpName, READMODE)))
     {
         p_print(MSG_FILEEXISTS(tmpName));
@@ -33,20 +35,21 @@ retval p_rmFile(string inName, string tmpName, string name, bool overwrite)
         (ret = p_cpyExc(in, tmp, name, &ret2)) ||
         (ret = p_wrtRdg(tmp, rtype_end, NULL)))
     {
-        P_FREEALL();
-
         if(!ret) p_print(MSG_NAMEDEXIST(name));
+
+        P_FREEALL();
 
         return ret ? ret : err_nameDexist;
     }
 
-    P_FREEALL();
-
     if(remove(inName) || rename(tmpName, inName))
     {
         perror(MSG_PERROR);
+        P_FREEALL();
         return errno;
     }
+
+    P_FREEALL();
 
     return none;
 }

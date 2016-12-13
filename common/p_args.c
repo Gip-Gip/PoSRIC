@@ -13,6 +13,7 @@ string p_args[] - holds all the arguments
 string p_args[] =
 {
     "-a", "--authors", "displays a list of authors",
+    "-b", "--buffer-size", "sets the buffer size for writing",
     "-h", "--help", "displays this message and exits",
     "-l", "--log", "sets the logfile",
     "-L", "--license", "displays the license and exits",

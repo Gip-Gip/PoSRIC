@@ -14,16 +14,19 @@ retval p_format(string outName, bool overwrite)
 {
     FILE *outFile;
 
+    P_FTADD(FUNCNAME);
+
     if(!overwrite && (outFile = fopen(outName, READMODE)))
     {
         p_print(MSG_FILEEXISTS(outName));
-        fclose(outFile);
+        P_FREEALL();
         return err_fileExists;
     }
 
     if(!(outFile = fopen(outName, WRITEMODE)))
     {
         perror(MSG_PERROR);
+        P_FREEALL();
         return errno;
     }
 
@@ -31,10 +34,11 @@ retval p_format(string outName, bool overwrite)
         p_wrtRdg(outFile, rtype_end, NULL))
     {
         perror(MSG_PERROR);
+        P_FREEALL();
         return errno;
     }
 
-    fclose(outFile);
+    P_FREEALL();
 
     return none;
 }

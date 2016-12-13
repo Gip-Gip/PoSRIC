@@ -62,12 +62,15 @@ int main(int argc, char **argv)
                 verbose = true;
                 break;
 
-            case(arg_logFile): case(arg_script):
+            case(arg_logFile): case(arg_script): case(arg_buffSz):
                 break;
 
             default:
                 switch(p_getArg(argv[argn - 1]))
                 {
+                    case(arg_buffSz):
+                        buffSz = atoi(argv[argn]);
+                        break;
                     case(arg_logFile):
                         if(!overwrite && fopen(argv[argn], READMODE))
                         {
@@ -175,8 +178,8 @@ int main(int argc, char **argv)
 
             case(comm_addFd):
                 if(archiveName && tmpName)
-                    ret = p_addFd(archiveName, tmpName, params, name, buffSz,
-                                  overwrite);
+                    ret = p_addFd(archiveName, tmpName, params, name, overwrite,
+                    buffSz);
 
                 else if(archiveName) p_print(MSG_TNOTSET);
 

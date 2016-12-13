@@ -14,6 +14,8 @@ MACROS:
 #include <p_messag.h>
 #include <p_string.h>
 
+#define P_FREEALL() P_FTREM(FUNCNAME);
+
 extern byte p_sig[P_SIGSZ];
 
 #define P_SCAC_H NULL

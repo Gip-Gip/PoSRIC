@@ -15,15 +15,21 @@ retval p_skpDta(FILE *in)
     rtype ridge;
     byte *ret;
 
+    P_FTADD(FUNCNAME);
+
     while((ret = p_getRdg(in, &ridge)) &&
         ridge + P_RTYPECORR <= P_DATA &&
         !feof(in))
 
         free(ret);
 
-    if(!ret) return err_unknown;
+    if(!ret)
+    {
+        P_FREEALL();
+        return err_unknown;
+    }
 
-    free(ret);
+    P_FREEALL();
 
     fseek(in, -P_RMINRD, SEEK_CUR);
 

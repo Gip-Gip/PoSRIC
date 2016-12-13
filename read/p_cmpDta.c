@@ -20,6 +20,8 @@ bool p_cmpDta(byte *data, natural size, FILE *in)
     byte *buffer;
     rtype ret;
 
+    P_FTADD(FUNCNAME);
+
     for(buffer = p_getRdg(in, &ret),
             bytesRead += ((ret += P_RTYPECORR + P_DCORR) > P_DATA + P_DCORR ?
                 ZERO : P_RMINRD + ret);
@@ -32,7 +34,7 @@ bool p_cmpDta(byte *data, natural size, FILE *in)
     {
         if(ret > size || memcmp(data, buffer, ret))
         {
-            free(buffer);
+            P_FREEALL();
             fseek(in, -bytesRead, SEEK_CUR);
             return false;
         }
@@ -42,9 +44,13 @@ bool p_cmpDta(byte *data, natural size, FILE *in)
         size -= ret;
     }
 
-    if(!buffer) return neither;
+    if(!buffer)
+    {
+        P_FREEALL();
+        return neither;
+    }
 
-    free(buffer);
+    P_FREEALL();
 
     if(ret > P_DATA + P_DCORR && !size)
     {

@@ -15,7 +15,6 @@ addFn:World!;
 addFn:World!;
 useName:Hello, ;
 addFd:example;
-exit:;
 rmFile:World!;
 use:exampl.rpf;
 addFn:World!;
