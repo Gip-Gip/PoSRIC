@@ -45,11 +45,13 @@ retval p_addFd(string inName, string tmpName, string name, string fName,
         (ret = p_write((byte *)fName, strlen(fName), tmp)) ||
         (ret = p_wrtRdg(tmp, rtype_fdata, NULL)))
     {
-        if(!ret) p_print(MSG_NAMEDEXIST(fName));
-
         P_FREEALL();
 
-        return ret ? ret : err_nameDexist;
+        if(!ret) ((ret = p_addFn(inName, tmpName, fName, overwrite)) ||
+                (ret = p_addFd( inName, tmpName, name, fName, overwrite,
+                    buffSz / P_RMAXSZ)));
+
+        return ret;
     }
 
     while((cmpret = fread(buffer, sizeof(byte), buffSz, dataFile)) == buffSz)

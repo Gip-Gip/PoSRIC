@@ -16,5 +16,7 @@ addFn:World!;
 useName:Hello, ;
 addFd:example;
 rmFile:World!;
+useName:layout.png;
+addFd:layout.png;
 use:exampl.rpf;
 addFn:World!;
