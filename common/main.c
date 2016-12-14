@@ -165,6 +165,12 @@ int main(int argc, char **argv)
                 else p_print(MSG_ANOTSET);
                 break;
 
+            case(comm_list):
+                if(archiveName) ret = p_list(archiveName);
+
+                else p_print(MSG_ANOTSET);
+                break;
+
             case(comm_addFn):
                 if(archiveName && tmpName)
                     ret = p_addFn(archiveName, tmpName, params, overwrite);

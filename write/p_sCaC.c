@@ -28,7 +28,7 @@ retval p_sCaC(FILE *in, FILE *out)
         return err_badSig;
     }
 
-    if(fwrite(p_sig, sizeof(byte), P_SIGSZ, out) != P_SIGSZ)
+    if(out && fwrite(p_sig, sizeof(byte), P_SIGSZ, out) != P_SIGSZ)
     {
         perror(MSG_PERROR);
         P_FREEALL();

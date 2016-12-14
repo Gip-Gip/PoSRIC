@@ -19,5 +19,6 @@ write/p_write.c
 write/p_wrtRdg.c
 read/p_cmpDta.c
 read/p_getRdg.c
+read/p_list.c
 read/p_skpDtU.c
 read/p_skpDta.c

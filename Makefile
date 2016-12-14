@@ -46,4 +46,4 @@ clean:
 	bin/*; fi
 
 makebdir:
-	if [ -n -f bin ]; then mkdir bin; fi
+	if [ ! -d bin ]; then mkdir bin; fi

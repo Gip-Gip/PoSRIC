@@ -19,6 +19,7 @@ string p_comEnt[] = {
     "useName",
     "tmp",
     "format",
+    "list",
     "addFn",
     "addFd",
     "rmFile",

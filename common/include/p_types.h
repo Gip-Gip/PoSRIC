@@ -73,6 +73,7 @@ typedef enum {
     comm_useName,
     comm_tmp,
     comm_format,
+    comm_list,
     comm_addFn,
     comm_addFd,
     comm_rmFile,
