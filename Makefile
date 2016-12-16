@@ -5,7 +5,7 @@ ld=cc
 cppargs=-E -Wall
 ccargs=-g -Wall -c --std=c89
 arargs=-c
-ldargs=-g -lm
+ldargs=-g -lm -Wall
 buildargs=
 cppext=.i
 ccext=.o
@@ -41,9 +41,12 @@ all: clean makebdir
 	$(ld) $(ldargs) $(mainobj) $(outputarg) $(bin)
 
 clean:
-	if [ -f $(mainobj) ]; then rm  common/*$(cppext) common/*$(ccext) \
-	write/*$(cppext) write/*$(ccext) read/*$(cppext) read/*$(ccext) $(mainobj) \
-	bin/*; fi
+	if [ -f $(mainobj) ]; then rm $(mainobj); fi
+	if [ -f $(bin) ]; then rm $(bin); fi
+	for file in  common/*$(cppext) common/*$(ccext) read/*$(cppext) \
+                 read/*$(ccext) write/*$(cppext) write/*$(ccext); do\
+                 if [ -f $$file ]; then rm $$file; fi; done
+
 
 makebdir:
 	if [ ! -d bin ]; then mkdir bin; fi

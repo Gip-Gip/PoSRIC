@@ -53,6 +53,10 @@ typedef enum {
     err_nameExists,
     err_nameDexist,
     err_nameDuped,
+    err_brkRidge,
+    err_notFound,
+    err_rNotFound,
+    err_emptyFile,
 } retval;
 typedef enum {
     arg_authors,
@@ -74,6 +78,7 @@ typedef enum {
     comm_tmp,
     comm_format,
     comm_list,
+    comm_getFd,
     comm_addFn,
     comm_addFd,
     comm_rmFile,

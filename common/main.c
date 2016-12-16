@@ -171,6 +171,17 @@ int main(int argc, char **argv)
                 else p_print(MSG_ANOTSET);
                 break;
 
+            case(comm_getFd):
+                if(archiveName && tmpName)
+                    ret = p_getFd(archiveName, params, name, overwrite);
+
+                else if(archiveName) p_print(MSG_TNOTSET);
+
+                else if(tmpName) p_print(MSG_ANOTSET);
+
+                else p_print(MSG_ATNOTSET);
+                break;
+
             case(comm_addFn):
                 if(archiveName && tmpName)
                     ret = p_addFn(archiveName, tmpName, params, overwrite);

@@ -20,6 +20,7 @@ string p_comEnt[] = {
     "tmp",
     "format",
     "list",
+    "getFd",
     "addFn",
     "addFd",
     "rmFile",

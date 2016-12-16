@@ -31,7 +31,7 @@ retval p_rmFile(string inName, string tmpName, string name, bool overwrite)
 
     if((ret = p_sCaC(in, tmp)) ||
         (ret = p_cpyExc(in, tmp, name, &ret2)) || ret2 != err_nameExists ||
-        (ret = p_skpDtU(in, rtype_fname)) ||
+        (ret = p_skpDtU(in, rtype_fname, true)) ||
         (ret = p_cpyExc(in, tmp, name, &ret2)) ||
         (ret = p_wrtRdg(tmp, rtype_end, NULL)))
     {

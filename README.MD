@@ -9,6 +9,8 @@ both beginners and DOS dwellers can use.
 
 ##What are the current features?
 
+As of Version II.MMXVI rev. 2 there is
+
  * Basic stdio command interpretation
  * Basic scripting
  * Basic archive handling
@@ -35,4 +37,4 @@ PoSRIC
 ##Misc
 
  * PoSRIC has been tested on Debian and DOSBOX
- * As of Revision 16 the line count is 19,275 lines, as given by Turbo C
+ * As of Version II.MMXVI Revision 0 the line count is 1312 (using sloccount)

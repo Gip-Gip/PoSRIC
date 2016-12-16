@@ -1,9 +1,12 @@
-/* p_skpDtU - skips data until the specified descriptor ridge is found
+/* p_skpDUU - skips data until the specified descriptor ridge is found, or
+              returns an error if the brkridge is found
 
 ARGUMENTS:
 
 FILE *in - the file being skipped through
-rtype ridge - the ridge being searched for
+rtype cmpridge - the ridge being searched for
+rtype brkridge - the ridge that breaks the search
+bool seekBack - seeks back if set
 
 VARIABLES:
 
@@ -14,9 +17,9 @@ byte *ret - the primary return variable. Used to free the uneeded buffer
 
 */
 
-#include <p_skpDtU.h>
+#include <p_skpDUU.h>
 
-retval p_skpDtU(FILE *in, rtype ridge, bool seekBack)
+retval p_skpDUU(FILE *in, rtype cmpridge, rtype brkridge, bool seekBack)
 {
     rtype cmpret;
     retval ret2;
@@ -24,8 +27,8 @@ retval p_skpDtU(FILE *in, rtype ridge, bool seekBack)
 
     P_FTADD(FUNCNAME);
 
-    while((ret = p_getRdg(in, &cmpret)) &&  cmpret != ridge &&
-            cmpret != rtype_end)
+    while((ret = p_getRdg(in, &cmpret)) &&  cmpret != cmpridge &&
+            cmpret != brkridge && cmpret != rtype_end)
     {
         free(ret);
 
@@ -40,6 +43,12 @@ retval p_skpDtU(FILE *in, rtype ridge, bool seekBack)
     {
         P_FREEALL();
         return cmpret;
+    }
+
+    if(cmpret == brkridge)
+    {
+        P_FREEALL();
+        return err_brkRidge;
     }
 
     P_FREEALL();

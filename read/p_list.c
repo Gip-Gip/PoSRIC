@@ -18,7 +18,6 @@ retval p_list(string inName)
     byte *buffer = NULL;
     string buffer2 = NULL;
     rtype ret;
-    retval ret2;
 
     P_FTADD(FUNCNAME);
 
@@ -29,7 +28,7 @@ retval p_list(string inName)
         return errno;
     }
 
-    if((ret = p_sCaC(in, NULL))) return ret2;
+    if((ret = p_sCaC(in, NULL))) return ret;
 
     while((buffer = p_getRdg(in, &ret)) && ret != rtype_end)
     {

@@ -10,7 +10,7 @@ VARIABLES:
 
 #include <p_skpDta.h>
 
-retval p_skpDta(FILE *in)
+retval p_skpDta(FILE *in, bool seekBack)
 {
     rtype ridge;
     byte *ret;
@@ -31,7 +31,7 @@ retval p_skpDta(FILE *in)
 
     P_FREEALL();
 
-    fseek(in, -P_RMINRD, SEEK_CUR);
+    if(seekBack) fseek(in, -P_RMINRD, SEEK_CUR);
 
     return none;
 }

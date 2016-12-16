@@ -29,7 +29,7 @@ extern char **gargv;
 #define PROGNAME gargv[ZERO]
 
 #define MSG_SPLASH \
-"\nPoSRIC I.MMXVI rev. 17\n\
+"\nPoSRIC II.MMXVI rev. 0\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -a\" to get the list of authors\n\n", PROGNAME
@@ -72,6 +72,7 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_BADRIDGE1 MSG_ERROR("File ends before ridge ends!\n")
 #define MSG_BADFLETCHER MSG_ERROR("Invalid fletcher checksum!\n")
 #define MSG_BADSIG MSG_ERROR("Archive has a bad signature!")
+#define MSG_EMPTYFILE(name) MSG_ERROR("\"%s\" is an empty file!"), name
 
 #define MESSAGES_H NULL
 #endif

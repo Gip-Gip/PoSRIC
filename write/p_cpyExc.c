@@ -47,7 +47,7 @@ retval p_cpyExc(FILE *in, FILE *out, string name, retval *retptr)
             else if(cmpret == false) p_wrtRdg(out, ridge, NULL);
         }
 
-        else if(ridge == rtype_null && (ret = p_skpDta(in)))
+        else if(ridge == rtype_null && (ret = p_skpDta(in, true)))
         {
             P_FREEALL();
             return ret;
