@@ -2,6 +2,10 @@
 
 ARGUMENTS:
 
+FILE *in - the file to check the signature from
+
+FILE *out - the file to write the signature to(optional)
+
 VARIABLES:
 
 */

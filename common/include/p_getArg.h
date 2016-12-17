@@ -1,4 +1,4 @@
-/* p_getArg.h - includes things needed by getVar.c
+/* p_getArg.h - includes things needed by p_getArg.c
 
 ENUMS:
 

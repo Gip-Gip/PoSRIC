@@ -2,9 +2,17 @@
 
 ARGUMENTS:
 
-string inName - the filename of the archive in use
+string inName - the name of the archive to use
+string tmpName - the name of the temporary file to use
+string name - the filename to add to the archive
+bool overwrite - if set p_addFn won't give up if a file exists
 
 VARIABLES:
+
+FILE *in - the file pointer to the archive being read
+FILE *tmp - the file pointer to the temporary file
+retval ret - used to store errors
+retval ret2 - used to check if the file already exists
 
 */
 

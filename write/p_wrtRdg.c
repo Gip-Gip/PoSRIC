@@ -8,6 +8,10 @@ natural size - the size of the data being written
 
 VARIABLES:
 
+fletcher checksum - the checksum to write to the archive
+natural chkn - the index that helps go through the data and add it to the
+               checksum
+
 */
 
 #include <p_wrtRdg.h>

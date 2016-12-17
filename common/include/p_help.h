@@ -1,4 +1,4 @@
-/* help.h - includes files and defines things needed by help.c
+/* p_help.h - includes files and defines things needed by p_help.c
 
 ENUMS:
 

@@ -4,6 +4,7 @@ ARGUMENTS:
 
 FILE *in - the file being skipped through
 rtype ridge - the ridge being searched for
+bool seekBack - if set p_skpDtU will seek back 3 bytes
 
 VARIABLES:
 

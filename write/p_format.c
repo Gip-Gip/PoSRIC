@@ -3,8 +3,11 @@
 ARGUMENTS:
 
 string outName - the name of the file to format
+bool overwrite - if set p_format won't give up if a file exists
 
 VARIABLES:
+
+FILE *outFile - the file that's being formatted
 
 */
 

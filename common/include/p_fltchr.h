@@ -1,4 +1,4 @@
-/* p_fltchr.h - includes things and defines macros needed for p_fltchr checksum
+/* p_fltchr.h - includes things and defines macros needed for fletcher checksum
                 stuff
 
 ENUMS:

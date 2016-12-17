@@ -6,7 +6,7 @@ string str - the string being compared
 
 VARIABLES:
 
-int index - used for going through the argument array
+natural index - used for going through the argument array
 
 */
 

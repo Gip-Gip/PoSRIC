@@ -6,7 +6,31 @@ TYPEDEFS:
 
 DEFINITIONS:
 
+MSG_SPLASH - the splash message that is displayed when posric starts
+MSG_AUTHORS - a list of people that contributed to posric
+MSG_LICENSE - the license that posric is under
+MSG_PERROR - the text printed with perror
+MSG_BADARG - an error that notifies the user of an invalid command line argument
+MSG_ANOTSET - tells that the archive is not set
+MSG_TNOTSET - tells that the temporary file is not set
+MSG_ATNOTSET - tells that both the archive and the temporary file are not set
+MSG_FILEEXISTS - tells that a file already exists
+MSG_NAMEEXISTS - ditto, except with in-archive names
+MSG_NAMEDEXISTS - tells that an in-archive file wasn't found
+MSG_NAMEDUPED - tells that an in-archive file was duplicated somehow
+MSG_FILEFOUND1 & MSG_FILEFOUND2 - used when listing files found in an archive
+MSG_ECHO - the format used when the echo command is executed
+MSG_BADCOMM - tells that a bad command has been entered
+MSG_BADRIDGE1 - one of the possible messages for a bad ridge
+MSG_BADFLETCHER - tells that a bad fletcher checksum has been encountered
+MSG_BADSIG - tells that the archive has a bad signature
+MSG_EMPTYFILE - tells that the file didn't have any useful data in it
+
 MACROS:
+
+MSG_ERROR(MSG) - formats the given message to the standard error layout
+MSG_INFO(MSG) - formats the given message to the standard info layout
+MSG_INFON(MSG) - ditto, except without a newline at the end
 
 */
 
@@ -40,7 +64,7 @@ Charles \"Gip-Gip\" Thompson - Project owner\n\
 hogg2016(reddit) - Debugger\n\n"
 
 #define MSG_LICENSE "\n\
-Copyright (c) 2016, Charles Thompson <chmithbiz@gmail.com>\n\
+Copyright (c) 2016, Charles Thompson <chmithbiz@gmail.com>\n\n\
 Permission to use, copy, modify, and/or distribute this software for any \n\
 purpose with or without fee is hereby granted, provided that the above\n\
 copyright notice and this permission notice appear in all copies.\n\n\
@@ -56,8 +80,7 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_BADARG MSG_ERROR("Unknown argument \"%s\"!"), argv[argn]
 #define MSG_ANOTSET MSG_ERROR("Archive not set!")
 #define MSG_TNOTSET MSG_ERROR("Temporary file not set!")
-#define MSG_ATNOTSET MSG_ERROR( \
-    "Both the archive and the temporary file are not set!")
+#define MSG_NNOTSET MSG_ERROR("No name in use!")
 #define MSG_FILEEXISTS(file) MSG_ERROR("\"%s\" already exists!"), file
 #define MSG_NAMEEXISTS(name) MSG_ERROR("\"%s\" already exists in archive!"), \
     name

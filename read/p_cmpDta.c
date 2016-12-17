@@ -1,4 +1,4 @@
-/* p_cmpdta - compares data to an archive
+/* p_cmpdta - compares data to an archive's data
 
 ARGUMENTS:
 
@@ -8,7 +8,10 @@ FILE *in - the archive being compared to the data
 
 VARIABLES:
 
-byte *buffer - used to compare
+natural bytesRead - keeps track of the total amount of bytes read so p_cmpDta
+                    can seek back
+byte *buffer - used to compare the data and the archive's data
+rtype ridge - the general ridge variable
 
 */
 
@@ -18,21 +21,21 @@ bool p_cmpDta(byte *data, natural size, FILE *in)
 {
     natural bytesRead = ZERO;
     byte *buffer;
-    rtype ret;
+    rtype ridge;
 
     P_FTADD(FUNCNAME);
 
-    for(buffer = p_getRdg(in, &ret),
-            bytesRead += ((ret += P_RTYPECORR + P_DCORR) > P_DATA + P_DCORR ?
-                ZERO : P_RMINRD + ret);
+    for(buffer = p_getRdg(in, &ridge),
+            bytesRead += ((ridge += P_RTYPECORR + P_DCORR) > P_DATA + P_DCORR ?
+                ZERO : P_RMINRD + ridge);
 
-        !feof(in) && buffer && ret <= P_DATA + P_DCORR;
+        !feof(in) && buffer && ridge <= P_DATA + P_DCORR;
 
-        buffer = p_getRdg(in, &ret),
-            bytesRead += ((ret += P_RTYPECORR + P_DCORR) > P_DATA + P_DCORR ?
-                ZERO : P_RMINRD + ret))
+        buffer = p_getRdg(in, &ridge),
+            bytesRead += ((ridge += P_RTYPECORR + P_DCORR) > P_DATA + P_DCORR ?
+                ZERO : P_RMINRD + ridge))
     {
-        if(ret > size || memcmp(data, buffer, ret))
+        if(ridge > size || memcmp(data, buffer, ridge))
         {
             P_FREEALL();
             fseek(in, -bytesRead, SEEK_CUR);
@@ -40,8 +43,8 @@ bool p_cmpDta(byte *data, natural size, FILE *in)
         }
 
         free(buffer);
-        data += ret;
-        size -= ret;
+        data += ridge;
+        size -= ridge;
     }
 
     if(!buffer)
@@ -52,7 +55,7 @@ bool p_cmpDta(byte *data, natural size, FILE *in)
 
     P_FREEALL();
 
-    if(ret > P_DATA + P_DCORR && !size)
+    if(ridge > P_DATA + P_DCORR && !size)
     {
         fseek(in, -(bytesRead + P_RMINRD), SEEK_CUR);
         return true;

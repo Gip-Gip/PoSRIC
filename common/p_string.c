@@ -4,7 +4,8 @@ ARGUMENTS:
 
 VARIABLES:
 
-p_sig - the file signature for a posric file
+byte p_sig[] - the file signature for a posric file
+string p_fncTrk - the function track string
 
 */
 

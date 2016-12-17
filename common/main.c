@@ -2,15 +2,34 @@
 
 ARGUMENTS:
 
+int argc - the amount of command-line variables provided
+char **argv - the command-line arguments
+
 VARIABLES:
+
+string archiveName - the name of the archive in use
+string tmpName - the name of the temporary file in use
+string name - the name of the in-archive file in use
+bool verbose - global verbose boolean
+bool overwrite - global overwrite boolean
+FILE *logFile - the log file pointer
+FILE *p_stdin - project-wide stdin substitute
+char **gargv - global argv
+natural buffSz - the size of the buffer in multiples of 128
+natural argn - index used for going through the command line arguments
+command comID - variable used for storing the command ID
+string comm - variable used for storing the actual command typed
+string params - the command parameters
+bool freeParams - set during the process of command interpretation; if set
+                  params will be freed
+retval ret - used for storing errors
 
 */
 
 #include <main.h>
 
 string archiveName = NULL, tmpName = NULL, name = NULL;
-bool verbose = false;
-bool overwrite = false;
+bool verbose = false, overwrite = false;
 FILE *logFile = NULL, *p_stdin;
 char **gargv;
 natural buffSz = 1;
@@ -175,45 +194,35 @@ int main(int argc, char **argv)
                 if(archiveName && tmpName)
                     ret = p_getFd(archiveName, params, name, overwrite);
 
-                else if(archiveName) p_print(MSG_TNOTSET);
-
-                else if(tmpName) p_print(MSG_ANOTSET);
-
-                else p_print(MSG_ATNOTSET);
+                if(!archiveName) p_print(MSG_ANOTSET);
+                if(!tmpName) p_print(MSG_TNOTSET);
+                if(!name) p_print(MSG_NNOTSET);
                 break;
 
             case(comm_addFn):
-                if(archiveName && tmpName)
+                if(archiveName && tmpName && name)
                     ret = p_addFn(archiveName, tmpName, params, overwrite);
 
-                else if(archiveName) p_print(MSG_TNOTSET);
-
-                else if(tmpName) p_print(MSG_ANOTSET);
-
-                else p_print(MSG_ATNOTSET);
+                if(!archiveName) p_print(MSG_ANOTSET);
+                if(!tmpName) p_print(MSG_TNOTSET);
                 break;
 
             case(comm_addFd):
-                if(archiveName && tmpName)
+                if(archiveName && tmpName && name)
                     ret = p_addFd(archiveName, tmpName, params, name, overwrite,
                     buffSz);
 
-                else if(archiveName) p_print(MSG_TNOTSET);
-
-                else if(tmpName) p_print(MSG_ANOTSET);
-
-                else p_print(MSG_ATNOTSET);
+                if(!archiveName) p_print(MSG_ANOTSET);
+                if(!tmpName) p_print(MSG_TNOTSET);
+                if(!name) p_print(MSG_NNOTSET);
                 break;
 
             case(comm_rmFile):
                 if(archiveName && tmpName)
                     ret = p_rmFile(archiveName, tmpName, params, overwrite);
 
-                else if(archiveName) p_print(MSG_TNOTSET);
-
-                else if(tmpName) p_print(MSG_ANOTSET);
-
-                else p_print(MSG_ATNOTSET);
+                if(!archiveName) p_print(MSG_ANOTSET);
+                if(!tmpName) p_print(MSG_TNOTSET);
                 break;
 
             default:

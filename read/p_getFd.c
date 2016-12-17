@@ -1,8 +1,20 @@
-/* p_getFd - reads filedata and writes it to the given file
+/* p_getFd - reads filedata from an archive and writes the data to the given
+             file
 
 ARGUMENTS:
 
+string inName - the name of the archive to use
+string outName - the name of the file to write to
+string name - the name of the in-archive file
+bool overwrite - if set p_getFd won't give up if a file exists
+
 VARIABLES:
+
+FILE *in - the file pointer to the archive
+FILE *out - the file pointer to the file being written to
+byte *buffer - the buffer that holds the data returned by p_getRdg
+retval ret - used to hold errors
+rtype ridge - the ridge value
 
 */
 
@@ -13,7 +25,7 @@ retval p_getFd(string inName, string outName, string name, bool overwrite)
     FILE *in = fopen(inName, READMODE), *out = NULL;
     byte *buffer = NULL;
     retval ret;
-    rtype ret2;
+    rtype ridge;
 
     P_FTADD(FUNCNAME);
 
@@ -46,8 +58,8 @@ retval p_getFd(string inName, string outName, string name, bool overwrite)
         return ret;
     }
 
-    while((buffer = p_getRdg(in, &ret2)) && (ret2 += P_RTYPECORR) <= P_DATA &&
-            fwrite(buffer, sizeof(byte), (ret2 += P_DCORR), out) == ret2)
+    while((buffer = p_getRdg(in, &ridge)) && (ridge += P_RTYPECORR) <= P_DATA &&
+            fwrite(buffer, sizeof(byte), (ridge += P_DCORR), out) == ridge)
 
         free(buffer);
 
@@ -58,7 +70,7 @@ retval p_getFd(string inName, string outName, string name, bool overwrite)
         return errno;
     }
 
-    if(!buffer) return ret2;
+    if(!buffer) return ridge;
 
     P_FREEALL();
 

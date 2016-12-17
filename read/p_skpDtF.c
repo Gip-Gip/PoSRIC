@@ -7,6 +7,9 @@ string name - the name of the file to skip to
 
 VARIABLES:
 
+retval ret - used to store errors
+bool ret2 - used to store the return value of cmpDta
+
 */
 
 #include <p_skpDtF.h>

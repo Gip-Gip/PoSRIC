@@ -19,6 +19,7 @@ rmFile:World!;
 useName:layout.png;
 addFd:layout.png;
 getFd:layout2.png;
+rmFile:layout.png;
 list:;
 use:exampl.rpf;
 addFn:World!;

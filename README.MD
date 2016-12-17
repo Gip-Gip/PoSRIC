@@ -9,7 +9,7 @@ both beginners and DOS dwellers can use.
 
 ##What are the current features?
 
-As of Version II.MMXVI rev. 2 there is
+As of Version II.MMXVI rev. 0 there is
 
  * Basic stdio command interpretation
  * Basic scripting

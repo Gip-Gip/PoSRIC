@@ -1,4 +1,4 @@
-/* p_skpDtF.h - includes files needed by p_getFd.c
+/* p_skpDtF.h - includes files needed by p_skpDtF.c
 
 ENUMS:
 

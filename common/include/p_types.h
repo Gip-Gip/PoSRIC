@@ -3,7 +3,10 @@
 ENUMS:
 
 bool - possible boolean states
+retval - return values
 arg - command line arguments
+command - PoSRIC commands
+rtype - ridge
 
 TYPEDEFS:
 
@@ -14,7 +17,11 @@ byte - a single byte
 string - a string of characters
 character - a single character of a string
 bool - flag type
-retval - return values
+retval - return value
+arg - command line argument
+command - PoSRIC command
+rtype - ridge
+fletcher - fletcher checksum
 
 DEFINITIONS:
 

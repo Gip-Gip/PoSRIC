@@ -13,12 +13,12 @@ MACROS:
 
 */
 
-#ifndef P_READCOM_H
+#ifndef P_READIN_H
 #include <p_common.h>
 
 extern string p_comEnt[];
 
 #define COMMDELM ':'
 #define PARMDELM ';'
-#define P_READCOM_H NULL
+#define P_READIN_H NULL
 #endif

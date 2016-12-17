@@ -2,13 +2,16 @@
 
 ARGUMENTS:
 
-char *format - the format of the message being printed
+string format - the format of the message being printed
 
 VARIABLES:
 
 va_list arglist - the variable-argument list
 string history - the previous p_print
 bool freeHistory - if set, history will be freed
+bool verboseActive - toggled throughout the printing process when %v is found;
+                     if set items are only printed when the verbose boolean is
+                     set to true
 character chr[] - the buffer used for storing single characters
 natural num - used for natural conversions
 

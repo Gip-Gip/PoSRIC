@@ -4,8 +4,15 @@ ARGUMENTS:
 
 FILE *in - a file pointer to the file being read
 FILE *out - a file pointer to the file being written to
+string name - the name of the file to give up on
+retval *retptr - the pointer written to if the file is encountered
 
 VARIABLES:
+
+rtype ridge - the ridge being compared to
+retval ret - used to store errors
+bool cmpret - used to store values for boolean comparison
+byte *buffer - the ridge buffer
 
 */
 

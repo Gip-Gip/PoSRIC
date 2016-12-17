@@ -4,6 +4,7 @@
 ARGUMENTS:
 
 command *comID - a pointer to the command ID
+string *comm - the pointer to store the command to
 
 VARIABLES:
 

@@ -9,6 +9,14 @@ natural buffSz - the size of the buffer divided by 128
 
 VARIABLES:
 
+FILE *in - the archive being read
+FILE *dataFile - the file the data is read from
+FILE *tmp - the file pointer to the temporary file
+byte *buffer - the buffer used for temporarily storing file data
+retval ret - used for holding errors
+retval ret2 - used for checking for a file's existence
+natural readSize - used to get the size of each fread
+
 */
 
 #include <p_addFd.h>
@@ -20,7 +28,7 @@ retval p_addFd(string inName, string tmpName, string name, string fName,
     *tmp = NULL;
     byte *buffer = calloc(buffSz *= P_RMAXSZ, sizeof(byte));
     retval ret, ret2;
-    natural cmpret;
+    natural readSize;
 
     P_FTADD(FUNCNAME);
 
@@ -54,12 +62,12 @@ retval p_addFd(string inName, string tmpName, string name, string fName,
         return ret;
     }
 
-    while((cmpret = fread(buffer, sizeof(byte), buffSz, dataFile)) == buffSz)
+    while((readSize = fread(buffer, sizeof(byte), buffSz, dataFile)) == buffSz)
         p_write(buffer, buffSz, tmp);
 
     if(!ferror(dataFile))
     {
-        if(cmpret) p_write(buffer, cmpret, tmp);
+        if(readSize) p_write(buffer, readSize, tmp);
     }
 
     else

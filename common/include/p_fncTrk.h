@@ -6,11 +6,14 @@ TYPEDEFS:
 
 DEFINITIONS:
 
+P_FT - the print-ready p_fncTrk variable
+
 MACROS:
 
 P_FTINIT - initializes the global p_fncTrk variable
 P_FTADD - adds the function to the p_fncTrk variable
-P_FTREM - removes the string at the end
+P_FTREM - removes the function at the end of the p_fncTrk string
+P_FTDINIT - de-initializes the global p_fncTrk variable
 
 */
 

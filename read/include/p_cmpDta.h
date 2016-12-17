@@ -1,4 +1,4 @@
-/* p_cmpdta.h - includes files needed by p_cmpdta.c
+/* p_cmpDta.h - includes files needed by p_cmpDta.c
 
 ENUMS:
 

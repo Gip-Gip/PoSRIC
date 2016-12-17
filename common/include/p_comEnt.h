@@ -13,5 +13,5 @@ MACROS:
 #ifndef P_COMENT_H
 #include <p_common.h>
 
-#define P_COMENT_H
+#define P_COMENT_H NULL
 #endif

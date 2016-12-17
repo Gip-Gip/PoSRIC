@@ -1,4 +1,4 @@
-/* p_addFd.h - includes files needed by p_ad dFn.c
+/* p_addFd.h - includes files needed by p_addFd.c
 
 ENUMS:
 

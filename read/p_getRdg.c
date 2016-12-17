@@ -8,6 +8,8 @@ rtype *ret - the ridge value
 VARIABLES:
 
 rtype ridge - the ridge being read
+natural chkn - the index that helps go through the data and subtract it from the
+               checksum
 fletcher checksum - the ridge checksum
 byte *buffer - the buffer of data being read
 

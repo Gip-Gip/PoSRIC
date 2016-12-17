@@ -2,7 +2,18 @@
 
 ARGUMENTS:
 
+string inName - the name of the source archive
+string tmpName - the name of the temporary file
+string name - the name of the file to remove from the archive
+bool overwrite - if set p_rmFile will not give up if the tmpFile exists
+
 VARIABLES:
+
+FILE *in - the source archive as a file pointer
+FILE *tmp - the temporary file as a file pointer
+retval ret - the primarary return variable
+retval ret2 - the secondary return variable; used with cpyExc to tell if the
+              file was found
 
 */
 
@@ -35,11 +46,22 @@ retval p_rmFile(string inName, string tmpName, string name, bool overwrite)
         (ret = p_cpyExc(in, tmp, name, &ret2)) ||
         (ret = p_wrtRdg(tmp, rtype_end, NULL)))
     {
-        if(!ret) p_print(MSG_NAMEDEXIST(name));
+        if(ret == err_rNotFound)
+        {
+            if((ret = p_wrtRdg(tmp, rtype_end, NULL)))
+            {
+                P_FREEALL();
+                return ret;
+            }
+        }
+        else
+        {
+            if(!ret) p_print(MSG_NAMEDEXIST(name));
 
-        P_FREEALL();
+            P_FREEALL();
 
-        return ret ? ret : err_nameDexist;
+            return ret ? ret : err_nameDexist;
+        }
     }
 
     if(remove(inName) || rename(tmpName, inName))

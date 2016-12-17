@@ -4,12 +4,12 @@ ARGUMENTS:
 
 FILE *in - the file being read
 character term - the character which signal to stop reading
+bool ridWs - set if you want to remove whitespace
 
 VARIABLES:
 
 string buffer - the string being created/returned
 character prebuff[] - the pre-buffer buffer
-bool ridWS - if set, whitespace will be ignored
 
 */
 

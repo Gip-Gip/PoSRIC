@@ -6,7 +6,6 @@ cppargs=-E -Wall
 ccargs=-g -Wall -c --std=c89
 arargs=-c
 ldargs=-g -lm -Wall
-buildargs=
 cppext=.i
 ccext=.o
 includearg=-I

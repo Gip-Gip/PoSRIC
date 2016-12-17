@@ -1,10 +1,12 @@
-/* p_getStr.h - includes files needed by p_strapp.h
+/* p_getStr.h - includes files needed by p_getStr.h
 
 ENUMS:
 
 TYPEDEFS:
 
 DEFINITIONS:
+
+ESCDELEM - the escape delimiter
 
 MACROS:
 
