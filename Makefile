@@ -15,15 +15,15 @@ targetarg=-T
 mainobj=main.o
 bin=bin/posric
 tccbuildf=posric.pjr
-includes=$(includearg)common/include $(includearg)write/include \
-$(includearg)read/include
+includes=common/include write/include read/include
+incb=`for include in $(includes); do echo "$(includearg) $$include"; done`
 
 all: clean makebdir
 	rm $(tccbuildf)
 
 	for file in common/*.c write/*.c read/*c; do \
 		echo $$file >> $(tccbuildf); \
-		echo $(cpp) $(cppargs) $(includes) \
+		echo $(cpp) $(cppargs) $(incb) \
         "$$file" $(outputarg) "$$file$(cppext)" | tee /dev/stderr | sh; \
 	done
 

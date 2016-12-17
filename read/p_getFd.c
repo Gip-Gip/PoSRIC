@@ -59,7 +59,8 @@ retval p_getFd(string inName, string outName, string name, bool overwrite)
     }
 
     while((buffer = p_getRdg(in, &ridge)) && (ridge += P_RTYPECORR) <= P_DATA &&
-            fwrite(buffer, sizeof(byte), (ridge += P_DCORR), out) == ridge)
+            fwrite(buffer, sizeof(byte), (ridge + P_DCORR), out) ==
+                ridge + P_DCORR)
 
         free(buffer);
 

@@ -53,7 +53,7 @@ extern char **gargv;
 #define PROGNAME gargv[ZERO]
 
 #define MSG_SPLASH \
-"\nPoSRIC II.MMXVI rev. 0\n\
+"\nPoSRIC II.MMXVI rev. 2\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -a\" to get the list of authors\n\n", PROGNAME
