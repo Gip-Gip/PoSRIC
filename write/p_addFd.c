@@ -48,7 +48,7 @@ retval p_addFd(string inName, string tmpName, string name, string fName,
 
     if((ret = p_sCaC(in, tmp)) ||
         (ret = p_cpyExc(in, tmp, fName, &ret2)) || ret2 != err_nameExists ||
-        (ret = p_skpDta(in, true)) ||
+        (ret = p_skpDtI(in, rtype_fdata, true)) ||
         (ret = p_wrtRdg(tmp, rtype_fname, NULL)) ||
         (ret = p_write((byte *)fName, strlen(fName), tmp)) ||
         (ret = p_wrtRdg(tmp, rtype_fdata, NULL)))

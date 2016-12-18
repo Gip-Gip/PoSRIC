@@ -1,4 +1,4 @@
-/* main - interprets arguments and calls things
+/* main - interprets and calls things
 
 ARGUMENTS:
 
@@ -12,6 +12,7 @@ string tmpName - the name of the temporary file in use
 string name - the name of the in-archive file in use
 bool verbose - global verbose boolean
 bool overwrite - global overwrite boolean
+bool noScript - if set, there will be no command interpretation
 FILE *logFile - the log file pointer
 FILE *p_stdin - project-wide stdin substitute
 char **gargv - global argv
@@ -29,7 +30,8 @@ retval ret - used for storing errors
 #include <main.h>
 
 string archiveName = NULL, tmpName = NULL, name = NULL;
-bool verbose = false, overwrite = false;
+bool verbose = false, overwrite = false, noScript = false, argArchive = false,
+argTmp = false, argName = false;
 FILE *logFile = NULL, *p_stdin;
 char **gargv;
 natural buffSz = 1;
@@ -53,7 +55,11 @@ int main(int argc, char **argv)
         return errno;
     }
 
-    /* Get the command-line arguments */
+/*=============================================================================:
+:------------------------------------------------------------------------------:
+:---------------------------ARGUMENT--INTERPRETATION---------------------------:
+:------------------------------------------------------------------------------:
+:=============================================================================*/
     while(++argn < argc)
     {
         switch(p_getArg(argv[argn]))
@@ -73,6 +79,10 @@ int main(int argc, char **argv)
                 P_FREEALL();
                 return err_licenseGiven;
 
+            case(arg_noScript):
+                noScript = true;
+                break;
+
             case(arg_overwrite):
                 overwrite = true;
                 break;
@@ -81,15 +91,28 @@ int main(int argc, char **argv)
                 verbose = true;
                 break;
 
+            case(arg_format):
+                    if(archiveName) ret = p_format(archiveName, overwrite);
+
+                    else p_print(MSG_ANOTSET);
+                    break;
+
             case(arg_logFile): case(arg_script): case(arg_buffSz):
+            case(arg_archive): case(arg_tmpFile): case(arg_quickAdd):
                 break;
 
             default:
                 switch(p_getArg(argv[argn - 1]))
                 {
+                    case(arg_archive):
+                        argArchive = true;
+                        archiveName = argv[argn];
+                        break;
+
                     case(arg_buffSz):
                         buffSz = atoi(argv[argn]);
                         break;
+
                     case(arg_logFile):
                         if(!overwrite && fopen(argv[argn], READMODE))
                         {
@@ -107,6 +130,15 @@ int main(int argc, char **argv)
                         }
                         break;
 
+                    case(arg_quickAdd):
+                        if(archiveName && tmpName) ret =
+                            p_addFd(archiveName, tmpName,
+                                argv[argn], argv[argn], overwrite, buffSz);
+
+                        if(!archiveName) p_print(MSG_ANOTSET);
+                        if(!tmpName) p_print(MSG_TNOTSET);
+                        break;
+
                     case(arg_script):
                         if(p_stdin != stdin) fclose(p_stdin);
                         if(!(p_stdin = fopen(argv[argn], READMODE)))
@@ -115,6 +147,11 @@ int main(int argc, char **argv)
                             P_FREEALL();
                             return errno;
                         }
+                        break;
+
+                    case(arg_tmpFile):
+                        argTmp = true;
+                        tmpName = argv[argn];
                         break;
 
                     default:
@@ -126,7 +163,17 @@ int main(int argc, char **argv)
         }
     }
 
-    /* Read the commands from p_stdin */
+    if(noScript)
+    {
+        P_FREEALL();
+        return none;
+    }
+
+/*=============================================================================:
+:------------------------------------------------------------------------------:
+:----------------------------COMMAND-INTERPRETATION----------------------------:
+:------------------------------------------------------------------------------:
+:=============================================================================*/
     while((params = p_readIn(&comID, &comm)) && !feof(p_stdin))
     {
         if(!comm)
@@ -158,21 +205,27 @@ int main(int argc, char **argv)
                 break;
 
             case(comm_use):
-                if(archiveName) free(archiveName);
+                if(archiveName && !argArchive) free(archiveName);
+
+                argArchive = false;
 
                 archiveName = params;
                 freeParams = false;
                 break;
 
             case(comm_useName):
-                if(name) free(name);
+                if(name && !argName) free(name);
+
+                argName = false;
 
                 name = params;
                 freeParams = false;
                 break;
 
             case(comm_tmp):
-                if(tmpName) free(tmpName);
+                if(tmpName && !argTmp) free(tmpName);
+
+                argTmp = false;
 
                 tmpName = params;
                 freeParams = false;
@@ -237,6 +290,12 @@ int main(int argc, char **argv)
         free(comm);
     }
 
+/*=============================================================================:
+:------------------------------------------------------------------------------:
+:-------------------------------DEINITIALIZATION-------------------------------:
+:------------------------------------------------------------------------------:
+:=============================================================================*/
+
     if(!params)
     {
         perror(MSG_PERROR);
@@ -244,7 +303,8 @@ int main(int argc, char **argv)
         return errno;
     }
 
-    /* Free all the memory to make valgrind happy :) */
+    /* Free all memory to make valgrind happy :) */
+
     P_FREEALL();
 
     return none;

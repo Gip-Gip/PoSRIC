@@ -32,6 +32,7 @@ extern retval p_list(string);
 extern retval p_getFd(string, string, string, bool);
 extern retval p_sCaC(FILE *, FILE *);
 extern retval p_skpDta(FILE *, bool);
+extern retval p_skpDtI(FILE *, rtype, bool);
 extern retval p_skpDtU(FILE *, rtype, bool);
 extern retval p_skpDtF(FILE *, string);
 extern retval p_skpDUU(FILE *, rtype, rtype, bool);

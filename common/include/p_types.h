@@ -66,12 +66,17 @@ typedef enum {
     err_emptyFile,
 } retval;
 typedef enum {
+    arg_archive,
     arg_authors,
     arg_buffSz,
+    arg_format,
     arg_help,
     arg_logFile,
     arg_license,
+    arg_noScript,
+    arg_quickAdd,
     arg_script,
+    arg_tmpFile,
     arg_verbose,
     arg_overwrite,
 } arg;
