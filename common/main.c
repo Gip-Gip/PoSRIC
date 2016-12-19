@@ -99,6 +99,7 @@ int main(int argc, char **argv)
 
             case(arg_logFile): case(arg_script): case(arg_buffSz):
             case(arg_archive): case(arg_tmpFile): case(arg_quickAdd):
+            case(arg_quickGet):
                 break;
 
             default:
@@ -139,6 +140,15 @@ int main(int argc, char **argv)
                         if(!tmpName) p_print(MSG_TNOTSET);
                         break;
 
+                    case(arg_quickGet):
+                        if(archiveName && tmpName) ret =
+                            p_getFd(archiveName, argv[argn], argv[argn],
+                                overwrite);
+
+                        if(!archiveName) p_print(MSG_ANOTSET);
+                        if(!tmpName) p_print(MSG_TNOTSET);
+                        break;
+
                     case(arg_script):
                         if(p_stdin != stdin) fclose(p_stdin);
                         if(!(p_stdin = fopen(argv[argn], READMODE)))
@@ -147,6 +157,7 @@ int main(int argc, char **argv)
                             P_FREEALL();
                             return errno;
                         }
+
                         break;
 
                     case(arg_tmpFile):
@@ -163,7 +174,11 @@ int main(int argc, char **argv)
         }
     }
 
-    if(noScript)
+    /* I commonly add -n to the preargs list, and I expect others to do the
+       same. To make the S in PoSRIC not totally useless, when including a
+       script manually disable the noScript option */
+
+    if(p_stdin == stdin && noScript)
     {
         P_FREEALL();
         return none;

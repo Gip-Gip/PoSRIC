@@ -9,7 +9,7 @@ both beginners and DOS dwellers can use.
 
 ##What are the current features?
 
-As of Version II.MMXVI rev. 2 there is
+As of Version II.IIV.MMXVI rev. 0 there is
 
  * Basic stdio command interpretation
  * Basic scripting
@@ -36,5 +36,14 @@ PoSRIC
 
 ##Misc
 
+ * The Versioning scheme is [Inf. Version].[Annual Version].[Year] in roman
+   numerals
+     * The Infinitive Version is incremented every large change, such as when
+       PoSRIC became capable of IO with RiPorFS it was incremented from I to II
+     * The Annual Version is incremented with the Infinitive Version and every
+       large update which isn't drastic enough to increment the Infinitive
+       Version. It is reset to one annually
  * PoSRIC has been tested on Debian and DOSBOX
- * As of Version II.MMXVI Revision 2 the line count is 1321 (using sloccount)
+ * As of Version II.IIV.MMXVI Revision 2 the line count is 1388 (using
+   sloccount)
+

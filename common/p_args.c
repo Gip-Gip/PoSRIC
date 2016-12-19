@@ -21,6 +21,7 @@ string p_args[] =
     "-L", "--license", "displays the license and exits",
     "-n", "--no-script", "don't expect a script; only runs off of arguments",
     "-q", "--quick-add", "add a file with the native filename to the archive",
+    "-Q", "--quick-get", "gets filedata from the archive",
     "-s", "--script", "sets the script file, and uses it in place of stdio.h",
     "-t", "--tmp-file", "sets the temporary file",
     "-v", "--verbose", "prints extra debugging messages",

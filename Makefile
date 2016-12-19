@@ -15,6 +15,7 @@ targetarg=-T
 mainobj=main.o
 bin=bin/posric
 tccbuildf=posric.pjr
+preargs=
 includes=common/include write/include read/include
 incb=`for include in $(includes); do echo "$(includearg) $$include"; done`
 
@@ -33,19 +34,23 @@ all: clean makebdir
 	done
 
 	for file in common/*$(ccext) write/*$(ccext) read/*$(ccext); do \
-		echo $(ar) $(arargs) $(mainobj) $(addarg) "$$file" \
-			| tee /dev/stderr | sh; \
-	done
+		echo $(ar) $(arargs) $(mainobj) $(addarg) "$$file" | tee /dev/stderr |\
+	sh; done
 
 	$(ld) $(ldargs) $(mainobj) $(outputarg) $(bin)
 
 clean:
 	if [ -f $(mainobj) ]; then rm $(mainobj); fi
 	if [ -f $(bin) ]; then rm $(bin); fi
+	if [ -f $(bin).elf ]; then rm $(bin).elf; fi
 	for file in  common/*$(cppext) common/*$(ccext) read/*$(cppext) \
                  read/*$(ccext) write/*$(cppext) write/*$(ccext); do\
                  if [ -f $$file ]; then rm $$file; fi; done
 
+prearged: all
+	mv $(bin) $(bin).elf
+	echo "#!/bin/sh\n\$$0.elf $(preargs) \$$@" > $(bin)
+	chmod 777 $(bin)
 
 makebdir:
 	if [ ! -d bin ]; then mkdir bin; fi

@@ -75,6 +75,7 @@ typedef enum {
     arg_license,
     arg_noScript,
     arg_quickAdd,
+    arg_quickGet,
     arg_script,
     arg_tmpFile,
     arg_verbose,
