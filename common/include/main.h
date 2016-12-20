@@ -12,6 +12,7 @@ MACROS:
 
 #ifndef MAIN_H
 #include <p_messag.h>
+#include <p_prearg.h>
 
 #define P_FREEALL() if(tmpName && !argTmp) free(tmpName); \
                     if(archiveName && !argArchive) free(archiveName); \

@@ -14,12 +14,14 @@ addarg=-q
 targetarg=-T
 mainobj=main.o
 bin=bin/posric
+installdir=/usr/bin
 tccbuildf=posric.pjr
 preargs=
+shell=/bin/sh
 includes=common/include write/include read/include
 incb=`for include in $(includes); do echo "$(includearg) $$include"; done`
 
-all: clean makebdir
+all: clean makebdir preargs
 	rm $(tccbuildf)
 
 	for file in common/*.c write/*.c read/*c; do \
@@ -47,10 +49,12 @@ clean:
                  read/*$(ccext) write/*$(cppext) write/*$(ccext); do\
                  if [ -f $$file ]; then rm $$file; fi; done
 
-prearged: all
-	mv $(bin) $(bin).elf
-	echo "#!/bin/sh\n\$$0.elf $(preargs) \$$@" > $(bin)
-	chmod 777 $(bin)
-
 makebdir:
 	if [ ! -d bin ]; then mkdir bin; fi
+
+preargs:
+	$(shell) pacomp.sh $(preargs) > common/include/p_prearg.h
+
+install:
+	cp $(bin) $(installdir)
+	cp $(bin).elf $(installdir)

@@ -44,6 +44,6 @@ PoSRIC
        large update which isn't drastic enough to increment the Infinitive
        Version. It is reset to one annually
  * PoSRIC has been tested on Debian and DOSBOX
- * As of Version II.IIV.MMXVI Revision 2 the line count is 1388 (using
+ * As of Version II.IIV.MMXVI Revision 1 the line count is 1,420 (using
    sloccount)
 
