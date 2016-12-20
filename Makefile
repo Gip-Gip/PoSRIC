@@ -55,6 +55,6 @@ makebdir:
 preargs:
 	$(shell) pacomp.sh $(preargs) > common/include/p_prearg.h
 
-install:
+install: all
 	cp $(bin) $(installdir)
 	cp $(bin).elf $(installdir)
