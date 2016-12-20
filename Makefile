@@ -53,7 +53,9 @@ makebdir:
 	if [ ! -d bin ]; then mkdir bin; fi
 
 preargs:
-	$(shell) pacomp.sh $(preargs) > common/include/p_prearg.h
+	$(shell) pacomp.sh $(preargs) | \
+	awk '{if(index($$0, "/*") > 0) print $$0,"\r"; else print $$0,"\\\r"}' \
+	> ./common/include/p_prearg.h
 
 install: all
 	cp $(bin) $(installdir)
