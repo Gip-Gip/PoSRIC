@@ -9,7 +9,7 @@ both beginners and DOS dwellers can use.
 
 ##What are the current features?
 
-As of Version II.IIV.MMXVI rev. 0 there is
+As of Version II.IIV.MMXVI Revision 1 there is
 
  * Basic stdio command interpretation
  * Basic scripting
@@ -24,11 +24,14 @@ It needs vast improvements but currently it's all I'm willing to put out.
 
 ##How can I improve the source?
 
+PoSRIC is being entered into a contest and until it is over only feedback will
+be recieved. However, once the contest is over(approx March 11th) you will be
+able to:
+
  * Add/fix comments
  * Improve documentation
  * Translate documentation
  * Improve the code
- * Suggest features
  * Add code
 
 Contributors will be placed in AUTHORS.TXT and listed in the authors splash of
