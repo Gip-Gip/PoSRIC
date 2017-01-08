@@ -22,22 +22,32 @@ includes=common/include write/include read/include
 incb=`for include in $(includes); do echo "$(includearg) $$include"; done`
 
 all: clean makebdir preargs
-	rm $(tccbuildf)
+	if [ -f $(tccbuildf) ]; then rm $(tccbuildf); fi
 
 	for file in common/*.c write/*.c read/*c; do \
 		echo $$file >> $(tccbuildf); \
 		echo $(cpp) $(cppargs) $(incb) \
-        "$$file" $(outputarg) "$$file$(cppext)" | tee /dev/stderr | sh; \
+			"$$file" $(outputarg) "$$file$(cppext)" | tee /dev/stderr | sh; \
+		if test $$? -ne "0"; then\
+			exit 1;\
+		fi;\
 	done
 
 	for file in common/*$(cppext) write/*$(cppext) read/*$(cppext); do \
 		echo $(cc) $(ccargs) "$$file" $(outputarg) "$$file$(ccext)" \
 			| tee /dev/stderr | sh; \
+		if test "$$?" -ne "0"; then\
+			exit 1;\
+		fi;\
 	done
 
 	for file in common/*$(ccext) write/*$(ccext) read/*$(ccext); do \
 		echo $(ar) $(arargs) $(mainobj) $(addarg) "$$file" | tee /dev/stderr |\
-	sh; done
+		sh;\
+		if test "$$?" -ne "0"; then\
+			exit 1;\
+		fi;\
+	done
 
 	$(ld) $(ldargs) $(mainobj) $(outputarg) $(bin)
 
