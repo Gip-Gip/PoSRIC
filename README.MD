@@ -41,12 +41,13 @@ PoSRIC
 
  * The Versioning scheme is [Inf. Version].[Annual Version].[Year] in roman
    numerals
-     * The Infinitive Version is incremented every large change, such as when
+     * The Infinitive Version is incremented every
+ large change, such as when
        PoSRIC became capable of IO with RiPorFS it was incremented from I to II
      * The Annual Version is incremented with the Infinitive Version and every
        large update which isn't drastic enough to increment the Infinitive
        Version. It is reset to one annually
  * PoSRIC has been tested on Debian and DOSBOX
- * As of Version II.IIV.MMXVI Revision 1 the line count is 1,420 (using
+ * As of Version IIV.I.MMXVII Revision 0 the line count is 1,588 (using
    sloccount)
 

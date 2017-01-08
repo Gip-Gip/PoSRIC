@@ -14,7 +14,7 @@ for arg in $@; do
     elif [ "$tmp" = true ]; then
         export tmp="";
         echo "argTmp = true;";
-        echo "tmpName = \"$arg\"";
+        echo "tmpName = \"$arg\";";
     else
         echo "pacomp: Unsupported Argument \"$arg\"!" > /dev/stderr;
         exit 1;
