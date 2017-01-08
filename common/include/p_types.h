@@ -3,10 +3,10 @@
 ENUMS:
 
 bool - possible boolean states
-retval - return values
+retVal - return values
 arg - command line arguments
 command - PoSRIC commands
-rtype - ridge
+rType - ridge #s
 
 TYPEDEFS:
 
@@ -17,34 +17,37 @@ byte - a single byte
 string - a string of characters
 character - a single character of a string
 bool - flag type
-retval - return value
+retVal - return value
 arg - command line argument
 command - PoSRIC command
-rtype - ridge
+rType - ridge
 fletcher - fletcher checksum
+dirTree - directory tree
 
 DEFINITIONS:
 
-P_RTYPECORR - the difference between the rtype enum and the actual value
+P_RTYPECORR - the difference between the rType enum and the actual value
 
 MACROS:
 
 */
 
+#ifndef TYPES_H
 #include <p_defs.h>
 
-#ifndef TYPES_H
 typedef unsigned long int natural;
 typedef long int real;
 typedef double rational;
 typedef unsigned char byte;
 typedef char character;
 typedef character* string;
+
 typedef enum {
     false,
     true,
     neither,
 } bool;
+
 typedef enum {
     none,
     err_unknown,
@@ -64,7 +67,8 @@ typedef enum {
     err_notFound,
     err_rNotFound,
     err_emptyFile,
-} retval;
+} retVal;
+
 typedef enum {
     arg_archive,
     arg_authors,
@@ -81,12 +85,14 @@ typedef enum {
     arg_verbose,
     arg_overwrite,
 } arg;
+
 typedef enum {
     comm_comment,
     comm_exit,
     comm_giveUp,
     comm_echo,
     comm_use,
+    comm_useDir,
     comm_useName,
     comm_tmp,
     comm_format,
@@ -98,18 +104,25 @@ typedef enum {
 } command;
 
 typedef enum {
-    rtype_fname,
-    rtype_fdata,
-    rtype_end,
-    rtype_null,
-} rtype;
+    rType_dend,
+    rType_dname,
+    rType_fname,
+    rType_fdata,
+    rType_end,
+    rType_null,
+} rType;
 
 typedef struct {
     byte a;
     byte b;
 } fletcher;
 
-#define P_RTYPECORR (0xFF - rtype_null)
+typedef struct {
+    string *dirs;
+    natural dirCount;
+} dirTree;
+
+#define P_RTYPECORR (0xFF - rType_null)
 
 #define TYPES_H NULL
 #endif

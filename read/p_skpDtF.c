@@ -7,23 +7,23 @@ string name - the name of the file to skip to
 
 VARIABLES:
 
-retval ret - used to store errors
+retVal ret - used to store errors
 bool ret2 - used to store the return value of cmpDta
 
 */
 
 #include <p_skpDtF.h>
 
-retval p_skpDtF(FILE *in, string name)
+retVal p_skpDtF(FILE *in, string name)
 {
-    retval ret;
+    retVal ret;
     bool ret2;
 
     P_FTADD(FUNCNAME);
 
     while(!feof(in))
     {
-        if((ret = p_skpDtU(in, rtype_fname, false)) ||
+        if((ret = p_skpDtU(in, rType_fname, false)) ||
             (ret2 = p_cmpDta((byte *)name, strlen(name), in)) == neither)
         {
             if(ret == err_rNotFound) p_print(MSG_NAMEDEXIST(name));

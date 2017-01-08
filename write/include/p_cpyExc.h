@@ -13,6 +13,7 @@ MACROS:
 #ifndef P_CPYEXC_H_H
 #include <p_messag.h>
 #include <p_string.h>
+#include <p_dir.h>
 
 #define P_FREEALL() if(buffer) free(buffer); P_FTREM(FUNCNAME);
 

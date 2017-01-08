@@ -1,4 +1,4 @@
-/* p_addFn.h - includes files needed by p_addFn.c
+/* p_addDr.h - includes files needed by p_addDr.c
 
 ENUMS:
 
@@ -10,7 +10,7 @@ MACROS:
 
 */
 
-#ifndef P_ADDFN_H
+#ifndef P_ADDDR_H
 #include <p_messag.h>
 #include <p_dir.h>
 
@@ -20,5 +20,5 @@ MACROS:
                             return errno;}} \
                     P_FTREM(FUNCNAME); P_DTDINIT(p_getRdgDT);
 
-#define P_ADDFN_H NULL
+#define P_ADDDR_H_H NULL
 #endif

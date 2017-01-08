@@ -4,14 +4,14 @@
 ARGUMENTS:
 
 FILE *in - the file being skipped through
-rtype cmpridge - the ridge being searched for
-rtype brkridge - the ridge that breaks the search
+rType cmpridge - the ridge being searched for
+rType brkridge - the ridge that breaks the search
 bool seekBack - seeks back if set
 
 VARIABLES:
 
-rtype cmpret - where the current ridge is stored; used to compare ridges
-retval ret2 - the secondary return variable
+rType cmpret - where the current ridge is stored; used to compare ridges
+retVal ret2 - the secondary return variable
 byte *ret - the primary return variable. Used to free the uneeded buffer
             returned by p_getRdg
 
@@ -19,16 +19,16 @@ byte *ret - the primary return variable. Used to free the uneeded buffer
 
 #include <p_skpDUU.h>
 
-retval p_skpDUU(FILE *in, rtype cmpridge, rtype brkridge, bool seekBack)
+retVal p_skpDUU(FILE *in, rType cmpridge, rType brkridge, bool seekBack)
 {
-    rtype cmpret;
-    retval ret2;
+    rType cmpret;
+    retVal ret2;
     byte *ret;
 
     P_FTADD(FUNCNAME);
 
     while((ret = p_getRdg(in, &cmpret)) &&  cmpret != cmpridge &&
-            cmpret != brkridge && cmpret != rtype_end)
+            cmpret != brkridge && cmpret != rType_end)
     {
         free(ret);
 
@@ -53,7 +53,7 @@ retval p_skpDUU(FILE *in, rtype cmpridge, rtype brkridge, bool seekBack)
 
     P_FREEALL();
 
-    if(cmpret == rtype_end) return err_rNotFound;
+    if(cmpret == rType_end) return err_rNotFound;
 
     if(seekBack) fseek(in, -P_RMINRD, SEEK_CUR);
 

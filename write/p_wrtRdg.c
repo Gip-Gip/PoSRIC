@@ -16,7 +16,7 @@ natural chkn - the index that helps go through the data and add it to the
 
 #include <p_wrtRdg.h>
 
-retval p_wrtRdg(FILE *out, rtype ridge, byte *data)
+retVal p_wrtRdg(FILE *out, rType ridge, byte *data)
 {
     fletcher checksum;
     natural chkn = INDEXINIT;

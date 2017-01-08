@@ -19,30 +19,33 @@ MACROS:
 extern FILE *p_stdin;
 
 extern int main(int, char **);
+extern string p_dToS(byte *, natural, bool, retVal *);
 extern arg p_getArg(string);
 extern string p_getStr(FILE *, character, bool);
 extern void p_help( void );
+extern bool p_msCmpS(string *, string *, natural);
 extern void p_print(string, ...);
 extern string p_readIn(command *, string *);
 extern string p_strapp(string, string, bool, bool);
 extern string p_strcut(string, natural, bool);
 extern bool p_cmpDta(byte *, natural, FILE *);
-extern byte *p_getRdg(FILE *, rtype *);
-extern retval p_list(string);
-extern retval p_getFd(string, string, string, bool);
-extern retval p_sCaC(FILE *, FILE *);
-extern retval p_skpDta(FILE *, bool);
-extern retval p_skpDtI(FILE *, rtype, bool);
-extern retval p_skpDtU(FILE *, rtype, bool);
-extern retval p_skpDtF(FILE *, string);
-extern retval p_skpDUU(FILE *, rtype, rtype, bool);
-extern retval p_addFn(string, string, string, bool);
-extern retval p_addFd(string, string, string, string, bool, natural);
-extern retval p_cpyExc(FILE *, FILE *, string, retval *);
-extern retval p_format(string, bool);
-extern retval p_rmFile(string, string, string, bool);
-extern retval p_write(byte *, natural, FILE *);
-extern retval p_wrtRdg(FILE *, rtype, byte *);
+extern byte *p_read(FILE *, retVal *, natural *);
+extern byte *p_getRdg(FILE *, rType *);
+extern retVal p_list(string);
+extern retVal p_getFd(string, string, string, bool);
+extern retVal p_sCaC(FILE *, FILE *);
+extern retVal p_skpDta(FILE *, bool);
+extern retVal p_skpDtI(FILE *, rType, bool);
+extern retVal p_skpDtU(FILE *, rType, bool);
+extern retVal p_skpDtF(FILE *, string);
+extern retVal p_skpDUU(FILE *, rType, rType, bool);
+extern retVal p_addFn(string, string, string, bool, dirTree);
+extern retVal p_addFd(string, string, string, string, bool, natural, dirTree);
+extern retVal p_cpyExc(FILE *, FILE *, string, rType, retVal *, dirTree);
+extern retVal p_format(string, bool);
+extern retVal p_rmFile(string, string, string, bool, dirTree);
+extern retVal p_write(byte *, natural, FILE *);
+extern retVal p_wrtRdg(FILE *, rType, byte *);
 
 #define P_COMMON_H NULL
 #endif

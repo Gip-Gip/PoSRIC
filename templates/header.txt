@@ -1,0 +1,16 @@
+/* foo.h - contains this
+
+ENUMS:
+
+TYPEDEFS:
+
+DEFINITIONS:
+
+MACROS:
+
+*/
+
+#ifndef FOO_H
+
+#define FOO_H NULL
+#endif

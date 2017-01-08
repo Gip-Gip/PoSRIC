@@ -13,7 +13,7 @@ FILE *outFile - the file that's being formatted
 
 #include <p_format.h>
 
-retval p_format(string outName, bool overwrite)
+retVal p_format(string outName, bool overwrite)
 {
     FILE *outFile;
 
@@ -34,7 +34,7 @@ retval p_format(string outName, bool overwrite)
     }
 
     if(fwrite(p_sig, sizeof(byte), P_SIGSZ, outFile) != P_SIGSZ ||
-        p_wrtRdg(outFile, rtype_end, NULL))
+        p_wrtRdg(outFile, rType_end, NULL))
     {
         perror(MSG_PERROR);
         P_FREEALL();

@@ -8,15 +8,15 @@ FILE *out - the archive being written to
 
 VARIABLES:
 
-retval ret - used to store the return values of functions
+retVal ret - used to store the return values of functions
 
 */
 
 #include <p_write.h>
 
-retval p_write(byte *data, natural size, FILE *out)
+retVal p_write(byte *data, natural size, FILE *out)
 {
-    retval ret;
+    retVal ret;
 
     P_FTADD(FUNCNAME);
 

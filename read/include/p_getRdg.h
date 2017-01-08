@@ -13,6 +13,7 @@ MACROS:
 #ifndef P_GETRDG_H
 #include <p_fltchr.h>
 #include <p_messag.h>
+#include <p_dir.h>
 
 #define P_FREEALL() if(buffer) free(buffer); P_FTREM(FUNCNAME);
 

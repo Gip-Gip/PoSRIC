@@ -11,18 +11,19 @@ VARIABLES:
 
 FILE *in - the source archive as a file pointer
 FILE *tmp - the temporary file as a file pointer
-retval ret - the primarary return variable
-retval ret2 - the secondary return variable; used with cpyExc to tell if the
+retVal ret - the primarary return variable
+retVal ret2 - the secondary return variable; used with cpyExc to tell if the
               file was found
 
 */
 
 #include <p_rmFile.h>
 
-retval p_rmFile(string inName, string tmpName, string name, bool overwrite)
+retVal p_rmFile(string inName, string tmpName, string name, bool overwrite,
+    dirTree dt)
 {
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
-    retval ret, ret2;
+    retVal ret, ret2;
 
     P_FTADD(FUNCNAME);
 
@@ -33,7 +34,7 @@ retval p_rmFile(string inName, string tmpName, string name, bool overwrite)
         return err_fileExists;
     }
 
-    if(!in || !(tmp = fopen(tmpName, WRITEMODE)))
+    if(!in || !(tmp = fopen(tmpName, WRITEMODE)) || !P_GDTINIT(inName))
     {
         perror(MSG_PERROR);
         P_FREEALL();
@@ -41,14 +42,15 @@ retval p_rmFile(string inName, string tmpName, string name, bool overwrite)
     }
 
     if((ret = p_sCaC(in, tmp)) ||
-        (ret = p_cpyExc(in, tmp, name, &ret2)) || ret2 != err_nameExists ||
-        (ret = p_skpDtU(in, rtype_fname, true)) ||
-        (ret = p_cpyExc(in, tmp, name, &ret2)) ||
-        (ret = p_wrtRdg(tmp, rtype_end, NULL)))
+        (ret = p_cpyExc(in, tmp, name, rType_fname, &ret2, dt)) ||
+        ret2 != err_nameExists ||
+        (ret = p_skpDtU(in, rType_fname, true)) ||
+        (ret = p_cpyExc(in, tmp, name, rType_fname, &ret2, dt)) ||
+        (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
         if(ret == err_rNotFound)
         {
-            if((ret = p_wrtRdg(tmp, rtype_end, NULL)))
+            if((ret = p_wrtRdg(tmp, rType_end, NULL)))
             {
                 P_FREEALL();
                 return ret;

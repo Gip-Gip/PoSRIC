@@ -13,19 +13,19 @@ VARIABLES:
 FILE *in - the file pointer to the archive
 FILE *out - the file pointer to the file being written to
 byte *buffer - the buffer that holds the data returned by p_getRdg
-retval ret - used to hold errors
-rtype ridge - the ridge value
+retVal ret - used to hold errors
+rType ridge - the ridge value
 
 */
 
 #include <p_getFd.h>
 
-retval p_getFd(string inName, string outName, string name, bool overwrite)
+retVal p_getFd(string inName, string outName, string name, bool overwrite)
 {
     FILE *in = fopen(inName, READMODE), *out = NULL;
     byte *buffer = NULL;
-    retval ret;
-    rtype ridge;
+    retVal ret;
+    rType ridge;
 
     P_FTADD(FUNCNAME);
 
@@ -45,7 +45,7 @@ retval p_getFd(string inName, string outName, string name, bool overwrite)
 
     if((ret = p_sCaC(in, NULL)) ||
         (ret = p_skpDtF(in, name)) ||
-        (ret = p_skpDUU(in, rtype_fdata, rtype_fname, false)))
+        (ret = p_skpDUU(in, rType_fdata, rType_fname, false)))
     {
         if(ret == err_brkRidge)
         {

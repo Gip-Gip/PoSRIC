@@ -12,7 +12,7 @@ VARIABLES:
 
 #include <p_sCaC.h>
 
-retval p_sCaC(FILE *in, FILE *out)
+retVal p_sCaC(FILE *in, FILE *out)
 {
     byte sigtest[P_SIGSZ];
 

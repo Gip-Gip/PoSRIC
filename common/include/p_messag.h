@@ -55,7 +55,7 @@ extern char **gargv;
 #endif
 
 #define MSG_SPLASH \
-"\nPoSRIC II.IIV.MMXVI Revision 1\n\
+"\nPoSRIC IIV.I.MMXVII Revision 0\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -A\" to get the list of authors\n\n", PROGNAME
@@ -85,6 +85,8 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_NNOTSET MSG_ERROR("No name in use!")
 #define MSG_FILEEXISTS(file) MSG_ERROR("\"%s\" already exists!"), file
 #define MSG_NAMEEXISTS(name) MSG_ERROR("\"%s\" already exists in archive!"), \
+    name
+#define MSG_DNAMEEXISTS(name) MSG_ERROR("\"%s\" already exists in archive!"), \
     name
 #define MSG_NAMEDEXIST(name) MSG_ERROR("\"%s\" doesn't exist in archive!"), \
     name

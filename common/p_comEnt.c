@@ -16,6 +16,7 @@ string p_comEnt[] = {
     "giveUp",
     "echo",
     "use",
+    "useDir",
     "useName",
     "tmp",
     "format",

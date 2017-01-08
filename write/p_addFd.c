@@ -13,21 +13,21 @@ FILE *in - the archive being read
 FILE *dataFile - the file the data is read from
 FILE *tmp - the file pointer to the temporary file
 byte *buffer - the buffer used for temporarily storing file data
-retval ret - used for holding errors
-retval ret2 - used for checking for a file's existence
+retVal ret - used for holding errors
+retVal ret2 - used for checking for a file's existence
 natural readSize - used to get the size of each fread
 
 */
 
 #include <p_addFd.h>
 
-retval p_addFd(string inName, string tmpName, string name, string fName,
-               bool overwrite, natural buffSz)
+retVal p_addFd(string inName, string tmpName, string name, string fName,
+               bool overwrite, natural buffSz, dirTree dt)
 {
     FILE *in = fopen(inName, READMODE), *dataFile = fopen(name, READMODE),
     *tmp = NULL;
     byte *buffer = calloc(buffSz *= P_RMAXSZ, sizeof(byte));
-    retval ret, ret2;
+    retVal ret, ret2;
     natural readSize;
 
     P_FTADD(FUNCNAME);
@@ -39,7 +39,8 @@ retval p_addFd(string inName, string tmpName, string name, string fName,
         return err_fileExists;
     }
 
-    if(!in || !dataFile || !(tmp = fopen(tmpName, WRITEMODE)))
+    if(!in || !dataFile || !(tmp = fopen(tmpName, WRITEMODE)) ||
+        !P_GDTINIT(inName))
     {
         perror(MSG_PERROR);
         P_FREEALL();
@@ -47,17 +48,18 @@ retval p_addFd(string inName, string tmpName, string name, string fName,
     }
 
     if((ret = p_sCaC(in, tmp)) ||
-        (ret = p_cpyExc(in, tmp, fName, &ret2)) || ret2 != err_nameExists ||
+        (ret = p_cpyExc(in, tmp, fName, rType_fname, &ret2, dt)) ||
+        ret2 != err_nameExists ||
         (ret = p_skpDta(in, true)) ||
-        (ret = p_wrtRdg(tmp, rtype_fname, NULL)) ||
+        (ret = p_wrtRdg(tmp, rType_fname, NULL)) ||
         (ret = p_write((byte *)fName, strlen(fName), tmp)) ||
-        (ret = p_wrtRdg(tmp, rtype_fdata, NULL)))
+        (ret = p_wrtRdg(tmp, rType_fdata, NULL)))
     {
         P_FREEALL();
 
-        if(!ret) ((ret = p_addFn(inName, tmpName, fName, overwrite)) ||
+        if(!ret) ((ret = p_addFn(inName, tmpName, fName, overwrite, dt)) ||
                 (ret = p_addFd( inName, tmpName, name, fName, overwrite,
-                    buffSz / P_RMAXSZ)));
+                    buffSz / P_RMAXSZ, dt)));
 
         return ret;
     }
@@ -77,8 +79,9 @@ retval p_addFd(string inName, string tmpName, string name, string fName,
         return errno;
     }
 
-    if((ret = p_cpyExc(in, tmp, name, &ret2)) || ret2 == err_nameExists ||
-       (ret = p_wrtRdg(tmp, rtype_end, NULL)))
+    if((ret = p_cpyExc(in, tmp, name, rType_fname, &ret2, dt)) ||
+       ret2 == err_nameExists ||
+       (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
         if(!ret) p_print(MSG_NAMEDUPED(name));
 

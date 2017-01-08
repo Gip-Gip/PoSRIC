@@ -11,7 +11,7 @@ VARIABLES:
 natural bytesRead - keeps track of the total amount of bytes read so p_cmpDta
                     can seek back
 byte *buffer - used to compare the data and the archive's data
-rtype ridge - the general ridge variable
+rType ridge - the general ridge variable
 
 */
 
@@ -21,7 +21,7 @@ bool p_cmpDta(byte *data, natural size, FILE *in)
 {
     natural bytesRead = ZERO;
     byte *buffer;
-    rtype ridge;
+    rType ridge;
 
     P_FTADD(FUNCNAME);
 

@@ -9,18 +9,18 @@ VARIABLES:
 FILE *in - the archive file pointer
 byte *buffer - the raw ridge buffer
 string buffer2 - the buffer printed to the screen
-rtype ridge - stores the ridge in use
+rType ridge - stores the ridge in use
 
 */
 
 #include <p_list.h>
 
-retval p_list(string inName)
+retVal p_list(string inName)
 {
     FILE *in = fopen(inName, READMODE);
     byte *buffer = NULL;
     string buffer2 = NULL;
-    rtype ridge;
+    rType ridge;
 
     P_FTADD(FUNCNAME);
 
@@ -33,11 +33,11 @@ retval p_list(string inName)
 
     if((ridge = p_sCaC(in, NULL))) return ridge;
 
-    while(ridge != rtype_end && (buffer = p_getRdg(in, &ridge)) && ridge != rtype_end)
+    while(ridge != rType_end && (buffer = p_getRdg(in, &ridge)) && ridge != rType_end)
     {
         free(buffer);
 
-        while(ridge == rtype_fname && buffer)
+        while(ridge == rType_fname && buffer)
         {
             p_print(MSG_FILEFOUND1);
 

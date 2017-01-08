@@ -31,6 +31,7 @@ MACROS:
 #define READMODE "rb"
 #define WRITEMODE "wb"
 #define ZERO 0
+#define ONE 1
 #define INDEXINIT -1
 #define STRALLOC 1
 #define F_NATURAL "%ld"

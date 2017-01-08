@@ -3,11 +3,11 @@
 ARGUMENTS:
 
 FILE *in - the file being read
-rtype *ret - the ridge value
+rType *ret - the ridge value
 
 VARIABLES:
 
-rtype ridge - the ridge being read
+rType ridge - the ridge being read
 natural chkn - the index that helps go through the data and subtract it from the
                checksum
 fletcher checksum - the ridge checksum
@@ -17,10 +17,12 @@ byte *buffer - the buffer of data being read
 
 #include <p_getRdg.h>
 
-byte *p_getRdg(FILE *in, rtype *ret)
+dirTree p_getRdgDT;
+
+byte *p_getRdg(FILE *in, rType *ret)
 {
-    rtype ridge = READBYTE(in);
-    natural chkn = ridge + P_DCORR;
+    rType ridge = READBYTE(in);
+    natural chkn = ridge + P_DCORR, buffSz;
     fletcher checksum;
     byte *buffer = calloc(P_RMAXSZ, sizeof(byte));
 
@@ -62,6 +64,32 @@ byte *p_getRdg(FILE *in, rtype *ret)
         *ret = err_badFletcher;
         P_FREEALL();
         return NULL;
+    }
+
+    switch(ridge)
+    {
+        case rType_dname:
+            free(buffer);
+
+            if(!(buffer = p_read(in, (retVal *)ret, &buffSz)) ||
+                !(buffer = (byte *)p_dToS(buffer, buffSz, true, (retVal *)ret)) ||
+                !P_DTADD(p_getRdgDT, (string)buffer) || !P_DTCURR(p_getRdgDT))
+            {
+                P_FREEALL();
+                return NULL;
+            }
+
+            free(buffer);
+            break;
+        case rType_dend:
+            if(!P_DTREM(p_getRdgDT) || !P_DTCURR(p_getRdgDT))
+            {
+                P_FREEALL();
+                return NULL;
+            }
+            break;
+        default:
+            break;
     }
 
     P_FTREM(FUNCNAME);

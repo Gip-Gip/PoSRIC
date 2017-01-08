@@ -20,3 +20,5 @@ for arg in $@; do
         exit 1;
     fi
 done
+
+echo "/* EOF */"

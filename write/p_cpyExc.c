@@ -5,12 +5,12 @@ ARGUMENTS:
 FILE *in - a file pointer to the file being read
 FILE *out - a file pointer to the file being written to
 string name - the name of the file to give up on
-retval *retptr - the pointer written to if the file is encountered
+retVal *retptr - the pointer written to if the file is encountered
 
 VARIABLES:
 
-rtype ridge - the ridge being compared to
-retval ret - used to store errors
+rType ridge - the ridge being compared to
+retVal ret - used to store errors
 bool cmpret - used to store values for boolean comparison
 byte *buffer - the ridge buffer
 
@@ -18,11 +18,12 @@ byte *buffer - the ridge buffer
 
 #include <p_cpyExc.h>
 
-retval p_cpyExc(FILE *in, FILE *out, string name, retval *retptr)
+retVal p_cpyExc(FILE *in, FILE *out, string name, rType cmpRdg, retVal *retptr,
+    dirTree dt)
 {
-    rtype ridge;
-    retval ret;
-    bool cmpret;
+    rType ridge;
+    retVal ret;
+    bool cmpret = false;
     byte *buffer;
 
     *retptr = none;
@@ -30,15 +31,16 @@ retval p_cpyExc(FILE *in, FILE *out, string name, retval *retptr)
     P_FTADD(FUNCNAME);
 
     for(buffer = p_getRdg(in, &ridge);
-        !feof(in) && buffer && ridge != rtype_end;
+        !feof(in) && buffer && ridge != rType_end;
         buffer = p_getRdg(in, &ridge))
     {
         if(ridge + P_RTYPECORR <= P_DATA)
             p_wrtRdg(out, ridge + P_RTYPECORR + P_DCORR, buffer);
 
-        else if(ridge == rtype_fname)
+        else if(ridge == cmpRdg)
         {
-            if((cmpret = p_cmpDta((byte *)name, strlen(name), in)) == true)
+            if(P_DTCMP(dt, p_getRdgDT) &&
+                (cmpret = p_cmpDta((byte *)name, strlen(name), in)) == true)
             {
                 *retptr = err_nameExists;
                 P_FREEALL();
@@ -54,7 +56,7 @@ retval p_cpyExc(FILE *in, FILE *out, string name, retval *retptr)
             else if(cmpret == false) p_wrtRdg(out, ridge, NULL);
         }
 
-        else if(ridge == rtype_null && (ret = p_skpDta(in, true)))
+        else if(ridge == rType_null && (ret = p_skpDta(in, true)))
         {
             P_FREEALL();
             return ret;

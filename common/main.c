@@ -23,7 +23,7 @@ string comm - variable used for storing the actual command typed
 string params - the command parameters
 bool freeParams - set during the process of command interpretation; if set
                   params will be freed
-retval ret - used for storing errors
+retVal ret - used for storing errors
 
 */
 
@@ -42,14 +42,15 @@ int main(int argc, char **argv)
     command comID;
     string comm = NULL, params = NULL;
     bool freeParams = true;
-    retval ret = none;
+    retVal ret = none;
+    dirTree currDir;
 
     p_stdin = stdin;
     gargv = argv;
 
     p_print(MSG_SPLASH);
 
-    if(!P_FTINIT() || !P_FTADD(FUNCNAME))
+    if(!P_FTINIT() || !P_FTADD(FUNCNAME) || !P_DTINIT(currDir))
     {
         perror(MSG_PERROR);
         return errno;
@@ -109,7 +110,9 @@ int main(int argc, char **argv)
                 {
                     case(arg_archive):
                         argArchive = true;
+                        if(archiveName) P_DTREM(currDir);
                         archiveName = argv[argn];
+                        P_DTADD(currDir, archiveName);
                         break;
 
                     case(arg_buffSz):
@@ -134,9 +137,9 @@ int main(int argc, char **argv)
                         break;
 
                     case(arg_quickAdd):
-                        if(archiveName && tmpName) ret =
-                            p_addFd(archiveName, tmpName,
-                                argv[argn], argv[argn], overwrite, buffSz);
+                        if(archiveName && tmpName) ret = p_addFd(archiveName,
+                            tmpName, argv[argn], argv[argn], overwrite, buffSz,
+                            currDir);
 
                         if(!archiveName) p_print(MSG_ANOTSET);
                         if(!tmpName) p_print(MSG_TNOTSET);
@@ -222,12 +225,21 @@ int main(int argc, char **argv)
                 break;
 
             case(comm_use):
-                if(archiveName && !argArchive) free(archiveName);
+                if(archiveName)
+                {
+                    if(!argArchive) free(archiveName);
+                    P_DTREM(currDir);
+                }
 
                 argArchive = false;
 
                 archiveName = params;
+                P_DTADD(currDir, params);
+
                 freeParams = false;
+                break;
+            case(comm_useDir):
+                P_DTADD(currDir, params);
                 break;
 
             case(comm_useName):
@@ -271,7 +283,8 @@ int main(int argc, char **argv)
 
             case(comm_addFn):
                 if(archiveName && tmpName && name)
-                    ret = p_addFn(archiveName, tmpName, params, overwrite);
+                    ret = p_addFn(archiveName, tmpName, params, overwrite,
+                        currDir);
 
                 if(!archiveName) p_print(MSG_ANOTSET);
                 if(!tmpName) p_print(MSG_TNOTSET);
@@ -280,7 +293,7 @@ int main(int argc, char **argv)
             case(comm_addFd):
                 if(archiveName && tmpName && name)
                     ret = p_addFd(archiveName, tmpName, params, name, overwrite,
-                    buffSz);
+                        buffSz, currDir);
 
                 if(!archiveName) p_print(MSG_ANOTSET);
                 if(!tmpName) p_print(MSG_TNOTSET);
@@ -289,7 +302,8 @@ int main(int argc, char **argv)
 
             case(comm_rmFile):
                 if(archiveName && tmpName)
-                    ret = p_rmFile(archiveName, tmpName, params, overwrite);
+                    ret = p_rmFile(
+                        archiveName, tmpName, params, overwrite, currDir);
 
                 if(!archiveName) p_print(MSG_ANOTSET);
                 if(!tmpName) p_print(MSG_TNOTSET);
