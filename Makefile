@@ -1,11 +1,11 @@
-cpp=cpp
+cpp=cc -E
 cc=cc
-ar=ar
+intr_ld=ld
 ld=cc
-cppargs=-E -Wall
-ccargs=-g -Wall -c --std=c89
-arargs=-c
-ldargs=-g -lm -Wall
+cppargs=-Wall
+ccargs=-Wall -c
+intr_ldargs=-r
+ldargs=-lm
 cppext=.i
 ccext=.o
 includearg=-I
@@ -42,22 +42,26 @@ all: clean makebdir preargs
 	done
 
 	for file in common/*$(ccext) write/*$(ccext) read/*$(ccext); do \
-		echo $(ar) $(arargs) $(mainobj) $(addarg) "$$file" | tee /dev/stderr |\
-		sh;\
-		if test "$$?" -ne "0"; then\
-			exit 1;\
-		fi;\
+		if test -f "$(mainobj)"; then \
+			echo $(intr_ld) $(intr_ldargs) "$$file" "$(mainobj)" $(outputarg) \
+				"$(mainobj).tmp.o" | tee /dev/stderr | sh; \
+		else \
+			cp "$$file" "$(mainobj).tmp.o"; \
+		fi; \
+		if test "$$?" -ne "0"; then \
+			exit 1; \
+		fi; \
+		mv "$(mainobj).tmp.o" "$(mainobj)"; \
 	done
 
 	$(ld) $(ldargs) $(mainobj) $(outputarg) $(bin)
 
 clean:
-	if [ -f $(mainobj) ]; then rm $(mainobj); fi
-	if [ -f $(bin) ]; then rm $(bin); fi
-	if [ -f $(bin).elf ]; then rm $(bin).elf; fi
+	if [ -f "$(mainobj)" ]; then rm $(mainobj); fi
+	if [ -f "$(bin)" ]; then rm $(bin); fi
 	for file in  common/*$(cppext) common/*$(ccext) read/*$(cppext) \
                  read/*$(ccext) write/*$(cppext) write/*$(ccext); do\
-                 if [ -f $$file ]; then rm $$file; fi; done
+                 if [ -f $$file ]; then rm "$$file"; fi; done
 
 makebdir:
 	if [ ! -d bin ]; then mkdir bin; fi
