@@ -67,6 +67,8 @@ typedef enum {
     err_notFound,
     err_rNotFound,
     err_emptyFile,
+    err_inDir,
+    err_rootParent,
 } retVal;
 
 typedef enum {
@@ -94,10 +96,12 @@ typedef enum {
     comm_use,
     comm_useDir,
     comm_useName,
+    comm_exitDir,
     comm_tmp,
     comm_format,
     comm_list,
     comm_getFd,
+    comm_addDr,
     comm_addFn,
     comm_addFd,
     comm_rmFile,
@@ -119,6 +123,7 @@ typedef struct {
 
 typedef struct {
     string *dirs;
+    bool *freeList;
     natural dirCount;
 } dirTree;
 

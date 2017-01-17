@@ -24,7 +24,7 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
     retVal ret, ret2;
 
-    P_FTADD(FUNCNAME);
+    P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
     if(!overwrite && (tmp = fopen(tmpName, READMODE)))
     {
@@ -40,10 +40,13 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
         return errno;
     }
 
+
     if((ret = p_sCaC(in, tmp)) ||
         (ret = p_cpyExc(in, tmp, name, rType_dname, &ret2, dt)) || ret2 ||
         (ret = p_wrtRdg(tmp, rType_dname, NULL)) ||
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
+        (ret = p_wrtRdg(tmp, rType_dend, NULL)) ||
+        (ret2 == err_inDir ? (ret = p_copy(in, tmp)) : none) ||
         (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
         if(ret2 == err_nameExists) p_print(MSG_DNAMEEXISTS(name));

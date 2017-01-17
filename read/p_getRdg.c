@@ -19,12 +19,17 @@ byte *buffer - the buffer of data being read
 
 dirTree p_getRdgDT;
 
+struct status {
+    bool readingDir;
+} p_getRdgStatus;
+
 byte *p_getRdg(FILE *in, rType *ret)
 {
     rType ridge = READBYTE(in);
     natural chkn = ridge + P_DCORR, buffSz;
     fletcher checksum;
     byte *buffer = calloc(P_RMAXSZ, sizeof(byte));
+    string dirBuffer;
 
     P_FTADD(FUNCNAME);
 
@@ -33,6 +38,7 @@ byte *p_getRdg(FILE *in, rType *ret)
     if(!buffer || ferror(in))
     {
         perror(MSG_PERROR);
+        if(!buffer) p_print(MSG_ERROR("ferror"));
         *ret = errno;
         P_FREEALL();
         return NULL;
@@ -66,28 +72,26 @@ byte *p_getRdg(FILE *in, rType *ret)
         return NULL;
     }
 
-    switch(ridge)
+    switch(ridge - P_RTYPECORR)
     {
         case rType_dname:
-            free(buffer);
-
-            if(!(buffer = p_read(in, (retVal *)ret, &buffSz)) ||
-                !(buffer = (byte *)p_dToS(buffer, buffSz, true, (retVal *)ret)) ||
-                !P_DTADD(p_getRdgDT, (string)buffer) || !P_DTCURR(p_getRdgDT))
+            p_getRdgStatus.readingDir = true;
+            if(!(dirBuffer = (string)p_read(in, (retVal *)ret, &buffSz)) ||
+                !(dirBuffer = p_dToS(
+                    (byte *)dirBuffer, buffSz, true, (retVal *)ret)))
             {
                 P_FREEALL();
                 return NULL;
             }
+            P_DTADD(p_getRdgDT, dirBuffer, true);
 
-            free(buffer);
+            p_getRdgStatus.readingDir = false;
             break;
+
         case rType_dend:
-            if(!P_DTREM(p_getRdgDT) || !P_DTCURR(p_getRdgDT))
-            {
-                P_FREEALL();
-                return NULL;
-            }
+            if(p_getRdgStatus.readingDir == false) P_DTREM(p_getRdgDT, NULL);
             break;
+
         default:
             break;
     }

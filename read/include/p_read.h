@@ -14,7 +14,8 @@ MACROS:
 
 #include <p_messag.h>
 
-#define P_FREEALL() if(preBuff) free(preBuff); if(buffer) free(buffer);
+#define P_FREEALL() if(preBuff) free(preBuff); if(buffer) free(buffer); \
+                    P_FTREM(FUNCNAME);
 
 #define P_READ_H NULL
 #endif

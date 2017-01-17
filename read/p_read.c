@@ -19,6 +19,7 @@ byte *p_read(FILE *in, retVal *ret, natural *size)
 {
     byte *preBuff, *buffer = calloc(STRALLOC, sizeof(char));
     rType rSize;
+    natural bytesRead = ZERO;
 
     *size = ZERO;
 
@@ -27,7 +28,7 @@ byte *p_read(FILE *in, retVal *ret, natural *size)
     while((preBuff = p_getRdg(in, &rSize)) && (rSize += P_RTYPECORR) <= P_DATA)
     {
         if(!(buffer = realloc(buffer, *size += (rSize += P_DCORR))) ||
-            memcpy(buffer + (*size - rSize), preBuff, rSize))
+            !memcpy(buffer + (*size - rSize), preBuff, rSize))
         {
             perror(MSG_PERROR);
             P_FREEALL();
@@ -35,8 +36,24 @@ byte *p_read(FILE *in, retVal *ret, natural *size)
             return NULL;
         }
 
+        bytesRead += rSize + P_RMINRD;
+
         free(preBuff);
     }
+
+    if(!preBuff)
+    {
+        perror(MSG_PERROR);
+        *ret = errno;
+        P_FREEALL();
+        return NULL;
+    }
+
+    free(preBuff);
+
+    fseek(in, -(P_RMINRD + bytesRead), SEEK_CUR);
+
+    P_FTREM(FUNCNAME);
 
     return buffer;
 }

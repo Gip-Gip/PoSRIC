@@ -30,7 +30,7 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
     retVal ret, ret2;
     natural readSize;
 
-    P_FTADD(FUNCNAME);
+    P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
     if(!overwrite && (tmp = fopen(tmpName, READMODE)))
     {
@@ -39,8 +39,7 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
         return err_fileExists;
     }
 
-    if(!in || !dataFile || !(tmp = fopen(tmpName, WRITEMODE)) ||
-        !P_GDTINIT(inName))
+    if(!in || !dataFile || !(tmp = fopen(tmpName, WRITEMODE)))
     {
         perror(MSG_PERROR);
         P_FREEALL();
@@ -56,10 +55,17 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
         (ret = p_wrtRdg(tmp, rType_fdata, NULL)))
     {
         P_FREEALL();
+        if(!ret)
+        {
+            P_FTADD(FUNCNAME);
+            in = NULL, tmp = NULL;
+            ret = p_addFn(inName, tmpName, fName, overwrite, dt);
 
-        if(!ret) ((ret = p_addFn(inName, tmpName, fName, overwrite, dt)) ||
-                (ret = p_addFd( inName, tmpName, name, fName, overwrite,
-                    buffSz / P_RMAXSZ, dt)));
+            if(!ret)
+                ret = p_addFd( inName, tmpName, name, fName, overwrite,
+                    buffSz / P_RMAXSZ, dt);
+            P_FTREM(FUNCNAME);
+        }
 
         return ret;
     }

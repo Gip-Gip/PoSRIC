@@ -110,9 +110,9 @@ int main(int argc, char **argv)
                 {
                     case(arg_archive):
                         argArchive = true;
-                        if(archiveName) P_DTREM(currDir);
+                        if(archiveName) P_DTREM(currDir, err_rootParent);
                         archiveName = argv[argn];
-                        P_DTADD(currDir, archiveName);
+                        P_DTADD(currDir, archiveName, false);
                         break;
 
                     case(arg_buffSz):
@@ -220,6 +220,10 @@ int main(int argc, char **argv)
                 P_FREEALL();
                 return none;
 
+            case(comm_exitDir):
+                P_DTREM(currDir, err_rootParent);
+                break;
+
             case(comm_echo):
                 p_print(MSG_ECHO);
                 break;
@@ -228,18 +232,19 @@ int main(int argc, char **argv)
                 if(archiveName)
                 {
                     if(!argArchive) free(archiveName);
-                    P_DTREM(currDir);
+                    P_DTREM(currDir, err_rootParent);
                 }
 
                 argArchive = false;
 
                 archiveName = params;
-                P_DTADD(currDir, params);
+                P_DTADD(currDir, params, false);
 
                 freeParams = false;
                 break;
             case(comm_useDir):
-                P_DTADD(currDir, params);
+                P_DTADD(currDir, params, true);
+                freeParams = false;
                 break;
 
             case(comm_useName):
@@ -281,8 +286,17 @@ int main(int argc, char **argv)
                 if(!name) p_print(MSG_NNOTSET);
                 break;
 
-            case(comm_addFn):
+            case(comm_addDr):
                 if(archiveName && tmpName && name)
+                    ret = p_addDr(archiveName, tmpName, params, overwrite,
+                        currDir);
+
+                if(!archiveName) p_print(MSG_ANOTSET);
+                if(!tmpName) p_print(MSG_TNOTSET);
+                break;
+
+            case(comm_addFn):
+                if(archiveName && tmpName)
                     ret = p_addFn(archiveName, tmpName, params, overwrite,
                         currDir);
 

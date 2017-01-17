@@ -40,14 +40,16 @@ MSG_INFON(MSG) - ditto, except without a newline at the end
 extern char **gargv;
 
 #ifdef BASHCOLOR
-#define MSG_ERROR(MSG) ("%v%s%v\033[1;31mERROR: \033[0;31m" MSG "\033[0m\n"), \
-    P_FT
-#define MSG_INFO(MSG) ("%v%s%v\033[1;37mINFO: \033[0;37m" MSG "\033[0m\n"), P_FT
-#define MSG_INFON(MSG) ("%v%s%v\033[1;37mINFO: \033[0;37m" MSG "\033[0m"), P_FT
+#define MSG_ERROR(MSG) \
+    ("%v%s(%n)%v\033[1;31mERROR: \033[0;31m" MSG "\033[0m\n"),P_FT, __LINE__
+#define MSG_INFO(MSG) \
+    ("%v%s(%n)%v\033[1;37mINFO: \033[0;37m" MSG "\033[0m\n"), P_FT, __LINE__
+#define MSG_INFON(MSG) \
+    ("%v%s(%n)%v\033[1;37mINFO: \033[0;37m" MSG "\033[0m"), P_FT, __LINE__
 #else
-#define MSG_ERROR(MSG) ("%v%s%vERROR: " MSG "\n"), P_FT
-#define MSG_INFO(MSG) ("%v%s%vINFO: " MSG "\n"), P_FT
-#define MSG_INFON(MSG) ("%v%s%vINFO: " MSG), P_FT
+#define MSG_ERROR(MSG) ("%v%s(%n)%vERROR: " MSG "\n"), P_FT, __LINE__
+#define MSG_INFO(MSG) ("%v%s(%n)%vINFO: " MSG "\n"), P_FT, __LINE__
+#define MSG_INFON(MSG) ("%v%s(%n)%vINFO: " MSG), P_FT, __LINE__
 #endif
 
 #ifndef PROGNAME
@@ -55,7 +57,7 @@ extern char **gargv;
 #endif
 
 #define MSG_SPLASH \
-"\nPoSRIC IIV.I.MMXVII Revision 0\n\
+"\nPoSRIC IIV.II.MMXVII Revision 0\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -A\" to get the list of authors\n\n", PROGNAME
@@ -100,6 +102,7 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_BADFLETCHER MSG_ERROR("Invalid fletcher checksum!\n")
 #define MSG_BADSIG MSG_ERROR("Archive has a bad signature!")
 #define MSG_EMPTYFILE(name) MSG_ERROR("\"%s\" is an empty file!"), name
+#define MSG_ROOTPARENT MSG_ERROR("Root directory lacks a parent!")
 
 #define MESSAGES_H NULL
 #endif

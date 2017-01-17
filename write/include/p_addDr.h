@@ -15,9 +15,7 @@ MACROS:
 #include <p_dir.h>
 
 #define P_FREEALL() if(in) {fclose(in);in = NULL;} \
-                    if(tmp) {fclose(tmp);tmp = NULL; if(overwrite && \
-                        remove(tmpName)) {perror(MSG_PERROR);P_FTREM(FUNCNAME);\
-                            return errno;}} \
+                    if(tmp) {fclose(tmp);tmp = NULL;} \
                     P_FTREM(FUNCNAME); P_DTDINIT(p_getRdgDT);
 
 #define P_ADDDR_H_H NULL

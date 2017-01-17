@@ -25,7 +25,7 @@ retVal p_addFn(string inName, string tmpName, string name, bool overwrite,
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
     retVal ret, ret2;
 
-    P_FTADD(FUNCNAME);
+    P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
     if(!overwrite && (tmp = fopen(tmpName, READMODE)))
     {
@@ -34,7 +34,7 @@ retVal p_addFn(string inName, string tmpName, string name, bool overwrite,
         return err_fileExists;
     }
 
-    if(!in || !(tmp = fopen(tmpName, WRITEMODE)) || !P_GDTINIT(inName))
+    if(!in || !(tmp = fopen(tmpName, WRITEMODE)))
     {
         perror(MSG_PERROR);
         P_FREEALL();
@@ -42,9 +42,11 @@ retVal p_addFn(string inName, string tmpName, string name, bool overwrite,
     }
 
     if((ret = p_sCaC(in, tmp)) ||
-        (ret = p_cpyExc(in, tmp, name, rType_fname, &ret2, dt)) || ret2 ||
+        (ret = p_cpyExc(in, tmp, name, rType_fname, &ret2, dt)) ||
+        ret2 == err_nameExists ||
         (ret = p_wrtRdg(tmp, rType_fname, NULL)) ||
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
+        (ret2 == err_inDir ? (ret = p_copy(in, tmp)) : none) ||
         (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
         if(ret2 == err_nameExists) p_print(MSG_NAMEEXISTS(name));

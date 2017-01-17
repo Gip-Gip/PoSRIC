@@ -23,7 +23,7 @@ retVal p_cpyExc(FILE *in, FILE *out, string name, rType cmpRdg, retVal *retptr,
 {
     rType ridge;
     retVal ret;
-    bool cmpret = false;
+    bool cmpret = false, inDir = false;
     byte *buffer;
 
     *retptr = none;
@@ -34,26 +34,42 @@ retVal p_cpyExc(FILE *in, FILE *out, string name, rType cmpRdg, retVal *retptr,
         !feof(in) && buffer && ridge != rType_end;
         buffer = p_getRdg(in, &ridge))
     {
+        if(P_DTCMP(dt, p_getRdgDT) && !inDir) inDir = true;
+
+        else if(!P_DTCMP(dt, p_getRdgDT) && inDir)
+        {
+            fseek(in, -P_RMINRD, SEEK_CUR);
+            P_DTDINIT(p_getRdgDT);
+            P_DTCOPY(p_getRdgDT, dt);
+            *retptr = err_inDir;
+            P_FREEALL();
+            return none;
+        }
+
         if(ridge + P_RTYPECORR <= P_DATA)
             p_wrtRdg(out, ridge + P_RTYPECORR + P_DCORR, buffer);
 
         else if(ridge == cmpRdg)
         {
-            if(P_DTCMP(dt, p_getRdgDT) &&
-                (cmpret = p_cmpDta((byte *)name, strlen(name), in)) == true)
+            if(inDir)
             {
-                *retptr = err_nameExists;
-                P_FREEALL();
-                return none;
+                if((cmpret = p_cmpDta((byte *)name, strlen(name), in)) == true)
+                {
+                    *retptr = err_nameExists;
+                    P_FREEALL();
+                    return none;
+                }
+
+                else if(cmpret == neither)
+                {
+                    P_FREEALL();
+                    return err_unknown;
+                }
+
+                else p_wrtRdg(out, ridge, NULL);
             }
 
-            else if(cmpret == neither)
-            {
-                P_FREEALL();
-                return err_unknown;
-            }
-
-            else if(cmpret == false) p_wrtRdg(out, ridge, NULL);
+            else p_wrtRdg(out, ridge, NULL);
         }
 
         else if(ridge == rType_null && (ret = p_skpDta(in, true)))

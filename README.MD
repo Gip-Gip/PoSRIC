@@ -9,13 +9,13 @@ both beginners and DOS dwellers can use.
 
 ##What are the current features?
 
-As of Version II.IIV.MMXVI Revision 1 there is
+As of Version IIV.II.MMXVII Revision 0 there is
 
  * Basic stdio command interpretation
  * Basic scripting
- * Basic archive handling
+ * Basic archive handling with directory support
  * BASH colors
- * DOS and Linux Compatability
+ * DOS, Linux and Intel Mac Compatability
 
 ##Where can I find more info?
 
@@ -41,13 +41,12 @@ PoSRIC
 
  * The Versioning scheme is [Inf. Version].[Annual Version].[Year] in roman
    numerals
-     * The Infinitive Version is incremented every
- large change, such as when
-       PoSRIC became capable of IO with RiPorFS it was incremented from I to II
+     * The Infinitive Version is incremented every large change, such as when
+     PoSRIC became capable of IO with RiPorFS it was incremented from I to II
      * The Annual Version is incremented with the Infinitive Version and every
        large update which isn't drastic enough to increment the Infinitive
        Version. It is reset to one annually
- * PoSRIC has been tested on Debian and DOSBOX
- * As of Version IIV.I.MMXVII Revision 0 the line count is 1,588 (using
+ * PoSRIC has been tested on Debian, DOSBOX, and Mac OS 10.6.8
+ * As of Version IIV.II.MMXVII Revision 0 the line count is 1,722 (using
    sloccount)
 

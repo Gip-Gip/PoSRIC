@@ -19,7 +19,9 @@ string p_dToS(byte *data, natural size, bool freeData, retVal *ret)
 {
     string stringRet = calloc(size + STRALLOC, sizeof(character));
 
-    if(!ret || memcpy(stringRet, data, size))
+    P_FTADD(FUNCNAME);
+
+    if(!ret || !memcpy(stringRet, data, size))
     {
         perror(MSG_PERROR);
         *ret = errno;
@@ -27,6 +29,8 @@ string p_dToS(byte *data, natural size, bool freeData, retVal *ret)
     }
 
     if(freeData) free(data);
+
+    P_FTREM(FUNCNAME);
 
     return stringRet;
 }

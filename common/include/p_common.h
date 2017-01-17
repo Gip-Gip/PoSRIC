@@ -42,6 +42,7 @@ extern retVal p_skpDUU(FILE *, rType, rType, bool);
 extern retVal p_addFn(string, string, string, bool, dirTree);
 extern retVal p_addFd(string, string, string, string, bool, natural, dirTree);
 extern retVal p_cpyExc(FILE *, FILE *, string, rType, retVal *, dirTree);
+extern retVal p_copy(FILE *, FILE *);
 extern retVal p_format(string, bool);
 extern retVal p_rmFile(string, string, string, bool, dirTree);
 extern retVal p_write(byte *, natural, FILE *);

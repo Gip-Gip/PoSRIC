@@ -1,26 +1,40 @@
-#:Here's an example PoSRIC script with all the current commands, along with a
-few planned commands;
-
-echo:Example POSRIC Script%v v1%v!;
+echo:Example PoSRIC Script%v Version 2%v!;
 echo:;
-echo:Using example.rpf%v and the temporary file tmp.rpf;
 
+echo:Using files example.rpf and tmp.rpf...;
 use:example.rpf;
 tmp:tmp.rpf;
 
+echo:Testing formatting...;
 format:;
-tmp:tmp.rpf;
-addFn:Hello, ;
-addFn:World!;
-addFn:World!;
-useName:Hello, ;
+giveUp:Test Failed!;
+
+echo:Testing addFn...;
+addFn:hello.txt;
+giveUp:Test Failed!;
+
+echo:Testing rmFile...;
+rmFile:hello.txt;
+giveUp:Test Failed!;
+
+echo:Testing addFd...;
+useName:example;
+giveUp:Test Failed!;
 addFd:example;
-rmFile:World!;
-useName:layout.png;
-addFd:layout.png;
-getFd:layout2.png;
-useDir:Foo;
-rmFile:layout.png;
-list:;
-use:exampl.rpf;
-addFn:World!;
+giveUp:Test Failed!;
+
+echo:Testing addDir...;
+addDir:fooDir;
+useDir:fooDir;
+giveUp:Test Failed!;
+addFn:hello.txt;
+giveUp:Test Failed!;
+
+echo:Testing exitDir...;
+exitDir:;
+giveUp:Test Failed!;
+addFn:world.txt;
+giveUp:Test Failed!;
+
+echo:Done!;
+exit:;
