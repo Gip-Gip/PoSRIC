@@ -22,7 +22,7 @@ retVal p_list(string inName)
     string buffer2 = NULL;
     rType ridge;
 
-    P_FTADD(FUNCNAME);
+    P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
     if(!in)
     {
@@ -33,34 +33,48 @@ retVal p_list(string inName)
 
     if((ridge = p_sCaC(in, NULL))) return ridge;
 
+    p_print("%s\n", inName);
+
     while(ridge != rType_end && (buffer = p_getRdg(in, &ridge)) && ridge != rType_end)
     {
         free(buffer);
 
-        while(ridge == rType_fname && buffer)
+        while((ridge == rType_dname || ridge == rType_fname) && buffer)
         {
             p_print(MSG_FILEFOUND1);
 
-            while((buffer = p_getRdg(in, &ridge)) &&
-                (ridge += P_RTYPECORR) <= P_DATA)
+            if(ridge == rType_dname)
             {
-                if(!(buffer2 = calloc(
-                        (ridge += P_DCORR) + STRALLOC, sizeof(string)))
-                    || !memcpy(buffer2, buffer, ridge))
+                p_getRdgDT.dirCount --;
+                p_print(MSG_FILEFOUND1);
+                p_getRdgDT.dirCount ++;
+                p_print("%s", P_DTCURR(p_getRdgDT));
+            }
+
+            else
+            {   while((buffer = p_getRdg(in, &ridge)) &&
+                    (ridge += P_RTYPECORR) <= P_DATA)
                 {
-                    perror(MSG_PERROR);
-                    P_FREEALL();
-                    return errno;
+                    if(!(buffer2 = calloc(
+                            (ridge += P_DCORR) + STRALLOC, sizeof(string)))
+                        || !memcpy(buffer2, buffer, ridge))
+                    {
+                        perror(MSG_PERROR);
+                        P_FREEALL();
+                        return errno;
+                    }
+
+                    p_print(buffer2);
+                    free(buffer);
+                    free(buffer2); buffer2 = NULL;
                 }
 
-                p_print(buffer2);
-                free(buffer);
-                free(buffer2); buffer2 = NULL;
+                if(buffer) free(buffer);
             }
 
             p_print(MSG_FILEFOUND2);
 
-            if(buffer) free(buffer);
+            ridge -= P_RTYPECORR;
         }
     }
 

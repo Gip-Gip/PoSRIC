@@ -17,6 +17,7 @@ MACROS:
 #include <p_fncTrk.h>
 
 extern FILE *p_stdin;
+extern bool p_dontRecDir;
 
 extern int main(int, char **);
 extern string p_dToS(byte *, natural, bool, retVal *);

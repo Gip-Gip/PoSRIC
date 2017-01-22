@@ -57,7 +57,7 @@ extern char **gargv;
 #endif
 
 #define MSG_SPLASH \
-"\nPoSRIC IIV.II.MMXVII Revision 0\n\
+"\nPoSRIC IIV.IIV.MMXVII Revision 0\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -A\" to get the list of authors\n\n", PROGNAME
@@ -94,7 +94,7 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
     name
 #define MSG_NAMEDUPED(name) MSG_ERROR("\"%s\" appeared twice in the archive!"),\
     name
-#define MSG_FILEFOUND1 MSG_INFON("Found file ")
+#define MSG_FILEFOUND1 "%s\r%#|-", "| ", p_getRdgDT.dirCount - 1
 #define MSG_FILEFOUND2 "\n"
 #define MSG_ECHO "%v%s%v%s\n", P_FT, params
 #define MSG_BADCOMM MSG_ERROR("Unknown command \"%s\"\n"), comm

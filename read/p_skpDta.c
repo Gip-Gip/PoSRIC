@@ -19,6 +19,8 @@ retVal p_skpDta(FILE *in, bool seekBack)
     rType ridge;
     byte *ret;
 
+    p_dontRecDir = true;
+
     P_FTADD(FUNCNAME);
 
     while((ret = p_getRdg(in, &ridge)) &&
@@ -33,9 +35,9 @@ retVal p_skpDta(FILE *in, bool seekBack)
         return err_unknown;
     }
 
-    P_FREEALL();
-
     if(seekBack) fseek(in, -P_RMINRD, SEEK_CUR);
+
+    P_FREEALL();
 
     return none;
 }

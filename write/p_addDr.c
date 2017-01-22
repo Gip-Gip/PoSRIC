@@ -19,7 +19,7 @@ retVal ret2 - used to check if the file already exists
 #include <p_addDr.h>
 
 retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
-               dirTree dt)
+    dirTree dt)
 {
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
     retVal ret, ret2;
@@ -40,16 +40,16 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
         return errno;
     }
 
-
     if((ret = p_sCaC(in, tmp)) ||
-        (ret = p_cpyExc(in, tmp, name, rType_dname, &ret2, dt)) || ret2 ||
+        (ret = p_cpyExc(in, tmp, name, rType_dname, &ret2, dt)) ||
+        ret2 == err_nameExists ||
         (ret = p_wrtRdg(tmp, rType_dname, NULL)) ||
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
         (ret = p_wrtRdg(tmp, rType_dend, NULL)) ||
         (ret2 == err_inDir ? (ret = p_copy(in, tmp)) : none) ||
         (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
-        if(ret2 == err_nameExists) p_print(MSG_DNAMEEXISTS(name));
+        if(ret2 == err_nameExists) p_print(MSG_NAMEEXISTS(name));
 
         P_FREEALL();
 

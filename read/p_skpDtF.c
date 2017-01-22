@@ -43,5 +43,6 @@ retVal p_skpDtF(FILE *in, string name)
 
     p_print(MSG_NAMEDEXIST(name));
     P_FREEALL();
+
     return err_notFound;
 }

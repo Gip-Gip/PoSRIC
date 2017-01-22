@@ -22,10 +22,10 @@ natural num - used for natural conversions
 void p_print(string format, ...)
 {
     va_list arglist;
-    string history = NULL, *mass;
+    string history = NULL;
     bool freeHistory = false, verboseActive = false;
     character chr[] = {0, 0};
-    natural num = 1, massn;
+    natural num = 1;
 
     va_start(arglist, format);
 
@@ -71,21 +71,20 @@ void p_print(string format, ...)
                 if(verbose || !verboseActive) p_print(history);
 
                 break;
-            case(PRINT_STYLMASS):
-                mass = va_arg(arglist, string *);
-                massn = va_arg(arglist, natural);
-
-                while(massn --)
-                {
-                    p_print("%s, ", mass[massn]);
-                }
-                break;
 
             case(PRINT_STYLVERB):
                 verboseActive = !verboseActive;
                 break;
             case(PRINT_STYLPREV):
                 if((verbose || !verboseActive) && history) p_print(history);
+                break;
+            case(PRINT_STYLNPREV):
+                if((verbose || !verboseActive) && history)
+                {
+                    num = va_arg(arglist, natural);
+                    while(num --) p_print(history);
+                    num = 1;
+                }
                 break;
         }
 

@@ -1,0 +1,4 @@
+#################### Additions in IIV.IIV.MMXVII Revision 0 ####################
+
+ * Fixed bugs regarding directories
+ * Improved readablility of list's output

@@ -85,12 +85,9 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
         return errno;
     }
 
-    if((ret = p_cpyExc(in, tmp, name, rType_fname, &ret2, dt)) ||
-       ret2 == err_nameExists ||
+    if((ret = p_copy(in, tmp)) ||
        (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
-        if(!ret) p_print(MSG_NAMEDUPED(name));
-
         P_FREEALL();
 
         return ret ? ret : err_nameDuped;

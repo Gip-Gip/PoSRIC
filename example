@@ -25,8 +25,8 @@ giveUp:Test Failed!;
 
 echo:Testing addDir...;
 addDir:fooDir;
-useDir:fooDir;
 giveUp:Test Failed!;
+useDir:fooDir;
 addFn:hello.txt;
 giveUp:Test Failed!;
 
@@ -35,6 +35,25 @@ exitDir:;
 giveUp:Test Failed!;
 addFn:world.txt;
 giveUp:Test Failed!;
+
+echo:Checking multi-directory support...;
+addDir:barDir;
+giveUp:Test Failed!;
+useDir:barDir;
+useName:layout.png;
+addFd:layout.png;
+giveUp:Test Failed!;
+
+echo:Checking subdirectory support...;
+addDir:bazDir;
+giveUp:Test Failed! A;
+useDir:bazDir;
+useName:README.MD;
+addFd:README.MD;
+giveUp:Test Failed!;
+
+echo:Testing list...;
+list:;
 
 echo:Done!;
 exit:;

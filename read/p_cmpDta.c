@@ -23,6 +23,8 @@ bool p_cmpDta(byte *data, natural size, FILE *in)
     byte *buffer;
     rType ridge;
 
+    p_dontRecDir = true;
+
     P_FTADD(FUNCNAME);
 
     for(buffer = p_getRdg(in, &ridge),

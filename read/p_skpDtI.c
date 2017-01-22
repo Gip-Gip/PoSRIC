@@ -21,6 +21,8 @@ retVal p_skpDtI(FILE *in, rType cmpridge, bool seekBack)
     rType ridge;
     byte *ret;
 
+    p_dontRecDir = true;
+
     P_FTADD(FUNCNAME);
 
     while((ret = p_getRdg(in, &ridge)) &&

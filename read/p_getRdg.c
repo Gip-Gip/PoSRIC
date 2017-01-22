@@ -23,6 +23,8 @@ struct status {
     bool readingDir;
 } p_getRdgStatus;
 
+bool p_dontRecDir = false;
+
 byte *p_getRdg(FILE *in, rType *ret)
 {
     rType ridge = READBYTE(in);
@@ -38,7 +40,6 @@ byte *p_getRdg(FILE *in, rType *ret)
     if(!buffer || ferror(in))
     {
         perror(MSG_PERROR);
-        if(!buffer) p_print(MSG_ERROR("ferror"));
         *ret = errno;
         P_FREEALL();
         return NULL;
@@ -72,7 +73,7 @@ byte *p_getRdg(FILE *in, rType *ret)
         return NULL;
     }
 
-    switch(ridge - P_RTYPECORR)
+    if(!p_dontRecDir) switch(ridge - P_RTYPECORR)
     {
         case rType_dname:
             p_getRdgStatus.readingDir = true;
@@ -84,12 +85,12 @@ byte *p_getRdg(FILE *in, rType *ret)
                 return NULL;
             }
             P_DTADD(p_getRdgDT, dirBuffer, true);
-
-            p_getRdgStatus.readingDir = false;
             break;
 
         case rType_dend:
-            if(p_getRdgStatus.readingDir == false) P_DTREM(p_getRdgDT, NULL);
+            *ret = err_rootParent;
+            P_DTREM(p_getRdgDT, NULL);
+            *ret = rType_dend;
             break;
 
         default:
@@ -97,6 +98,8 @@ byte *p_getRdg(FILE *in, rType *ret)
     }
 
     P_FTREM(FUNCNAME);
+
+    *ret = ridge - P_RTYPECORR;
 
     return buffer;
 }

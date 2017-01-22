@@ -22,6 +22,7 @@ byte *p_read(FILE *in, retVal *ret, natural *size)
     natural bytesRead = ZERO;
 
     *size = ZERO;
+    p_dontRecDir = true;
 
     P_FTADD(FUNCNAME);
 
@@ -54,6 +55,8 @@ byte *p_read(FILE *in, retVal *ret, natural *size)
     fseek(in, -(P_RMINRD + bytesRead), SEEK_CUR);
 
     P_FTREM(FUNCNAME);
+
+    p_dontRecDir = false;
 
     return buffer;
 }
