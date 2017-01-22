@@ -40,6 +40,7 @@ extern retVal p_skpDtI(FILE *, rType, bool);
 extern retVal p_skpDtU(FILE *, rType, bool);
 extern retVal p_skpDtF(FILE *, string);
 extern retVal p_skpDUU(FILE *, rType, rType, bool);
+extern retVal p_addDr(string, string, string, bool, dirTree);
 extern retVal p_addFn(string, string, string, bool, dirTree);
 extern retVal p_addFd(string, string, string, string, bool, natural, dirTree);
 extern retVal p_cpyExc(FILE *, FILE *, string, rType, retVal *, dirTree);
