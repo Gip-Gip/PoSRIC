@@ -70,6 +70,7 @@ retVal p_list(string inName)
                 }
 
                 if(buffer) free(buffer);
+                buffer = NULL;
             }
 
             p_print(MSG_FILEFOUND2);
