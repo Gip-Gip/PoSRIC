@@ -21,6 +21,7 @@ retVal p_list(string inName)
     byte *buffer = NULL;
     string buffer2 = NULL;
     rType ridge;
+    retVal ret = none;
 
     P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
@@ -35,7 +36,9 @@ retVal p_list(string inName)
 
     p_print("%s\n", inName);
 
-    while(ridge != rType_end && (buffer = p_getRdg(in, &ridge)) && ridge != rType_end)
+    while(ridge != rType_end &&
+          (buffer = p_getRdg(in, &ridge)) &&
+          ridge != rType_end)
     {
         free(buffer);
 
@@ -52,25 +55,23 @@ retVal p_list(string inName)
             }
 
             else
-            {   while((buffer = p_getRdg(in, &ridge)) &&
-                    (ridge += P_RTYPECORR) <= P_DATA)
+            {
+                while((buffer = p_getRdg(in, &ridge)) &&
+                      (ridge += P_RTYPECORR) <= P_DATA &&
+                      (buffer = p_dToS(buffer, ridge + P_DCORR, true, &ret)))
                 {
-                    if(!(buffer2 = calloc(
-                            (ridge += P_DCORR) + STRALLOC, sizeof(string)))
-                        || !memcpy(buffer2, buffer, ridge))
-                    {
-                        perror(MSG_PERROR);
-                        P_FREEALL();
-                        return errno;
-                    }
-
-                    p_print(buffer2);
+                    p_print(buffer);
                     free(buffer);
-                    free(buffer2); buffer2 = NULL;
+                }
+
+                if(ret)
+                {
+                    P_FREEALL();
+                    return ret;
                 }
 
                 if(buffer) free(buffer);
-                buffer = NULL;
+                if(ridge == rType_end) buffer = NULL;
             }
 
             p_print(MSG_FILEFOUND2);
