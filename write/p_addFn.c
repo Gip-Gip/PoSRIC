@@ -43,13 +43,14 @@ retVal p_addFn(string inName, string tmpName, string name, bool overwrite,
 
     if((ret = p_sCaC(in, tmp)) ||
         (ret = p_cpyExc(in, tmp, name, rType_fname, &ret2, dt)) ||
-        ret2 == err_nameExists ||
+        ret2 == err_nameExists || !P_DTCMP(dt, p_getRdgDT) ||
         (ret = p_wrtRdg(tmp, rType_fname, NULL)) ||
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
         (ret2 == err_inDir ? (ret = p_copy(in, tmp)) : none) ||
         (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
         if(ret2 == err_nameExists) p_print(MSG_NAMEEXISTS(name));
+        else if(!P_DTCMP(dt, p_getRdgDT)) p_print(MSG_DIRDEXIST(dt));
 
         P_FREEALL();
 

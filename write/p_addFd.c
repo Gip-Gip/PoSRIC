@@ -14,7 +14,7 @@ FILE *dataFile - the file the data is read from
 FILE *tmp - the file pointer to the temporary file
 byte *buffer - the buffer used for temporarily storing file data
 retVal ret - used for holding errors
-retVal ret2 - used for checking for a file's existence
+retVal cmpret - used for checking for a file's existence
 natural readSize - used to get the size of each fread
 
 */
@@ -27,7 +27,7 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
     FILE *in = fopen(inName, READMODE), *dataFile = fopen(name, READMODE),
     *tmp = NULL;
     byte *buffer = calloc(buffSz *= P_RMAXSZ, sizeof(byte));
-    retVal ret, ret2;
+    retVal ret, cmpret;
     natural readSize;
 
     P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
@@ -47,16 +47,16 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
     }
 
     if((ret = p_sCaC(in, tmp)) ||
-        (ret = p_cpyExc(in, tmp, fName, rType_fname, &ret2, dt)) ||
-        ret2 != err_nameExists ||
+        (ret = p_cpyExc(in, tmp, fName, rType_fname, &cmpret, dt)) ||
+        cmpret != err_nameExists ||
         (ret = p_skpDta(in, true)) ||
         (ret = p_wrtRdg(tmp, rType_fname, NULL)) ||
         (ret = p_write((byte *)fName, strlen(fName), tmp)) ||
         (ret = p_wrtRdg(tmp, rType_fdata, NULL)))
     {
-        P_FREEALL();
-        if(!ret)
+        if(!ret && P_DTCMP(dt, p_getRdgDT))
         {
+            P_FREEALL();
             P_FTADD(FUNCNAME);
             in = NULL, tmp = NULL;
             ret = p_addFn(inName, tmpName, fName, overwrite, dt);
@@ -66,6 +66,15 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
                     buffSz / P_RMAXSZ, dt);
             P_FTREM(FUNCNAME);
         }
+
+        else if(!ret)
+        {
+            p_print(MSG_DIRDEXIST(dt));
+            P_FREEALL();
+            return err_dirDexist;
+        }
+
+        else P_FREEALL();
 
         return ret;
     }

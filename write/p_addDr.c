@@ -12,7 +12,7 @@ VARIABLES:
 FILE *in - the file pointer to the archive being read
 FILE *tmp - the file pointer to the temporary file
 retVal ret - used to store errors
-retVal ret2 - used to check if the file already exists
+retVal cmpret - used to check if the file already exists
 
 */
 
@@ -22,7 +22,7 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
     dirTree dt)
 {
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
-    retVal ret, ret2;
+    retVal ret, cmpret;
 
     P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
@@ -41,19 +41,20 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
     }
 
     if((ret = p_sCaC(in, tmp)) ||
-        (ret = p_cpyExc(in, tmp, name, rType_dname, &ret2, dt)) ||
-        ret2 == err_nameExists ||
+        (ret = p_cpyExc(in, tmp, name, rType_dname, &cmpret, dt)) ||
+        cmpret == err_nameExists || !P_DTCMP(dt, p_getRdgDT) ||
         (ret = p_wrtRdg(tmp, rType_dname, NULL)) ||
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
         (ret = p_wrtRdg(tmp, rType_dend, NULL)) ||
-        (ret2 == err_inDir ? (ret = p_copy(in, tmp)) : none) ||
+        (cmpret == err_inDir ? (ret = p_copy(in, tmp)) : none) ||
         (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
-        if(ret2 == err_nameExists) p_print(MSG_NAMEEXISTS(name));
+        if(cmpret == err_nameExists) p_print(MSG_DIREXISTS(name));
+        else if(!P_DTCMP(dt, p_getRdgDT)) p_print(MSG_DIRDEXIST(dt));
 
         P_FREEALL();
 
-        return ret ? ret : ret2;
+        return ret ? ret : cmpret;
     }
 
     fclose(in); in = NULL;
