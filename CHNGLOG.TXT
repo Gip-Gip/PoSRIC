@@ -1,3 +1,13 @@
+#################### Additions in IIV.IIV.MMXVII Revision 1 ####################
+
+ * Added quickAdd and quickGet to the command list
+ * Added the option to call "list" with the command-line arguments "-S" or
+   "--list"
+ * Added global extern for p_addDr, removing a compilation warning
+ * An error will now be thrown if a file or a directory is added to a
+   non-existant directory
+ * Fixed a bug where the buffer in list would be freed twice
+
 #################### Additions in IIV.IIV.MMXVII Revision 0 ####################
 
  * Fixed bugs regarding directories
