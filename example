@@ -21,6 +21,11 @@ echo:Testing addFd...;
 quickAdd:example;
 giveUp:Test Failed!;
 
+echo:Testing getFd...;
+useName:example;
+getFd:example2;
+giveUp:Test Failed!;
+
 echo:Testing addDir...;
 addDir:fooDir;
 giveUp:Test Failed!;
