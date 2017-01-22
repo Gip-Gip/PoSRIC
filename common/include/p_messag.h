@@ -88,10 +88,12 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_FILEEXISTS(file) MSG_ERROR("\"%s\" already exists!"), file
 #define MSG_NAMEEXISTS(name) MSG_ERROR("\"%s\" already exists in archive!"), \
     name
-#define MSG_DNAMEEXISTS(name) MSG_ERROR("\"%s\" already exists in archive!"), \
-    name
+#define MSG_DIREXISTS(name) \
+    MSG_ERROR("Directory \"%s\" already exists in archive!"), name
 #define MSG_NAMEDEXIST(name) MSG_ERROR("\"%s\" doesn't exist in archive!"), \
     name
+#define MSG_DIRDEXIST(dt) \
+    MSG_ERROR("Directory \"%s\" doesn't exist in archive!"), P_DTCURR(dt)
 #define MSG_NAMEDUPED(name) MSG_ERROR("\"%s\" appeared twice in the archive!"),\
     name
 #define MSG_FILEFOUND1 "%s\r%#|-", "| ", p_getRdgDT.dirCount - 1

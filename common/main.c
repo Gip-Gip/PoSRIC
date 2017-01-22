@@ -284,7 +284,7 @@ int main(int argc, char **argv)
                 break;
 
             case(comm_getFd):
-                if(archiveName && tmpName)
+                if(archiveName && tmpName && name)
                     ret = p_getFd(archiveName, params, name, overwrite);
 
                 if(!archiveName) p_print(MSG_ANOTSET);
@@ -293,7 +293,7 @@ int main(int argc, char **argv)
                 break;
 
             case(comm_addDr):
-                if(archiveName && tmpName && name)
+                if(archiveName && tmpName)
                     ret = p_addDr(archiveName, tmpName, params, overwrite,
                         currDir);
 
@@ -324,6 +324,23 @@ int main(int argc, char **argv)
                 if(archiveName && tmpName)
                     ret = p_rmFile(
                         archiveName, tmpName, params, overwrite, currDir);
+
+                if(!archiveName) p_print(MSG_ANOTSET);
+                if(!tmpName) p_print(MSG_TNOTSET);
+                break;
+
+            case(comm_quickAdd):
+                if(archiveName && tmpName)
+                    ret = p_addFd(archiveName, tmpName, params, params,
+                        overwrite, buffSz, currDir);
+
+                if(!archiveName) p_print(MSG_ANOTSET);
+                if(!tmpName) p_print(MSG_TNOTSET);
+                break;
+
+            case(comm_quickGet):
+                if(archiveName && tmpName)
+                    ret = p_getFd(archiveName, params, params, overwrite);
 
                 if(!archiveName) p_print(MSG_ANOTSET);
                 if(!tmpName) p_print(MSG_TNOTSET);

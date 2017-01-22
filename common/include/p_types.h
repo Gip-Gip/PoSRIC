@@ -69,6 +69,7 @@ typedef enum {
     err_emptyFile,
     err_inDir,
     err_rootParent,
+    err_dirDexist,
 } retVal;
 
 typedef enum {
@@ -106,6 +107,8 @@ typedef enum {
     comm_addFn,
     comm_addFd,
     comm_rmFile,
+    comm_quickAdd,
+    comm_quickGet,
 } command;
 
 typedef enum {

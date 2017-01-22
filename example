@@ -18,9 +18,7 @@ rmFile:hello.txt;
 giveUp:Test Failed!;
 
 echo:Testing addFd...;
-useName:example;
-giveUp:Test Failed!;
-addFd:example;
+quickAdd:example;
 giveUp:Test Failed!;
 
 echo:Testing addDir...;
@@ -40,16 +38,14 @@ echo:Checking multi-directory support...;
 addDir:barDir;
 giveUp:Test Failed!;
 useDir:barDir;
-useName:layout.png;
-addFd:layout.png;
+quickAdd:layout.png;
 giveUp:Test Failed!;
 
 echo:Checking subdirectory support...;
 addDir:bazDir;
-giveUp:Test Failed! A;
+giveUp:Test Failed!;
 useDir:bazDir;
-useName:README.MD;
-addFd:README.MD;
+quickAdd:README.MD;
 giveUp:Test Failed!;
 
 echo:Testing list...;

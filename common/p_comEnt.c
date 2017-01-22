@@ -27,5 +27,7 @@ string p_comEnt[] = {
     "addFn",
     "addFd",
     "rmFile",
+    "quickAdd",
+    "quickGet",
     NULL,
 };
