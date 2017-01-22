@@ -3,4 +3,5 @@
 argTmp = true; \
 tmpName = "tmp.rpf"; \
 overwrite = true; \
+noScript = true; \
 /* EOF */ 

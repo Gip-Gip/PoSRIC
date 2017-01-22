@@ -95,10 +95,16 @@ int main(int argc, char **argv)
                 break;
 
             case(arg_format):
-                    if(archiveName) ret = p_format(archiveName, overwrite);
+                if(archiveName) ret = p_format(archiveName, overwrite);
 
-                    else p_print(MSG_ANOTSET);
-                    break;
+                else p_print(MSG_ANOTSET);
+                break;
+
+            case(arg_list):
+                if(archiveName) ret = p_list(archiveName);
+
+                else p_print(MSG_ANOTSET);
+                break;
 
             case(arg_logFile): case(arg_script): case(arg_buffSz):
             case(arg_archive): case(arg_tmpFile): case(arg_quickAdd):
