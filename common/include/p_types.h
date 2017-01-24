@@ -118,6 +118,7 @@ typedef enum {
     rType_fdata,
     rType_end,
     rType_null,
+    rType_foo,
 } rType;
 
 typedef struct {

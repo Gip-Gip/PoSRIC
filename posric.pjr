@@ -6,6 +6,7 @@ common/p_getArg.c
 common/p_getStr.c
 common/p_help.c
 common/p_msCmpS.c
+common/p_msCrAa.c
 common/p_print.c
 common/p_readIn.c
 common/p_strapp.c
@@ -31,3 +32,4 @@ read/p_skpDtF.c
 read/p_skpDtI.c
 read/p_skpDtU.c
 read/p_skpDta.c
+read/p_skpFil.c
