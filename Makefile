@@ -73,4 +73,3 @@ preargs:
 
 install: all
 	cp $(bin) $(installdir)
-	cp $(bin).elf $(installdir)
