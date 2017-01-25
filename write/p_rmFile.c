@@ -68,7 +68,6 @@ retVal p_rmFile(string inName, string tmpName, string name, bool overwrite,
 
     if(remove(inName) || rename(tmpName, inName))
     {
-        perror(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

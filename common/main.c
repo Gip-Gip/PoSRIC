@@ -106,9 +106,14 @@ int main(int argc, char **argv)
                 else p_print(MSG_ANOTSET);
                 break;
 
+            case(arg_exitDir):
+                P_DTREM(currDir, err_rootParent);
+                break;
+
             case(arg_logFile): case(arg_script): case(arg_buffSz):
             case(arg_archive): case(arg_tmpFile): case(arg_quickAdd):
-            case(arg_quickGet):
+            case(arg_quickGet): case(arg_addDir): case(arg_quickRm):
+            case(arg_useDir):
                 break;
 
             default:
@@ -142,6 +147,10 @@ int main(int argc, char **argv)
                         }
                         break;
 
+                    case(arg_useDir):
+                        P_DTADD(currDir, argv[argn], false);
+                        break;
+
                     case(arg_quickAdd):
                         if(archiveName && tmpName) ret = p_addFd(archiveName,
                             tmpName, argv[argn], argv[argn], overwrite, buffSz,
@@ -155,6 +164,14 @@ int main(int argc, char **argv)
                         if(archiveName && tmpName) ret =
                             p_getFd(archiveName, argv[argn], argv[argn],
                                 overwrite);
+
+                        if(!archiveName) p_print(MSG_ANOTSET);
+                        if(!tmpName) p_print(MSG_TNOTSET);
+                        break;
+
+                    case(arg_quickRm):
+                        if(archiveName && tmpName) ret = p_rmFile(
+                            archiveName, tmpName, argv[argn], overwrite, currDir);
 
                         if(!archiveName) p_print(MSG_ANOTSET);
                         if(!tmpName) p_print(MSG_TNOTSET);
