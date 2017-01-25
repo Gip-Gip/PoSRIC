@@ -1,3 +1,11 @@
+#################### Additions in IIV.IIV.MMXVII Revision 2 ####################
+
+ * Added a quick-x arguments to remove files
+ * Added arguments for moving in and out of directories
+ * Changed the current quick-x short-arguments to the format "-qX"
+ * Fixed a bug where rmFile required a filename ridge to terminate deletion,
+   hence removing any directories that followed a file
+
 #################### Additions in IIV.IIV.MMXVII Revision 1 ####################
 
  * Added quickAdd and quickGet to the command list

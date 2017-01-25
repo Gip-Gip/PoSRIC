@@ -44,7 +44,7 @@ retVal p_rmFile(string inName, string tmpName, string name, bool overwrite,
     if((ret = p_sCaC(in, tmp)) ||
         (ret = p_cpyExc(in, tmp, name, rType_fname, &ret2, dt)) ||
         ret2 != err_nameExists ||
-        (ret = p_skpDtU(in, rType_fname, true)) ||
+        (ret = p_skpFil(in, true)) ||
         (ret = p_copy(in, tmp)) ||
         (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
@@ -68,7 +68,6 @@ retVal p_rmFile(string inName, string tmpName, string name, bool overwrite,
 
     if(remove(inName) || rename(tmpName, inName))
     {
-        perror(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

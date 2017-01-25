@@ -25,6 +25,7 @@ extern arg p_getArg(string);
 extern string p_getStr(FILE *, character, bool);
 extern void p_help( void );
 extern bool p_msCmpS(string *, string *, natural);
+extern natural p_msCrAa(rType, rType *);
 extern void p_print(string, ...);
 extern string p_readIn(command *, string *);
 extern string p_strapp(string, string, bool, bool);

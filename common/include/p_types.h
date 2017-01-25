@@ -74,6 +74,7 @@ typedef enum {
 
 typedef enum {
     arg_archive,
+    arg_addDir,
     arg_authors,
     arg_buffSz,
     arg_format,
@@ -83,9 +84,12 @@ typedef enum {
     arg_noScript,
     arg_quickAdd,
     arg_quickGet,
+    arg_quickRm,
     arg_script,
     arg_list,
     arg_tmpFile,
+    arg_useDir,
+    arg_exitDir,
     arg_verbose,
     arg_overwrite,
 } arg;
@@ -118,6 +122,7 @@ typedef enum {
     rType_fdata,
     rType_end,
     rType_null,
+    rType_foo,
 } rType;
 
 typedef struct {
