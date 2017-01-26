@@ -13,9 +13,11 @@ string p_args[] - holds all the arguments
 string p_args[] =
 {
     "-a", "--archive", "set the archive to be used",
-    "-ad", "--add-dir", "adds a directory to the archive used",
     "-A", "--authors", "displays a list of authors",
     "-b", "--buffer-size", "sets the buffer size for writing",
+    "-da", "--add-dir", "adds a directory to the archive used",
+    "-de", "--exit-dir", "exits the previous directory specified",
+    "-du", "--use-dir", "uses the directory specified",
     "-f", "--format", "formats the archive",
     "-h", "--help", "displays this message and exits",
     "-l", "--log", "sets the logfile",
@@ -27,8 +29,6 @@ string p_args[] =
     "-s", "--script", "sets the script file, and uses it in place of stdio.h",
     "-S", "--list", "lists the contents of the set archive",
     "-t", "--tmp-file", "sets the temporary file",
-    "-u", "--use-dir", "uses the directory specified",
-    "-U", "--exit-dir", "exits the previous directory specified",
     "-v", "--verbose", "prints extra debugging messages",
     "-y", "--overwrite", "overwrites files without complaining",
     NULL,

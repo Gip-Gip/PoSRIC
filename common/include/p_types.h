@@ -74,9 +74,11 @@ typedef enum {
 
 typedef enum {
     arg_archive,
-    arg_addDir,
     arg_authors,
     arg_buffSz,
+    arg_addDir,
+    arg_exitDir,
+    arg_useDir,
     arg_format,
     arg_help,
     arg_logFile,
@@ -88,8 +90,6 @@ typedef enum {
     arg_script,
     arg_list,
     arg_tmpFile,
-    arg_useDir,
-    arg_exitDir,
     arg_verbose,
     arg_overwrite,
 } arg;
