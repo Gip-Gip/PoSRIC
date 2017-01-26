@@ -1,0 +1,45 @@
+#!/usr/bin/env make -f
+
+cpp=cc -E
+cc=cc
+intr_ld=ld
+ld=cc
+cppargs=-Wall
+ccargs=-g -Wall -c
+intr_ldargs=-r
+ldargs=-lm
+cppext=.i
+ccext=.o
+includearg=-I
+outputarg=-o
+mainobj=main.o
+bin=bin/posric
+installdir=/usr/bin
+tccbuildf=posric.pjr
+preargs=
+shell=/bin/sh
+includes=common/include write/include read/include
+incb="`for include in $(includes); do echo "$(includearg) $$include"; done`"
+
+all:
+	echo "cpp=$(cpp)" > Makefile
+	echo "cc=$(cc)" >> Makefile
+	echo "intr_ld=$(intr_ld)" >> Makefile
+	echo "ld=$(ld)" >> Makefile
+	echo "cppargs=$(cppargs)" >> Makefile
+	echo "ccargs=$(ccargs)" >> Makefile
+	echo "intr_ldargs=$(intr_ldargs)" >> Makefile
+	echo "ldargs=$(ldargs)" >> Makefile
+	echo "cppext=$(cppext)" >> Makefile
+	echo "ccext=$(ccext)" >> Makefile
+	echo "includearg=$(includearg)" >> Makefile
+	echo "outputarg=$(outputarg)" >> Makefile
+	echo "mainobj=$(mainobj)" >> Makefile
+	echo "bin=$(bin)" >> Makefile
+	echo "installdir=$(installdir)" >> Makefile
+	echo "tccbuildf=$(tccbuildf)" >> Makefile
+	echo "preargs=$(preargs)" >> Makefile
+	echo "shell=$(shell)" >> Makefile
+	echo "includes=$(includes)" >> Makefile
+	echo "incb=$(incb)" >> Makefile
+	cat Makefile.pcs >> Makefile
