@@ -1,10 +1,10 @@
-/* p_rmFile - removes the file from the given archive
+/* p_rmDir - removes the directory from the given archive
 
 ARGUMENTS:
 
 string inName - the name of the source archive
 string tmpName - the name of the temporary file
-string name - the name of the file to remove from the archive
+string name - the name of the directory to remove from the archive
 bool overwrite - if set p_rmFile will not give up if the tmpFile exists
 
 VARIABLES:
@@ -17,9 +17,9 @@ retVal ret2 - the secondary return variable; used with cpyExc to tell if the
 
 */
 
-#include <p_rmFile.h>
+#include <p_rmDir.h>
 
-retVal p_rmFile(string inName, string tmpName, string name, bool overwrite,
+retVal p_rmDir(string inName, string tmpName, string name, bool overwrite,
     dirTree dt)
 {
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
@@ -42,9 +42,9 @@ retVal p_rmFile(string inName, string tmpName, string name, bool overwrite,
     }
 
     if((ret = p_sCaC(in, tmp)) ||
-        (ret = p_cpyExc(in, tmp, name, rType_fname, &ret2, dt)) ||
+        (ret = p_cpyExc(in, tmp, name, rType_dname, &ret2, dt)) ||
         ret2 != err_nameExists ||
-        (ret = p_skpFil(in, true)) ||
+        (ret = p_skpDir(in)) ||
         (ret = p_copy(in, tmp)) ||
         (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {

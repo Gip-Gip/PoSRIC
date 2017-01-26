@@ -78,6 +78,7 @@ typedef enum {
     arg_buffSz,
     arg_addDir,
     arg_exitDir,
+    arg_rmDir,
     arg_useDir,
     arg_format,
     arg_help,
@@ -111,6 +112,7 @@ typedef enum {
     comm_addFn,
     comm_addFd,
     comm_rmFile,
+    comm_rmDir,
     comm_quickAdd,
     comm_quickGet,
 } command;

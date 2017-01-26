@@ -53,6 +53,11 @@ useDir:bazDir;
 quickAdd:README.MD;
 giveUp:Test Failed!;
 
+echo:Checking rmDir support...;
+exitDir:;
+exitDir:;
+rmDir:fooDir;
+
 echo:Testing list...;
 list:;
 
