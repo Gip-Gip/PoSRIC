@@ -25,6 +25,7 @@ retVal p_cpyExc(FILE *in, FILE *out, string name, rType cmpRdg, retVal *retptr,
     retVal ret;
     bool cmpret = false, inDir = false;
     byte *buffer;
+    natural depthCount = dt.dirCount;
 
     *retptr = none;
 
@@ -38,12 +39,28 @@ retVal p_cpyExc(FILE *in, FILE *out, string name, rType cmpRdg, retVal *retptr,
 
         else if(!P_DTCMP(dt, p_getRdgDT) && inDir)
         {
-            fseek(in, -P_RMINRD, SEEK_CUR);
-            P_DTDINIT(p_getRdgDT);
-            P_DTCOPY(p_getRdgDT, dt);
-            *retptr = err_inDir;
-            P_FREEALL();
-            return none;
+            /* We could've changed into the directory we're looking for... */
+            if(cmpRdg == rType_dname && !strcmp(P_DTCURR(p_getRdgDT), name))
+            {
+                *retptr = err_nameExists;
+                P_FREEALL();
+                return none;
+            }
+
+            /* We also shouldn't give up if we enter a subdirectory. Just set
+               inDir to false */
+            if(depthCount <= p_getRdgDT.dirCount && cmpRdg == rType_dname)
+                inDir = false;
+
+            else
+            {
+                fseek(in, -P_RMINRD, SEEK_CUR);
+                P_DTDINIT(p_getRdgDT);
+                P_DTCOPY(p_getRdgDT, dt);
+                *retptr = err_inDir;
+                P_FREEALL();
+                return none;
+            }
         }
 
         if(ridge + P_RTYPECORR <= P_DATA)

@@ -1,3 +1,8 @@
+#################### Additions in IIV.IIV.MMXVII Revision 3 ####################
+
+ * Added the ability to remove directories
+ * Changed the format of directory-focused arguments to "-dX"
+
 #################### Additions in IIV.IIV.MMXVII Revision 2 ####################
 
  * Added a quick-x arguments to remove files

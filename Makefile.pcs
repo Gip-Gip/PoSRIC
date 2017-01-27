@@ -1,23 +1,3 @@
-cpp=cc -E
-cc=cc
-intr_ld=ld
-ld=cc
-cppargs=-Wall
-ccargs=-g -Wall -c
-intr_ldargs=-r
-ldargs=-lm
-cppext=.i
-ccext=.o
-includearg=-I
-outputarg=-o
-mainobj=main.o
-bin=bin/posric
-installdir=/usr/bin
-tccbuildf=posric.pjr
-preargs=
-shell=/bin/sh
-includes=common/include write/include read/include
-incb=-I common/include -I write/include -I read/include
 all: clean makebdir preargs
 	if [ -f $(tccbuildf) ]; then rm $(tccbuildf); fi
 

@@ -18,6 +18,7 @@ write/p_addFn.c
 write/p_copy.c
 write/p_cpyExc.c
 write/p_format.c
+write/p_rmDir.c
 write/p_rmFile.c
 write/p_sCaC.c
 write/p_write.c
@@ -28,6 +29,7 @@ read/p_getRdg.c
 read/p_list.c
 read/p_read.c
 read/p_skpDUU.c
+read/p_skpDir.c
 read/p_skpDtF.c
 read/p_skpDtI.c
 read/p_skpDtU.c

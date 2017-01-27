@@ -17,6 +17,7 @@ string p_args[] =
     "-b", "--buffer-size", "sets the buffer size for writing",
     "-da", "--add-dir", "adds a directory to the archive used",
     "-de", "--exit-dir", "exits the previous directory specified",
+    "-dr", "--remove-dir", "removes the given directory in the archive used",
     "-du", "--use-dir", "uses the directory specified",
     "-f", "--format", "formats the archive",
     "-h", "--help", "displays this message and exits",

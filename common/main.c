@@ -113,7 +113,7 @@ int main(int argc, char **argv)
             case(arg_logFile): case(arg_script): case(arg_buffSz):
             case(arg_archive): case(arg_tmpFile): case(arg_quickAdd):
             case(arg_quickGet): case(arg_addDir): case(arg_quickRm):
-            case(arg_useDir):
+            case(arg_rmDir): case(arg_useDir):
                 break;
 
             default:
@@ -161,21 +161,29 @@ int main(int argc, char **argv)
                         break;
 
                     case(arg_quickGet):
-                        if(archiveName && tmpName) ret =
-                            p_getFd(archiveName, argv[argn], argv[argn],
-                                overwrite);
+                        if(archiveName && tmpName) ret = p_getFd(archiveName,
+                            argv[argn], argv[argn], overwrite);
 
                         if(!archiveName) p_print(MSG_ANOTSET);
                         if(!tmpName) p_print(MSG_TNOTSET);
                         break;
 
                     case(arg_quickRm):
-                        if(archiveName && tmpName) ret = p_rmFile(
-                            archiveName, tmpName, argv[argn], overwrite, currDir);
+                        if(archiveName && tmpName) ret = p_rmFile(archiveName,
+                            tmpName, argv[argn], overwrite, currDir);
 
                         if(!archiveName) p_print(MSG_ANOTSET);
                         if(!tmpName) p_print(MSG_TNOTSET);
                         break;
+
+                    case(arg_rmDir):
+                        if(archiveName && tmpName) ret = p_rmDir(archiveName,
+                            tmpName, argv[argn], overwrite, currDir);
+
+                        if(!archiveName) p_print(MSG_ANOTSET);
+                        if(!tmpName) p_print(MSG_TNOTSET);
+                        break;
+
 
                     case(arg_script):
                         if(p_stdin != stdin) fclose(p_stdin);
@@ -340,6 +348,15 @@ int main(int argc, char **argv)
             case(comm_rmFile):
                 if(archiveName && tmpName)
                     ret = p_rmFile(
+                        archiveName, tmpName, params, overwrite, currDir);
+
+                if(!archiveName) p_print(MSG_ANOTSET);
+                if(!tmpName) p_print(MSG_TNOTSET);
+                break;
+
+            case(comm_rmDir):
+                if(archiveName && tmpName)
+                    ret = p_rmDir(
                         archiveName, tmpName, params, overwrite, currDir);
 
                 if(!archiveName) p_print(MSG_ANOTSET);
