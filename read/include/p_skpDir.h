@@ -14,7 +14,7 @@ MACROS:
 
 #include <p_dir.h>
 
-#define P_FREEALL() if(buffer) free(buffer);
+#define P_FREEALL() {if(buffer) free(buffer); P_FTREM(FUNCNAME);}
 
 #define P_SKPDIR_H NULL
 #endif

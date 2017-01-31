@@ -16,7 +16,8 @@ MACROS:
 
 extern rType p_fileRdgs[];
 
-#define P_FREEALL() {p_dontRecDir = false; if(buffer) free(buffer);}
+#define P_FREEALL() {p_dontRecDir = false; if(buffer) free(buffer); \
+	                 P_FTREM(FUNCNAME);}
 
 #define P_SKPFIL_H NULL
 #endif
