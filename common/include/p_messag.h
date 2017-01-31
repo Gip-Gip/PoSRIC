@@ -65,7 +65,7 @@ Run \"%s -h\" to get help,\n\
 #define MSG_AUTHORS "\n\
 AUTHORS:\n\
 Charles \"Gip-Gip\" Thompson - Project owner\n\
-hogg2016(reddit) - Debugger\n\n"
+hogg2016(reddit) - Bug feedback(Fixed an issue on DOS)\n\n"
 
 #define MSG_LICENSE "\n\
 Copyright (c) 2016, Charles Thompson <chmithbiz@gmail.com>\n\n\
