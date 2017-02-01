@@ -34,7 +34,7 @@ bool verbose = false, overwrite = false, noScript = false, argArchive = false,
 argTmp = false, argName = false;
 FILE *logFile = NULL, *p_stdin;
 char **gargv;
-natural buffSz = 1;
+natural buffSz = ONE;
 
 int main(int argc, char **argv)
 {
@@ -117,13 +117,14 @@ int main(int argc, char **argv)
                 break;
 
             default:
-                switch(p_getArg(argv[argn - 1]))
+                switch(p_getArg(argv[argn - ONE]))
                 {
                     case(arg_archive):
-                        argArchive = true;
-                        if(archiveName) P_DTREM(currDir, err_rootParent);
+                        P_DTDINIT(currDir);
+                        P_DTINIT(currDir);
+                        P_DTADD(currDir, argv[argn - ONE], false);
+
                         archiveName = argv[argn];
-                        P_DTADD(currDir, archiveName, false);
                         break;
 
                     case(arg_buffSz):
@@ -269,16 +270,12 @@ int main(int argc, char **argv)
                 break;
 
             case(comm_use):
-                if(archiveName)
-                {
-                    if(!argArchive) free(archiveName);
-                    P_DTREM(currDir, err_rootParent);
-                }
 
-                argArchive = false;
+                P_DTDINIT(currDir);
+                P_DTINIT(currDir);
+                P_DTADD(currDir, params, true);
 
                 archiveName = params;
-                P_DTADD(currDir, params, false);
 
                 freeParams = false;
                 break;
