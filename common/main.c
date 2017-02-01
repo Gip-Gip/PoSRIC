@@ -150,6 +150,15 @@ int main(int argc, char **argv)
                     case(arg_useDir):
                         P_DTADD(currDir, argv[argn], false);
                         break;
+					
+					case(arg_addDir):
+						if(archiveName && tmpName)
+							ret = p_addDr(archiveName, tmpName, argv[argn], overwrite,
+										  currDir);
+						
+						if(!archiveName) p_print(MSG_ANOTSET);
+						if(!tmpName) p_print(MSG_TNOTSET);
+						break;
 
                     case(arg_quickAdd):
                         if(archiveName && tmpName) ret = p_addFd(archiveName,
