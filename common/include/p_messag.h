@@ -57,7 +57,7 @@ extern char **gargv;
 #endif
 
 #define MSG_SPLASH \
-"\nPoSRIC IIV.IIV.MMXVII Revision 3\n\
+"\nPoSRIC IIV.IIV.MMXVII Revision 4\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -A\" to get the list of authors\n\n", PROGNAME
