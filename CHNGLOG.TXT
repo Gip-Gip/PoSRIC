@@ -1,3 +1,11 @@
+#################### Additions in IIV.IIV.MMXVII Revision 4 ####################
+
+ * Fixed a bug with funcTree where skpDir and skpFil wouldn't remove their name
+   from the tree
+ * Fixed a bug where the argument -da would give an error
+ * Fixed a typo in the help message
+ * Fixed directory support with the getFd command
+
 #################### Additions in IIV.IIV.MMXVII Revision 3 ####################
 
  * Added the ability to remove directories

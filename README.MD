@@ -9,7 +9,7 @@ both beginners and DOS dwellers can use.
 
 ##What are the current features?
 
-As of Version IIV.IIV.MMXVII Revision 3 there is
+As of Version IIV.IIV.MMXVII Revision 4 there is
 
  * Basic stdio command interpretation
  * Basic scripting
@@ -47,6 +47,6 @@ PoSRIC
        large update which isn't drastic enough to increment the Infinitive
        Version. It is reset to one annually
  * PoSRIC has been tested on Debian, DOSBOX, and Mac OS 10.6.8
- * As of Version IIV.IIV.MMXVII Revision 3 the line count is 1,928 (using
+ * As of Version IIV.IIV.MMXVII Revision 4 the line count is 1,940 (using
    sloccount)
 
