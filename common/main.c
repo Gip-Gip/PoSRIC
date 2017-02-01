@@ -150,15 +150,15 @@ int main(int argc, char **argv)
                     case(arg_useDir):
                         P_DTADD(currDir, argv[argn], false);
                         break;
-					
-					case(arg_addDir):
-						if(archiveName && tmpName)
-							ret = p_addDr(archiveName, tmpName, argv[argn], overwrite,
-										  currDir);
-						
-						if(!archiveName) p_print(MSG_ANOTSET);
-						if(!tmpName) p_print(MSG_TNOTSET);
-						break;
+
+                    case(arg_addDir):
+                        if(archiveName && tmpName)
+                            ret = p_addDr(archiveName, tmpName, argv[argn], overwrite,
+                                            currDir);
+
+                        if(!archiveName) p_print(MSG_ANOTSET);
+                        if(!tmpName) p_print(MSG_TNOTSET);
+                        break;
 
                     case(arg_quickAdd):
                         if(archiveName && tmpName) ret = p_addFd(archiveName,
@@ -171,7 +171,7 @@ int main(int argc, char **argv)
 
                     case(arg_quickGet):
                         if(archiveName && tmpName) ret = p_getFd(archiveName,
-                            argv[argn], argv[argn], overwrite);
+                            argv[argn], argv[argn], currDir, overwrite);
 
                         if(!archiveName) p_print(MSG_ANOTSET);
                         if(!tmpName) p_print(MSG_TNOTSET);
@@ -319,7 +319,7 @@ int main(int argc, char **argv)
 
             case(comm_getFd):
                 if(archiveName && tmpName && name)
-                    ret = p_getFd(archiveName, params, name, overwrite);
+                    ret = p_getFd(archiveName, params, name, currDir,overwrite);
 
                 if(!archiveName) p_print(MSG_ANOTSET);
                 if(!tmpName) p_print(MSG_TNOTSET);
@@ -383,7 +383,7 @@ int main(int argc, char **argv)
 
             case(comm_quickGet):
                 if(archiveName && tmpName)
-                    ret = p_getFd(archiveName, params, params, overwrite);
+                    ret = p_getFd(archiveName, params,params,currDir,overwrite);
 
                 if(!archiveName) p_print(MSG_ANOTSET);
                 if(!tmpName) p_print(MSG_TNOTSET);

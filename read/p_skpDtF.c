@@ -14,7 +14,7 @@ bool ret2 - used to store the return value of cmpDta
 
 #include <p_skpDtF.h>
 
-retVal p_skpDtF(FILE *in, string name)
+retVal p_skpDtF(FILE *in, string name, dirTree dt)
 {
     retVal ret;
     bool ret2;
@@ -33,7 +33,7 @@ retVal p_skpDtF(FILE *in, string name)
             return ret ? ret : err_unknown;
         }
 
-        if(ret2 == true)
+        if(P_DTCMP(dt, p_getRdgDT) && ret2 == true)
         {
             ret = p_skpDta(in, true);
             P_FREEALL();

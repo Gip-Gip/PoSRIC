@@ -20,14 +20,15 @@ rType ridge - the ridge value
 
 #include <p_getFd.h>
 
-retVal p_getFd(string inName, string outName, string name, bool overwrite)
+retVal p_getFd(string inName, string outName, string name, dirTree dt,
+    bool overwrite)
 {
     FILE *in = fopen(inName, READMODE), *out = NULL;
     byte *buffer = NULL;
     retVal ret;
     rType ridge;
 
-    P_FTADD(FUNCNAME);
+    P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
     if(!overwrite && (out = fopen(outName, READMODE)))
     {
@@ -44,7 +45,7 @@ retVal p_getFd(string inName, string outName, string name, bool overwrite)
     }
 
     if((ret = p_sCaC(in, NULL)) ||
-        (ret = p_skpDtF(in, name)) ||
+        (ret = p_skpDtF(in, name, dt)) ||
         (ret = p_skpDUU(in, rType_fdata, rType_fname, false)))
     {
         if(ret == err_brkRidge)

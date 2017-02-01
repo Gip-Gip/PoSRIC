@@ -11,6 +11,7 @@ MACROS:
 */
 
 #ifndef P_SKPDTF_H
+#include <p_dir.h>
 #include <p_messag.h>
 
 #define P_FREEALL() P_FTREM(FUNCNAME);
