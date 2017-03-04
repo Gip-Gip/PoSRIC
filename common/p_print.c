@@ -26,6 +26,7 @@ void p_print(string format, ...)
     bool freeHistory = false, verboseActive = false;
     character chr[] = {0, 0};
     natural num = 1;
+    ssln lNum;
 
     va_start(arglist, format);
 
@@ -55,6 +56,14 @@ void p_print(string format, ...)
                 sprintf(history, F_NATURAL, num);
                 if(verbose || !verboseActive) p_print(history);
 
+                freeHistory = true;
+                break;
+            case(PRINT_STYLSSLN):
+                if(freeHistory) free(history);
+
+                lNum = va_arg(arglist, ssln);
+                history = ssln_n2s(lNum, 10);
+                if(verbose || !verboseActive) p_print(history);
                 freeHistory = true;
                 break;
             case(PRINT_STYLCHAR):

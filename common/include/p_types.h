@@ -34,19 +34,13 @@ MACROS:
 
 #ifndef TYPES_H
 #include <p_defs.h>
+#include <sweer.h>
 
-typedef unsigned long int natural;
 typedef long int real;
 typedef double rational;
 typedef unsigned char byte;
 typedef char character;
 typedef character* string;
-
-typedef enum {
-    false,
-    true,
-    neither,
-} bool;
 
 typedef enum {
     none,
@@ -62,7 +56,6 @@ typedef enum {
     err_badFletcher,
     err_nameExists,
     err_nameDexist,
-    err_nameDuped,
     err_brkRidge,
     err_notFound,
     err_rNotFound,
@@ -70,6 +63,9 @@ typedef enum {
     err_inDir,
     err_rootParent,
     err_dirDexist,
+    err_archiveNset,
+    err_noGui,
+    err_errno,
 } retVal;
 
 typedef enum {
@@ -81,6 +77,7 @@ typedef enum {
     arg_rmDir,
     arg_useDir,
     arg_format,
+    arg_gui,
     arg_help,
     arg_logFile,
     arg_license,
@@ -118,6 +115,7 @@ typedef enum {
 } command;
 
 typedef enum {
+    rType_ctime,
     rType_dend,
     rType_dname,
     rType_fname,

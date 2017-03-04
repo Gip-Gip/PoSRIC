@@ -22,6 +22,7 @@ retVal p_list(string inName)
     string buffer2 = NULL;
     rType ridge;
     retVal ret = none;
+    ssln cTime = ssln_new();
 
     P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
@@ -42,43 +43,54 @@ retVal p_list(string inName)
     {
         free(buffer);
 
-        while((ridge == rType_dname || ridge == rType_fname) && buffer)
+        while((ridge + P_RTYPECORR) > P_DATA && buffer)
         {
-            p_print(MSG_FILEFOUND1);
-
-            if(ridge == rType_dname)
+            switch(ridge)
             {
-                p_getRdgDT.dirCount --;
-                p_print(MSG_FILEFOUND1);
-                p_getRdgDT.dirCount ++;
-                p_print("%s", P_DTCURR(p_getRdgDT));
+                case(rType_ctime):
+                    free(cTime.integer);
+                    cTime.integer = p_read(in, &ret, &cTime.integerSize);
+                    p_print(MSG_CTIME(cTime));
+                    break;
+
+                case(rType_dname):
+                    p_print(MSG_FILEFOUND2);
+                    p_print(MSG_FILEFOUND1);
+                    p_getRdgDT.dirCount --;
+                    p_print(MSG_FILEFOUND1);
+                    p_getRdgDT.dirCount ++;
+                    p_print("%s", P_DTCURR(p_getRdgDT));
+                    break;
+
+                case(rType_fname):
+                    p_print(MSG_FILEFOUND2);
+                    p_print(MSG_FILEFOUND1);
+                    while((buffer = p_getRdg(in, &ridge)) &&
+                        (ridge += P_RTYPECORR) <= P_DATA &&
+                        (buffer = p_dToS(buffer, ridge + P_DCORR, true, &ret)))
+                    {
+                        p_print(buffer);
+                        free(buffer);
+                    }
+
+                    if(ret)
+                    {
+                        P_FREEALL();
+                        return ret;
+                    }
+
+                    if(buffer) free(buffer);
+                    if(ridge == rType_end) buffer = NULL;
+                    break;
+
+                default:
+                    break;
             }
-
-            else
-            {
-                while((buffer = p_getRdg(in, &ridge)) &&
-                      (ridge += P_RTYPECORR) <= P_DATA &&
-                      (buffer = p_dToS(buffer, ridge + P_DCORR, true, &ret)))
-                {
-                    p_print(buffer);
-                    free(buffer);
-                }
-
-                if(ret)
-                {
-                    P_FREEALL();
-                    return ret;
-                }
-
-                if(buffer) free(buffer);
-                if(ridge == rType_end) buffer = NULL;
-            }
-
-            p_print(MSG_FILEFOUND2);
-
             ridge -= P_RTYPECORR;
         }
     }
+
+    p_print(MSG_FILEFOUND2);
 
     if(!buffer)
     {

@@ -20,6 +20,7 @@ string p_args[] =
     "-dr", "--remove-dir", "removes the given directory in the archive used",
     "-du", "--use-dir", "uses the directory specified",
     "-f", "--format", "formats the archive",
+    "-g", "--gui", "use the gui",
     "-h", "--help", "displays this message and exits",
     "-l", "--log", "sets the logfile",
     "-L", "--license", "displays the license and exits",

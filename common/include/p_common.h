@@ -14,13 +14,19 @@ MACROS:
 #ifndef P_COMMON_H
 #include <stdio.h>
 #include <errno.h>
+#include <time.h>
 #include <p_fncTrk.h>
+
+#define P_INITUNIXT(var) {\
+    var.tm_sec = var.tm_min = var.tm_hour = var.tm_mon = var.tm_yday =\
+    var.tm_isdst = ZERO, var.tm_year = 70, var.tm_mday = 1, var.tm_wday = 4;}
 
 extern FILE *p_stdin;
 extern bool p_dontRecDir;
 
 extern int main(int, char **);
 extern string p_dToS(byte *, natural, bool, retVal *);
+extern bool p_flExst(string);
 extern arg p_getArg(string);
 extern string p_getStr(FILE *, character, bool);
 extern void p_help( void );

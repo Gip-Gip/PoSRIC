@@ -98,8 +98,7 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
        (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {
         P_FREEALL();
-
-        return ret ? ret : err_nameDuped;
+        return ret;
     }
 
     if(remove(inName) || rename(tmpName, inName))

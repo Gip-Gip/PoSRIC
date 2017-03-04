@@ -1,24 +1,22 @@
 all: clean makebdir preargs
-	if [ -f $(tccbuildf) ]; then rm $(tccbuildf); fi
-
-	for file in common/*.c write/*.c read/*c; do \
+	for file in $(cfiles); do \
 		echo $$file >> $(tccbuildf); \
-		echo $(cpp) $(cppargs) $(incb) \
+		echo $(cpp) $(cppargs) $(incb) $(defb) \
 			"$$file" $(outputarg) "$$file$(cppext)" | tee /dev/stderr | sh; \
 		if test $$? -ne "0"; then\
 			exit 1;\
 		fi;\
 	done
 
-	for file in common/*$(cppext) write/*$(cppext) read/*$(cppext); do \
-		echo $(cc) $(ccargs) "$$file" $(outputarg) "$$file$(ccext)" \
+	for file in $(cppfiles); do \
+		echo $(cc) $(ccargs) "$$file" $(outputarg) "$$file$(objext)" \
 			| tee /dev/stderr | sh; \
 		if test "$$?" -ne "0"; then\
 			exit 1;\
 		fi;\
 	done
 
-	for file in common/*$(ccext) write/*$(ccext) read/*$(ccext); do \
+	for file in $(objfiles); do \
 		if test -f "$(mainobj)"; then \
 			echo $(intr_ld) $(intr_ldargs) "$$file" "$(mainobj)" $(outputarg) \
 				"$(mainobj).tmp.o" | tee /dev/stderr | sh; \
@@ -31,13 +29,13 @@ all: clean makebdir preargs
 		mv "$(mainobj).tmp.o" "$(mainobj)"; \
 	done
 
-	$(ld) $(ldargs) $(mainobj) $(outputarg) $(bin)
+	$(ld) $(libb) $(ldargs) $(mainobj) $(outputarg) $(bin)
 
 clean:
+	if [ -f $(tccbuildf) ]; then rm $(tccbuildf); fi
 	if [ -f "$(mainobj)" ]; then rm $(mainobj); fi
 	if [ -f "$(bin)" ]; then rm $(bin); fi
-	for file in  common/*$(cppext) common/*$(ccext) read/*$(cppext) \
-                 read/*$(ccext) write/*$(cppext) write/*$(ccext); do\
+	for file in  $(cppfiles) $(objfiles); do\
                  if [ -f $$file ]; then rm "$$file"; fi; done
 
 makebdir:

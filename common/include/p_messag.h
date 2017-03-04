@@ -56,6 +56,11 @@ extern char **gargv;
 #define PROGNAME gargv[ZERO]
 #endif
 
+#define MSG_SPM ssln_i2n(60)
+#define MSG_SPH ssln_i2n(3600)
+#define MSG_MPH ssln_i2n(60)
+#define MSG_HPD ssln_i2n(24)
+
 #define MSG_SPLASH \
 "\nPoSRIC IIV.IIV.MMXVII Revision 4\n\
 Run \"%s -h\" to get help,\n\
@@ -105,6 +110,11 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_BADSIG MSG_ERROR("Archive has a bad signature!")
 #define MSG_EMPTYFILE(name) MSG_ERROR("\"%s\" is an empty file!"), name
 #define MSG_ROOTPARENT MSG_ERROR("Root directory lacks a parent!")
+#define MSG_NOGUI MSG_ERROR("Not compiled with IUP support!")
+#define MSG_CTIME(time) "(Created %w:%w:%w GMT)", \
+    ssln_mod(ssln_div(time, MSG_SPH), MSG_HPD), \
+    ssln_mod(ssln_div(time, MSG_SPM), MSG_MPH), \
+    ssln_mod(time, MSG_SPM)
 
 #define MESSAGES_H NULL
 #endif

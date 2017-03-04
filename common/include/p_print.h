@@ -36,6 +36,7 @@ extern bool verbose;
 #define PRINT_STYLNPREV '#'
 #define PRINT_STYLVERB 'v'
 #define PRINT_STYLCHAR 'c'
+#define PRINT_STYLSSLN 'w'
 #define PRINT_NCORR 2
 #define P_PRINT_H NULL
 #endif

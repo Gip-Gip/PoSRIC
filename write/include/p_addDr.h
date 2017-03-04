@@ -16,7 +16,8 @@ MACROS:
 
 #define P_FREEALL() if(in) {fclose(in);in = NULL;} \
                     if(tmp) {fclose(tmp);tmp = NULL;} \
-                    P_FTREM(FUNCNAME); P_DTDINIT(p_getRdgDT);
+                    P_FTREM(FUNCNAME); P_DTDINIT(p_getRdgDT); \
+                    ssln_rid(currUtime);
 
 #define P_ADDDR_H_H NULL
 #endif

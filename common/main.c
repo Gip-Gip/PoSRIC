@@ -77,6 +77,11 @@ int main(int argc, char **argv)
                 P_FREEALL();
                 return err_helpGiven;
 
+            case(arg_gui):
+                ret = p_gMain();
+                P_FREEALL();
+                return ret;
+
             case(arg_license):
                 p_print(MSG_LICENSE);
                 P_FREEALL();
