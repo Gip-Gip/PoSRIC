@@ -48,7 +48,7 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
         cmpret == err_nameExists || !P_DTCMP(dt, p_getRdgDT) ||
         (ret = p_wrtRdg(tmp, rType_dname, NULL)) ||
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
-        (ret = p_wrtRdg(tmp, rType_ctime, NULL)) ||
+        (ret = p_wrtRdg(tmp, rType_addtime, NULL)) ||
         (ret = p_write((byte *)currTime.integer, currTime.integerSize, tmp))||
         (ret = p_wrtRdg(tmp, rType_dend, NULL)) ||
         (cmpret == err_inDir ? (ret = p_copy(in, tmp)) : none) ||

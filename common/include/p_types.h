@@ -115,6 +115,7 @@ typedef enum {
 } command;
 
 typedef enum {
+    rType_addtime,
     rType_atime,
     rType_mtime,
     rType_ctime,

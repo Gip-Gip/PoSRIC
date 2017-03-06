@@ -124,9 +124,10 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_EMPTYFILE(name) MSG_ERROR("\"%s\" is an empty file!"), name
 #define MSG_ROOTPARENT MSG_ERROR("Root directory lacks a parent!")
 #define MSG_NOGUI MSG_ERROR("Not compiled with IUP support!")
-#define MSG_CTIME(time) "(C %w/%w %w:%w:%w)", MSG_DATE(time)
-#define MSG_MTIME(time) "(M %w/%w %w:%w:%w)", MSG_DATE(time)
-#define MSG_ATIME(time) "(A %w/%w %w:%w:%w)", MSG_DATE(time)
+#define MSG_CTIME(time) "\t(CREATED %w/%w %w:%w:%w)", MSG_DATE(time)
+#define MSG_MTIME(time) "\t(MODIFIED %w/%w %w:%w:%w)", MSG_DATE(time)
+#define MSG_ATIME(time) "\t(LAST ACCESSED %w/%w %w:%w:%w)", MSG_DATE(time)
+#define MSG_ADDTIME(time) "\t(ADDED %w/%w %w:%w:%w)", MSG_DATE(time)
 
 
 #define MESSAGES_H NULL

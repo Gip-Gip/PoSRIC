@@ -47,25 +47,11 @@ retVal p_list(string inName)
         {
             switch(ridge)
             {
-                case(rType_ctime):
+                case(rType_addtime):
                     free(cTime.integer);
                     cTime.integer = p_read(in, &ret, &cTime.integerSize);
                     ssln_set(&cTime, p_ut2lt(cTime));
-                    p_print(MSG_CTIME(cTime));
-                    break;
-
-                case(rType_mtime):
-                    free(cTime.integer);
-                    cTime.integer = p_read(in, &ret, &cTime.integerSize);
-                    ssln_set(&cTime, p_ut2lt(cTime));
-                    p_print(MSG_MTIME(cTime));
-                    break;
-
-                case(rType_atime):
-                    free(cTime.integer);
-                    cTime.integer = p_read(in, &ret, &cTime.integerSize);
-                    ssln_set(&cTime, p_ut2lt(cTime));
-                    p_print(MSG_ATIME(cTime));
+                    p_print(MSG_ADDTIME(cTime));
                     break;
 
                 case(rType_dname):

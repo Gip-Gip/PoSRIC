@@ -24,6 +24,9 @@ retVal p_addFn(string inName, string tmpName, string name, bool overwrite,
 {
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
     retVal ret, ret2;
+    ssln currTime;
+
+    currTime = p_t2ut(time(NULL));
 
     P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
@@ -46,6 +49,8 @@ retVal p_addFn(string inName, string tmpName, string name, bool overwrite,
         ret2 == err_nameExists || !P_DTCMP(dt, p_getRdgDT) ||
         (ret = p_wrtRdg(tmp, rType_fname, NULL)) ||
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
+        (ret = p_wrtRdg(tmp, rType_addtime, NULL)) ||
+        (ret = p_write((byte *)currTime.integer, currTime.integerSize, tmp))||
         (ret2 == err_inDir ? (ret = p_copy(in, tmp)) : none) ||
         (ret = p_wrtRdg(tmp, rType_end, NULL)))
     {

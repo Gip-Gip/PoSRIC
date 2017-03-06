@@ -30,7 +30,9 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
     retVal ret, cmpret;
     natural readSize;
     ssln creTime = ssln_new(), modTime = ssln_new(), accTime = ssln_new();
+    ssln currTime;
 
+    currTime = p_t2ut(time(NULL));
     p_oGetTs(name, &creTime, &modTime, &accTime);
 
     P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
@@ -49,16 +51,31 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
         return errno;
     }
 
-    if((ret = p_sCaC(in, tmp)) ||
+    /* Since all these can throw errors, why not just clump them into one giant
+       if statement? */
+    if
+    (
+        (ret = p_sCaC(in, tmp)) ||
         (ret = p_cpyExc(in, tmp, fName, rType_fname, &cmpret, dt)) ||
         cmpret != err_nameExists ||
-        (ret = p_skpDta(in, true)) ||
+        /* To prevent weird append-like results, just re-write the file */
+        (ret = overwrite ? none : err_fileExists) ||
+        (ret = p_skpFil(in, true)) ||
         (ret = p_wrtRdg(tmp, rType_fname, NULL)) ||
         (ret = p_write((byte *)fName, strlen(fName), tmp)) ||
+        /* All these calls re-write timestamps. Ugly! */
+        (ret = p_wrtRdg(tmp, rType_addtime, NULL)) ||
+        (ret = p_write((byte *)currTime.integer, currTime.integerSize, tmp)) ||
+        (ret = p_wrtRdg(tmp, rType_ctime, NULL)) ||
+        (ret = p_write((byte *)creTime.integer, creTime.integerSize, tmp)) ||
         (ret = p_wrtRdg(tmp, rType_mtime, NULL)) ||
         (ret = p_write((byte *)modTime.integer, modTime.integerSize, tmp)) ||
-        (ret = p_wrtRdg(tmp, rType_fdata, NULL)))
+        (ret = p_wrtRdg(tmp, rType_atime, NULL)) ||
+        (ret = p_write((byte *)accTime.integer, accTime.integerSize, tmp)) ||
+        (ret = p_wrtRdg(tmp, rType_fdata, NULL))
+    )
     {
+        /* No error means no existance! */
         if(!ret && P_DTCMP(dt, p_getRdgDT))
         {
             P_FREEALL();
@@ -67,8 +84,19 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
             ret = p_addFn(inName, tmpName, fName, overwrite, dt);
 
             if(!ret)
-                ret = p_addFd( inName, tmpName, name, fName, overwrite,
-                    buffSz / P_RMAXSZ, dt);
+            {
+                ret = p_addFd
+                (
+                    inName,
+                    tmpName,
+                    name,
+                    fName,
+                    overwrite,
+                    buffSz / P_RMAXSZ,
+                    dt
+                );
+            }
+
             P_FTREM(FUNCNAME);
         }
 
