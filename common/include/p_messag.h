@@ -60,9 +60,22 @@ extern char **gargv;
 #define MSG_SPH ssln_i2n(3600)
 #define MSG_MPH ssln_i2n(60)
 #define MSG_HPD ssln_i2n(24)
+#define MSG_SPD ssln_i2n(86400)
+#define MSG_DPY ssln_i2n(365)
+#define MSG_SPY ssln_i2n(31536000)
+#define MSG_SPL ssln_i2n(126144000)
+#define MSG_BYEAR ssln_i2n(1970)
+
+#define MSG_DATE(time) ssln_sub(ssln_mod(ssln_div(time, MSG_SPD), MSG_DPY),\
+        ssln_div(time, MSG_SPL)), \
+    ssln_add(ssln_div(time, MSG_SPY), MSG_BYEAR), \
+    ssln_mod(ssln_div(time, MSG_SPH), MSG_HPD), \
+    ssln_mod(ssln_div(time, MSG_SPM), MSG_MPH), \
+    ssln_mod(time, MSG_SPM)
+
 
 #define MSG_SPLASH \
-"\nPoSRIC IIV.IIV.MMXVII Revision 4\n\
+"\nPoSRIC IV.IV.MMXVII Revision 0\n\
 Run \"%s -h\" to get help,\n\
 \"%< -L\" to get legal info, and\n\
 \"%< -A\" to get the list of authors\n\n", PROGNAME
@@ -111,10 +124,10 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_EMPTYFILE(name) MSG_ERROR("\"%s\" is an empty file!"), name
 #define MSG_ROOTPARENT MSG_ERROR("Root directory lacks a parent!")
 #define MSG_NOGUI MSG_ERROR("Not compiled with IUP support!")
-#define MSG_CTIME(time) "(Created %w:%w:%w GMT)", \
-    ssln_mod(ssln_div(time, MSG_SPH), MSG_HPD), \
-    ssln_mod(ssln_div(time, MSG_SPM), MSG_MPH), \
-    ssln_mod(time, MSG_SPM)
+#define MSG_CTIME(time) "(C %w/%w %w:%w:%w)", MSG_DATE(time)
+#define MSG_MTIME(time) "(M %w/%w %w:%w:%w)", MSG_DATE(time)
+#define MSG_ATIME(time) "(A %w/%w %w:%w:%w)", MSG_DATE(time)
+
 
 #define MESSAGES_H NULL
 #endif

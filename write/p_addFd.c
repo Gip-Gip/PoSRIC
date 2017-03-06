@@ -29,6 +29,9 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
     byte *buffer = calloc(buffSz *= P_RMAXSZ, sizeof(byte));
     retVal ret, cmpret;
     natural readSize;
+    ssln creTime = ssln_new(), modTime = ssln_new(), accTime = ssln_new();
+
+    p_oGetTs(name, &creTime, &modTime, &accTime);
 
     P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
@@ -52,6 +55,8 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
         (ret = p_skpDta(in, true)) ||
         (ret = p_wrtRdg(tmp, rType_fname, NULL)) ||
         (ret = p_write((byte *)fName, strlen(fName), tmp)) ||
+        (ret = p_wrtRdg(tmp, rType_mtime, NULL)) ||
+        (ret = p_write((byte *)modTime.integer, modTime.integerSize, tmp)) ||
         (ret = p_wrtRdg(tmp, rType_fdata, NULL)))
     {
         if(!ret && P_DTCMP(dt, p_getRdgDT))

@@ -56,6 +56,8 @@ extern retVal p_format(string, bool);
 extern retVal p_rmFile(string, string, string, bool, dirTree);
 extern retVal p_write(byte *, natural, FILE *);
 extern retVal p_wrtRdg(FILE *, rType, byte *);
+extern ssln p_t2ut(time_t);
+extern ssln p_ut2lt(ssln);
 
 #define P_COMMON_H NULL
 #endif

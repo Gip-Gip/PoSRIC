@@ -35,7 +35,7 @@ retVal p_list(string inName)
 
     if((ridge = p_sCaC(in, NULL))) return ridge;
 
-    p_print("%s\n", inName);
+    p_print("%s", inName);
 
     while(ridge != rType_end &&
           (buffer = p_getRdg(in, &ridge)) &&
@@ -50,7 +50,22 @@ retVal p_list(string inName)
                 case(rType_ctime):
                     free(cTime.integer);
                     cTime.integer = p_read(in, &ret, &cTime.integerSize);
+                    ssln_set(&cTime, p_ut2lt(cTime));
                     p_print(MSG_CTIME(cTime));
+                    break;
+
+                case(rType_mtime):
+                    free(cTime.integer);
+                    cTime.integer = p_read(in, &ret, &cTime.integerSize);
+                    ssln_set(&cTime, p_ut2lt(cTime));
+                    p_print(MSG_MTIME(cTime));
+                    break;
+
+                case(rType_atime):
+                    free(cTime.integer);
+                    cTime.integer = p_read(in, &ret, &cTime.integerSize);
+                    ssln_set(&cTime, p_ut2lt(cTime));
+                    p_print(MSG_ATIME(cTime));
                     break;
 
                 case(rType_dname):

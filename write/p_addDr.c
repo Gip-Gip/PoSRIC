@@ -23,14 +23,9 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
 {
     FILE *in = fopen(inName, READMODE), *tmp = NULL;
     retVal ret, cmpret;
-    time_t currTime;
-    struct tm unixTime, currGMT;
-    ssln currUtime;
+    ssln currTime;
 
-    time(&currTime);
-    currGMT = *gmtime(&currTime);
-    P_INITUNIXT(unixTime);
-    currUtime = ssln_i2n(difftime(mktime(&currGMT), mktime(&unixTime)));
+    currTime = p_t2ut(time(NULL));
 
     P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
@@ -54,7 +49,7 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
         (ret = p_wrtRdg(tmp, rType_dname, NULL)) ||
         (ret = p_write((byte *)name, strlen(name), tmp)) ||
         (ret = p_wrtRdg(tmp, rType_ctime, NULL)) ||
-        (ret = p_write((byte *)currUtime.integer, currUtime.integerSize, tmp))||
+        (ret = p_write((byte *)currTime.integer, currTime.integerSize, tmp))||
         (ret = p_wrtRdg(tmp, rType_dend, NULL)) ||
         (cmpret == err_inDir ? (ret = p_copy(in, tmp)) : none) ||
         (ret = p_wrtRdg(tmp, rType_end, NULL)))
