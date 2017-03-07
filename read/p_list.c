@@ -35,7 +35,7 @@ retVal p_list(string inName)
 
     if((ridge = p_sCaC(in, NULL))) return ridge;
 
-    p_print("%s", inName);
+    p_print("\n%s", inName);
 
     while(ridge != rType_end &&
           (buffer = p_getRdg(in, &ridge)) &&

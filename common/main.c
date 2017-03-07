@@ -118,16 +118,30 @@ int main(int argc, char **argv)
             case(arg_logFile): case(arg_script): case(arg_buffSz):
             case(arg_archive): case(arg_tmpFile): case(arg_quickAdd):
             case(arg_quickGet): case(arg_addDir): case(arg_quickRm):
-            case(arg_rmDir): case(arg_useDir):
+            case(arg_rmDir): case(arg_useDir): case(arg_stat):
                 break;
 
             default:
                 switch(p_getArg(argv[argn - ONE]))
                 {
+                    case(arg_stat):
+                        if(archiveName)
+                        {
+                            ret = p_stat
+                            (
+                                archiveName,
+                                argv[argn],
+                                currDir
+                            );
+                        }
+
+                        else p_print(MSG_ANOTSET);
+                        break;
+
                     case(arg_archive):
                         P_DTDINIT(currDir);
                         P_DTINIT(currDir);
-                        P_DTADD(currDir, argv[argn - ONE], false);
+                        P_DTADD(currDir, argv[argn], false);
 
                         archiveName = argv[argn];
                         break;
@@ -202,7 +216,7 @@ int main(int argc, char **argv)
 
                     case(arg_script):
                         if(p_stdin != stdin) fclose(p_stdin);
-                        if(!(p_stdin = fopen(argv[argn], READMODE)))
+                        if(!(p_stdin = fopen(argv[argn], TEXTMODE)))
                         {
                             perror(MSG_PERROR);
                             P_FREEALL();
@@ -319,6 +333,13 @@ int main(int argc, char **argv)
                 else p_print(MSG_ANOTSET);
                 break;
 
+            case(comm_stat):
+                if(archiveName)
+                    ret = p_stat(archiveName, params, currDir);
+
+                if(!archiveName) p_print(MSG_ANOTSET);
+                break;
+
             case(comm_getFd):
                 if(archiveName && tmpName && name)
                     ret = p_getFd(archiveName, params, name, currDir,overwrite);
@@ -397,7 +418,7 @@ int main(int argc, char **argv)
                 break;
         }
 
-        if(freeParams) free(params);
+        if(freeParams && params) free(params);
         else freeParams = true;
 
         free(comm);

@@ -29,6 +29,7 @@ MACROS:
 #endif
 
 #define READMODE "rb"
+#define TEXTMODE "r"
 #define WRITEMODE "wb"
 #define ZERO 0
 #define ONE 1

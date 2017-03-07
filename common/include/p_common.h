@@ -23,12 +23,13 @@ MACROS:
 
 extern FILE *p_stdin;
 extern bool p_dontRecDir;
+extern rType p_fileRdgs[];
 
 extern int main(int, char **);
 extern string p_dToS(byte *, natural, bool, retVal *);
 extern bool p_flExst(string);
 extern arg p_getArg(string);
-extern string p_getStr(FILE *, character, bool);
+extern string p_getStr(FILE *, character, character *, bool);
 extern void p_help( void );
 extern bool p_msCmpS(string *, string *, natural);
 extern natural p_msCrAa(rType, rType *);
@@ -40,6 +41,7 @@ extern bool p_cmpDta(byte *, natural, FILE *);
 extern byte *p_read(FILE *, retVal *, natural *);
 extern byte *p_getRdg(FILE *, rType *);
 extern retVal p_list(string);
+extern retVal p_stat(string, string, dirTree);
 extern retVal p_getFd(string, string, string, dirTree, bool);
 extern retVal p_sCaC(FILE *, FILE *);
 extern retVal p_skpDta(FILE *, bool);

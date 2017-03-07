@@ -28,6 +28,7 @@ string p_comEnt[] = {
     "addFd",
     "rmFile",
     "rmDir",
+    "stat",
     "quickAdd",
     "quickGet",
     NULL,

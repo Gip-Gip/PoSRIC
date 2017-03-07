@@ -1,65 +1,65 @@
-echo:Example PoSRIC Script%v Version 2%v!;
-echo:;
+echo Example PoSRIC Script%v Version 2%v!
+echo
 
-echo:Using files example.rpf and tmp.rpf...;
-use:example.rpf;
-tmp:tmp.rpf;
+echo Using files example.rpf and tmp.rpf...
+use example.rpf
+tmp tmp.rpf
 
-echo:Testing formatting...;
-format:;
-giveUp:Test Failed!;
+echo Testing formatting...
+format
+giveUp Test Failed!
 
-echo:Testing addFn...;
-addFn:hello.txt;
-giveUp:Test Failed!;
+echo Testing addFn...
+addFn hello.txt
+giveUp Test Failed!
 
-echo:Testing rmFile...;
-rmFile:hello.txt;
-giveUp:Test Failed!;
+echo Testing rmFile...
+rmFile hello.txt
+giveUp Test Failed!
 
-echo:Testing addFd...;
-quickAdd:example;
-giveUp:Test Failed!;
+echo Testing addFd...
+quickAdd example
+giveUp Test Failed!
 
-echo:Testing getFd...;
-useName:example;
-getFd:example2;
-giveUp:Test Failed!;
+echo Testing getFd...
+useName example
+getFd example2
+giveUp Test Failed!
 
-echo:Testing addDir...;
-addDir:fooDir;
-giveUp:Test Failed!;
-useDir:fooDir;
-addFn:hello.txt;
-giveUp:Test Failed!;
+echo Testing addDir...
+addDir fooDir
+giveUp Test Failed!
+useDir fooDir
+addFn hello.txt
+giveUp Test Failed!
 
-echo:Testing exitDir...;
-exitDir:;
-giveUp:Test Failed!;
-addFn:world.txt;
-giveUp:Test Failed!;
+echo Testing exitDir...
+exitDir
+giveUp Test Failed!
+addFn world.txt
+giveUp Test Failed!
 
-echo:Checking multi-directory support...;
-addDir:barDir;
-giveUp:Test Failed!;
-useDir:barDir;
-quickAdd:layout.png;
-giveUp:Test Failed!;
+echo Checking multi-directory support...
+addDir barDir
+giveUp Test Failed!
+useDir barDir
+quickAdd layout.png
+giveUp Test Failed!
 
-echo:Checking subdirectory support...;
-addDir:bazDir;
-giveUp:Test Failed!;
-useDir:bazDir;
-quickAdd:README.MD;
-giveUp:Test Failed!;
+echo Checking subdirectory support...
+addDir bazDir
+giveUp Test Failed!
+useDir bazDir
+quickAdd README.MD
+giveUp Test Failed!
 
-echo:Checking rmDir support...;
-exitDir:;
-exitDir:;
-rmDir:fooDir;
+echo Checking rmDir support...
+exitDir
+exitDir
+rmDir fooDir
 
-echo:Testing list...;
-list:;
+echo Testing list...
+list
 
-echo:Done!;
-exit:;
+echo Done!
+exit

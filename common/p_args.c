@@ -31,6 +31,7 @@ string p_args[] =
     "-s", "--script", "sets the script file, and uses it in place of stdin",
     "-S", "--list", "lists the contents of the set archive",
     "-t", "--tmp-file", "sets the temporary file",
+    "-T", "--stat", "displays the different properties of an in-archive file",
     "-v", "--verbose", "prints extra debugging messages",
     "-y", "--overwrite", "overwrites files without complaining",
     NULL,

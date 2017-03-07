@@ -14,12 +14,15 @@ VARIABLES:
 
 string p_readIn(command *comID, string *comm)
 {
-    *comm = p_getStr(p_stdin, COMMDELM, true);
+    character usedTerm;
+    *comm = p_getStr(p_stdin, COMMDELM, &usedTerm, true);
 
     *comID = ZERO;
 
     while(p_comEnt[*comID] != NULL && strcmp(p_comEnt[*comID], *comm))
         ++*comID;
 
-    return p_getStr(p_stdin, PARMDELM, false);
+    if(usedTerm != COMMDELM) return calloc(STRALLOC, sizeof(character));
+
+    return p_getStr(p_stdin, PARMDELM, &usedTerm, false);
 }

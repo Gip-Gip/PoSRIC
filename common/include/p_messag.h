@@ -128,7 +128,7 @@ CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 #define MSG_MTIME(time) "\t(MODIFIED %w/%w %w:%w:%w)", MSG_DATE(time)
 #define MSG_ATIME(time) "\t(LAST ACCESSED %w/%w %w:%w:%w)", MSG_DATE(time)
 #define MSG_ADDTIME(time) "\t(ADDED %w/%w %w:%w:%w)", MSG_DATE(time)
-
+#define MSG_ATTEND "\n"
 
 #define MESSAGES_H NULL
 #endif

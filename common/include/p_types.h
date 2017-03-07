@@ -88,6 +88,7 @@ typedef enum {
     arg_script,
     arg_list,
     arg_tmpFile,
+    arg_stat,
     arg_verbose,
     arg_overwrite,
 } arg;
@@ -110,6 +111,7 @@ typedef enum {
     comm_addFd,
     comm_rmFile,
     comm_rmDir,
+    comm_stat,
     comm_quickAdd,
     comm_quickGet,
 } command;

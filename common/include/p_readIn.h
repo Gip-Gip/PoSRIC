@@ -18,7 +18,8 @@ MACROS:
 
 extern string p_comEnt[];
 
-#define COMMDELM ':'
+#define COMMDELM ' '
 #define PARMDELM ';'
+#define FULLTERM '\n'
 #define P_READIN_H NULL
 #endif

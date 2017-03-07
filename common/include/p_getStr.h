@@ -17,6 +17,8 @@ MACROS:
 #include <ctype.h>
 
 #define ESCDELEM '\\'
+#define FULLTERM '\n'
+#define DOSFULTERM '\r'
 
 #define P_GETSTR_H NULL
 #endif
