@@ -1,3 +1,12 @@
+##################### Additions in IV.IV.MMXVII Revision 0 #####################
+
+ * Added timestamp support for UNIX
+ * Added the stat command/argument
+ * Fixed a bug where setting the archive from the command line would not set the
+   root directory correctly
+ * Fixed a bug where changing the archive name would give an error
+ * Now depends on the Sweer library(https://github.com/Gip-Gip/Sweer)
+
 #################### Additions in IIV.IIV.MMXVII Revision 4 ####################
 
  * Fixed a bug with funcTree where skpDir and skpFil wouldn't remove their name
