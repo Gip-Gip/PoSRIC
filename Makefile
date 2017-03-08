@@ -16,9 +16,9 @@ preargs=
 includes=common/include gui/include os/unix/include read/include write/include
 defines=NULL=0
 libs=m sweer
-incb=`for include in $(includes); do echo -n " $(includearg) $$include ";done`
-defb=`for define in $(defines); do echo -n " $(definearg) $$define "; done`
-libb=`for lib in $(libs); do echo -n " $(libarg) $$lib "; done`
+incb=`for include in $(includes); do echo " $(includearg) $$include ";done`
+defb=`for define in $(defines); do echo " $(definearg) $$define "; done`
+libb=`for lib in $(libs); do echo " $(libarg) $$lib "; done`
 cext=.c
 cppext=.i
 objext=.o
@@ -27,9 +27,9 @@ bin=bin/posric
 installdir=/usr/bin
 sourcedirs=common gui os/unix read write
 tccbuildf=posric.pjr
-cfiles=`for dir in $(sourcedirs); do echo -n " $$dir/*$(cext) "; done`
-cppfiles=`for dir in $(sourcedirs); do echo -n " $$dir/*$(cppext) "; done`
-objfiles=`for dir in $(sourcedirs); do echo -n " $$dir/*$(objext) "; done`
+cfiles=`for dir in $(sourcedirs); do echo " $$dir/*$(cext) "; done`
+cppfiles=`for dir in $(sourcedirs); do echo " $$dir/*$(cppext) "; done`
+objfiles=`for dir in $(sourcedirs); do echo " $$dir/*$(objext) "; done`
 
 all: clean makebdir preargs
 	for file in $(cfiles); do \
