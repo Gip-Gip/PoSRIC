@@ -23,12 +23,15 @@ retVal p_oRecD
     DIR *currDir = opendir(name);
     string entry;
     string currName;
+    dirTree workingDt;
 
     if(!currDir)
     {
         p_print(MSG_PERROR);
         return errno;
     }
+
+    P_DTCOPY(workingDt, dt);
 
     while(entry = p_oGetDf(currDir))
     {
@@ -44,7 +47,7 @@ retVal p_oRecD
             entry,
             overwrite,
             buffSz,
-            dt
+            workingDt
         );
 
         free(currName);
@@ -61,13 +64,16 @@ retVal p_oRecD
         p_print("(%s)", currName);
 
         p_addDr(inName, tmpName, entry, overwrite, dt);
-        P_DTADD(dt, entry, true);
-        p_oRecD(inName, tmpName, currName, overwrite, buffSz, dt);
-        P_DTREM(dt, errno);
+        P_DTADD(workingDt, entry, true);
+        p_oRecD(inName, tmpName, currName, overwrite, buffSz, workingDt);
+        P_DTREM(workingDt, errno);
         free(currName);
     }
+
+    P_DTDINIT(workingDt);
 
     closedir(currDir);
 
     return none;
 }
+

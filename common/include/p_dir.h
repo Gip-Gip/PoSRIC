@@ -36,13 +36,13 @@ extern dirTree p_getRdgDT;
     dt.freeList[dt.dirCount - ONE] = freeable;}
 
 #define P_DTREM(dt, erret) { \
-    if(dt.freeList[dt.dirCount -= ONE]) free(dt.dirs[dt.dirCount]); \
+    if(dt.freeList[dt.dirCount -= (dt.dirCount ? ONE : ZERO)]) \
+        free(dt.dirs[dt.dirCount]); \
     if(dt.dirCount == 0) \
     { \
         p_print(MSG_ROOTPARENT); \
         return erret; \
     } \
-    dt.freeList[dt.dirCount] = false; \
     dt.dirs = realloc( \
         dt.dirs, sizeof(string) * (dt.dirCount ? dt.dirCount : ONE)); \
     dt.freeList = realloc( \
