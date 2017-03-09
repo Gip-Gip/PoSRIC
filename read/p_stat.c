@@ -46,7 +46,8 @@ retVal p_stat(string inName, string name, dirTree dt)
     while
     (
         (buffer = p_getRdg(in, &ridge)) &&
-        (ridge + P_RTYPECORR > P_DATA ? p_msCrAa(ridge, p_fileRdgs) : true)
+        (ridge + P_RTYPECORR > P_DATA ? p_msCrAa(ridge, p_fileRdgs) : true) &
+        (ridge != rType_fname)
     )
     {
         free(buffer);
