@@ -39,7 +39,7 @@ byte *p_getRdg(FILE *in, rType *ret)
 
     if(!buffer || ferror(in))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         *ret = errno;
         P_FREEALL();
         return NULL;

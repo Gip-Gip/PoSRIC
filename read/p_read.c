@@ -31,7 +31,7 @@ byte *p_read(FILE *in, retVal *ret, natural *size)
         if(!(buffer = realloc(buffer, *size += (rSize += P_DCORR))) ||
             !memcpy(buffer + (*size - rSize), preBuff, rSize))
         {
-            perror(MSG_PERROR);
+            p_print(MSG_PERROR);
             P_FREEALL();
             *ret = errno;
             return NULL;
@@ -44,7 +44,7 @@ byte *p_read(FILE *in, retVal *ret, natural *size)
 
     if(!preBuff)
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         *ret = errno;
         P_FREEALL();
         return NULL;

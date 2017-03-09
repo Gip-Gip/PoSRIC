@@ -26,7 +26,7 @@ retVal p_stat(string inName, string name, dirTree dt)
 
     if(!in)
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

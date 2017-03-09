@@ -35,7 +35,7 @@ retVal p_wrtRdg(FILE *out, rType ridge, byte *data)
 
         if(ferror(out))
         {
-            perror(MSG_PERROR);
+            p_print(MSG_PERROR);
             P_FREEALL();
             return errno;
         }
@@ -57,7 +57,7 @@ retVal p_wrtRdg(FILE *out, rType ridge, byte *data)
 
     if(fwrite(data, sizeof(byte), ridge, out) != ridge)
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

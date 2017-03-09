@@ -60,6 +60,7 @@ extern retVal p_write(byte *, natural, FILE *);
 extern retVal p_wrtRdg(FILE *, rType, byte *);
 extern ssln p_t2ut(time_t);
 extern ssln p_ut2lt(ssln);
+extern retVal p_oRecD(string, string, string, bool, natural, dirTree);
 
 #define P_COMMON_H NULL
 #endif

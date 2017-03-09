@@ -39,7 +39,7 @@ retVal p_getFd(string inName, string outName, string name, dirTree dt,
 
     if(!in || !(out = fopen(outName, WRITEMODE)))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }
@@ -67,7 +67,7 @@ retVal p_getFd(string inName, string outName, string name, dirTree dt,
 
     if(ferror(out))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

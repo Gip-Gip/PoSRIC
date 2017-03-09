@@ -28,7 +28,7 @@ retVal p_format(string outName, bool overwrite)
 
     if(!(outFile = fopen(outName, WRITEMODE)))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }
@@ -36,7 +36,7 @@ retVal p_format(string outName, bool overwrite)
     if(fwrite(p_sig, sizeof(byte), P_SIGSZ, outFile) != P_SIGSZ ||
         p_wrtRdg(outFile, rType_end, NULL))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

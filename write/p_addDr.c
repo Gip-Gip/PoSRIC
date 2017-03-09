@@ -38,7 +38,7 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
 
     if(!in || !(tmp = fopen(tmpName, WRITEMODE)))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }
@@ -67,7 +67,7 @@ retVal p_addDr(string inName, string tmpName, string name, bool overwrite,
 
     if(remove(inName) || rename(tmpName, inName))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

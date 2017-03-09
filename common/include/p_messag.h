@@ -9,7 +9,7 @@ DEFINITIONS:
 MSG_SPLASH - the splash message that is displayed when posric starts
 MSG_AUTHORS - a list of people that contributed to posric
 MSG_LICENSE - the license that posric is under
-MSG_PERROR - the text printed with perror
+MSG_PERROR - the text printed with p_print
 MSG_BADARG - an error that notifies the user of an invalid command line argument
 MSG_ANOTSET - tells that the archive is not set
 MSG_TNOTSET - tells that the temporary file is not set
@@ -41,7 +41,7 @@ extern char **gargv;
 
 #ifdef BASHCOLOR
 #define MSG_ERROR(MSG) \
-    ("%v%s(%n)%v\033[1;31mERROR: \033[0;31m" MSG "\033[0m\n"),P_FT, __LINE__
+    ("%v%s(%n)%v\033[1;31mERROR: \033[0;31m" MSG "\033[0m\n"), P_FT, __LINE__
 #define MSG_INFO(MSG) \
     ("%v%s(%n)%v\033[1;37mINFO: \033[0;37m" MSG "\033[0m\n"), P_FT, __LINE__
 #define MSG_INFON(MSG) \
@@ -98,7 +98,7 @@ RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF\n\
 CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN\n\
 CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n\n"
 
-#define MSG_PERROR P_FT
+#define MSG_PERROR MSG_ERROR("%s"), strerror(errno)
 #define MSG_BADARG MSG_ERROR("Unknown argument \"%s\"!"), argv[argn]
 #define MSG_ANOTSET MSG_ERROR("Archive not set!")
 #define MSG_TNOTSET MSG_ERROR("Temporary file not set!")

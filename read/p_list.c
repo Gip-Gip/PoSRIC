@@ -28,7 +28,7 @@ retVal p_list(string inName)
 
     if(!in)
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

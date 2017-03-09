@@ -20,7 +20,7 @@ retVal p_sCaC(FILE *in, FILE *out)
 
     if(fread(sigtest, sizeof(byte), P_SIGSZ, in) != P_SIGSZ)
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }
@@ -34,7 +34,7 @@ retVal p_sCaC(FILE *in, FILE *out)
 
     if(out && fwrite(p_sig, sizeof(byte), P_SIGSZ, out) != P_SIGSZ)
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

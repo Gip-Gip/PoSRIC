@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 
     if(!P_FTINIT() || !P_FTADD(FUNCNAME) || !P_DTINIT(currDir))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         return errno;
     }
 
@@ -119,6 +119,7 @@ int main(int argc, char **argv)
             case(arg_archive): case(arg_tmpFile): case(arg_quickAdd):
             case(arg_quickGet): case(arg_addDir): case(arg_quickRm):
             case(arg_rmDir): case(arg_useDir): case(arg_stat):
+            case(arg_recurse):
                 break;
 
             default:
@@ -161,7 +162,7 @@ int main(int argc, char **argv)
                         if(logFile) fclose(logFile);
                         if(!(logFile = fopen(argv[argn], WRITEMODE)))
                         {
-                            perror(MSG_PERROR);
+                            p_print(MSG_PERROR);
                             P_FREEALL();
                             return errno;
                         }
@@ -169,6 +170,22 @@ int main(int argc, char **argv)
 
                     case(arg_useDir):
                         P_DTADD(currDir, argv[argn], false);
+                        break;
+
+                    case(arg_recurse):
+                        if(archiveName && tmpName)
+                            ret = p_oRecD
+                            (
+                                archiveName,
+                                tmpName,
+                                argv[argn],
+                                overwrite,
+                                buffSz,
+                                currDir
+                            );
+
+                        if(!archiveName) p_print(MSG_ANOTSET);
+                        if(!tmpName) p_print(MSG_TNOTSET);
                         break;
 
                     case(arg_addDir):
@@ -218,7 +235,7 @@ int main(int argc, char **argv)
                         if(p_stdin != stdin) fclose(p_stdin);
                         if(!(p_stdin = fopen(argv[argn], TEXTMODE)))
                         {
-                            perror(MSG_PERROR);
+                            p_print(MSG_PERROR);
                             P_FREEALL();
                             return errno;
                         }
@@ -258,7 +275,7 @@ int main(int argc, char **argv)
     {
         if(!comm)
         {
-            perror(MSG_PERROR);
+            p_print(MSG_PERROR);
             return errno;
         }
 
@@ -432,7 +449,7 @@ int main(int argc, char **argv)
 
     if(!params)
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

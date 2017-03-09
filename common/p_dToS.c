@@ -23,7 +23,7 @@ string p_dToS(byte *data, natural size, bool freeData, retVal *ret)
 
     if(!ret || !memcpy(stringRet, data, size))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         *ret = errno;
         return NULL;
     }

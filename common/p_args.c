@@ -28,6 +28,7 @@ string p_args[] =
     "-qa", "--quick-add", "add a file with the native filename to the archive",
     "-qg", "--quick-get", "gets filedata from the archive",
     "-qr", "--quick-remove", "removes a file from the archive",
+    "-r", "--recurse", "recurse the given directory",
     "-s", "--script", "sets the script file, and uses it in place of stdin",
     "-S", "--list", "lists the contents of the set archive",
     "-t", "--tmp-file", "sets the temporary file",

@@ -101,7 +101,7 @@ void p_print(string format, ...)
             if(fputc(*format, stderr) != *format ||
                 (logFile && fputc(*format, logFile) != *format))
 
-                    perror(MSG_PERROR);
+                    p_print(MSG_PERROR);
 
         format ++;
     }

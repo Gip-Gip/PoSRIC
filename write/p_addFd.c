@@ -2,9 +2,9 @@
 
 ARGUMENTS:
 
-string inName - the name of the archive being used
-string tmpName - the name of the temporary file being used
-string name - the name of the file being written to
+string inName - the srcName of the archive being used
+string tmpName - the srcName of the temporary file being used
+string srcName - the srcName of the file being written to
 natural buffSz - the size of the buffer divided by 128
 
 VARIABLES:
@@ -21,10 +21,18 @@ natural readSize - used to get the size of each fread
 
 #include <p_addFd.h>
 
-retVal p_addFd(string inName, string tmpName, string name, string fName,
-               bool overwrite, natural buffSz, dirTree dt)
+retVal p_addFd
+(
+    string inName,
+    string tmpName,
+    string srcName,
+    string name,
+    bool overwrite,
+    natural buffSz,
+    dirTree dt
+)
 {
-    FILE *in = fopen(inName, READMODE), *dataFile = fopen(name, READMODE),
+    FILE *in = fopen(inName, READMODE), *dataFile = fopen(srcName, READMODE),
     *tmp = NULL;
     byte *buffer = calloc(buffSz *= P_RMAXSZ, sizeof(byte));
     retVal ret, cmpret;
@@ -33,7 +41,6 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
     ssln currTime;
 
     currTime = p_t2ut(time(NULL));
-    p_oGetTs(name, &creTime, &modTime, &accTime);
 
     P_FTADD(FUNCNAME); P_GDTINIT(inName, false);
 
@@ -46,23 +53,25 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
 
     if(!in || !dataFile || !(tmp = fopen(tmpName, WRITEMODE)))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }
+
+    p_oGetTs(srcName, &creTime, &modTime, &accTime);
 
     /* Since all these can throw errors, why not just clump them into one giant
        if statement? */
     if
     (
         (ret = p_sCaC(in, tmp)) ||
-        (ret = p_cpyExc(in, tmp, fName, rType_fname, &cmpret, dt)) ||
+        (ret = p_cpyExc(in, tmp, name, rType_fname, &cmpret, dt)) ||
         cmpret != err_nameExists ||
         /* To prevent weird append-like results, just re-write the file */
         (ret = overwrite ? none : err_fileExists) ||
         (ret = p_skpFil(in, true)) ||
         (ret = p_wrtRdg(tmp, rType_fname, NULL)) ||
-        (ret = p_write((byte *)fName, strlen(fName), tmp)) ||
+        (ret = p_write((byte *)name, strlen(name), tmp)) ||
         /* All these calls re-write timestamps. Ugly! */
         (ret = p_wrtRdg(tmp, rType_addtime, NULL)) ||
         (ret = p_write((byte *)currTime.integer, currTime.integerSize, tmp)) ||
@@ -81,7 +90,7 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
             P_FREEALL();
             P_FTADD(FUNCNAME);
             in = NULL, tmp = NULL;
-            ret = p_addFn(inName, tmpName, fName, overwrite, dt);
+            ret = p_addFn(inName, tmpName, name, overwrite, dt);
 
             if(!ret)
             {
@@ -89,8 +98,8 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
                 (
                     inName,
                     tmpName,
+                    srcName,
                     name,
-                    fName,
                     overwrite,
                     buffSz / P_RMAXSZ,
                     dt
@@ -122,7 +131,7 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
 
     else
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }
@@ -136,7 +145,7 @@ retVal p_addFd(string inName, string tmpName, string name, string fName,
 
     if(remove(inName) || rename(tmpName, inName))
     {
-        perror(MSG_PERROR);
+        p_print(MSG_PERROR);
         P_FREEALL();
         return errno;
     }

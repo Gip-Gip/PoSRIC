@@ -85,6 +85,7 @@ typedef enum {
     arg_quickAdd,
     arg_quickGet,
     arg_quickRm,
+    arg_recurse,
     arg_script,
     arg_list,
     arg_tmpFile,
