@@ -37,8 +37,6 @@ retVal p_oRecD
     {
         currName = p_strapp(name, entry, false, false);
 
-        p_print("[%s]", currName);
-
         p_addFd
         (
             inName,
@@ -61,7 +59,6 @@ retVal p_oRecD
     {
         currName = p_strapp(name, entry, false, false);
         currName = p_strapp(currName, P_ODIRDELEM, true, false);
-        p_print("(%s)", currName);
 
         p_addDr(inName, tmpName, entry, overwrite, dt);
         P_DTADD(workingDt, entry, true);

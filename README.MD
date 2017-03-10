@@ -9,13 +9,14 @@ both beginners and DOS dwellers can use.
 
 ##What are the current features?
 
-As of Version IIV.IIV.MMXVII Revision 4 there is
+As of Version IV.IV.MMXVII Revision 0 there is
 
  * Basic stdio command interpretation
  * Basic scripting
  * Basic archive handling with directory support
  * BASH colors
- * DOS, Linux and Intel Mac Compatability
+ * Linux and Intel Mac Compatability
+ * Depends on the Sweer library
 
 ##Where can I find more info?
 
@@ -24,15 +25,15 @@ It needs vast improvements but currently it's all I'm willing to put out.
 
 ##How can I improve the source?
 
-PoSRIC is being entered into a contest and until it is over only feedback will
-be recieved. However, once the contest is over(approx March 11th) you will be
-able to:
+At the current moment PoSRIC is really unoptimized, and has a long way to go if
+it ever wants to compete with TAR or ZIP. Currently I would like help with;
 
- * Add/fix comments
- * Improve documentation
- * Translate documentation
- * Improve the code
- * Add code
+ * Adding/fixing comments
+ * Improving documentation
+ * Translating documentation
+ * Improving the code
+ * Add more code
+ * Building for other platforms
 
 Contributors will be placed in AUTHORS.TXT and listed in the authors splash of
 PoSRIC
@@ -46,7 +47,7 @@ PoSRIC
      * The Annual Version is incremented with the Infinitive Version and every
        large update which isn't drastic enough to increment the Infinitive
        Version. It is reset to one annually
- * PoSRIC has been tested on Debian, DOSBOX, and Mac OS 10.6.8
- * As of Version IIV.IIV.MMXVII Revision 4 the line count is 1,940 (using
+ * PoSRIC has been tested on Debian and Mac OS 10.6.8
+ * As of Version IV.IV.MMXVII Revision 0 the line count is 2520 (using
    sloccount)
 

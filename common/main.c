@@ -207,11 +207,10 @@ int main(int argc, char **argv)
                         break;
 
                     case(arg_quickGet):
-                        if(archiveName && tmpName) ret = p_getFd(archiveName,
+                        if(archiveName) ret = p_getFd(archiveName,
                             argv[argn], argv[argn], currDir, overwrite);
 
                         if(!archiveName) p_print(MSG_ANOTSET);
-                        if(!tmpName) p_print(MSG_TNOTSET);
                         break;
 
                     case(arg_quickRm):
@@ -393,6 +392,21 @@ int main(int argc, char **argv)
                 if(!tmpName) p_print(MSG_TNOTSET);
                 if(!name) p_print(MSG_NNOTSET);
                 break;
+            case(comm_recurse):
+                if(archiveName && tmpName)
+                    ret = p_oRecD
+                    (
+                        archiveName,
+                        tmpName,
+                        params,
+                        overwrite,
+                        buffSz,
+                        currDir
+                    );
+
+                if(!archiveName) p_print(MSG_ANOTSET);
+                if(!tmpName) p_print(MSG_TNOTSET);
+                break;
 
             case(comm_rmFile):
                 if(archiveName && tmpName)
@@ -422,11 +436,10 @@ int main(int argc, char **argv)
                 break;
 
             case(comm_quickGet):
-                if(archiveName && tmpName)
+                if(archiveName)
                     ret = p_getFd(archiveName, params,params,currDir,overwrite);
 
                 if(!archiveName) p_print(MSG_ANOTSET);
-                if(!tmpName) p_print(MSG_TNOTSET);
                 break;
 
             default:

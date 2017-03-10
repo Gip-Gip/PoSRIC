@@ -110,6 +110,7 @@ typedef enum {
     comm_addDr,
     comm_addFn,
     comm_addFd,
+    comm_recurse,
     comm_rmFile,
     comm_rmDir,
     comm_stat,

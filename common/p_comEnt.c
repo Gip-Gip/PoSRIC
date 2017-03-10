@@ -26,6 +26,7 @@ string p_comEnt[] = {
     "addDir",
     "addFn",
     "addFd",
+    "recurse",
     "rmFile",
     "rmDir",
     "stat",
